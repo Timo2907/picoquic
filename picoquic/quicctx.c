@@ -1896,6 +1896,7 @@ picoquic_cnx_t* picoquic_create_cnx(picoquic_quic_t* quic,
     return cnx;
 }
 
+//TK: not used?!
 picoquic_cnx_t* picoquic_create_client_cnx(picoquic_quic_t* quic,
     struct sockaddr* addr, uint64_t start_time, uint32_t preferred_version,
     char const* sni, char const* alpn, picoquic_stream_data_cb_fn callback_fn, void* callback_ctx)

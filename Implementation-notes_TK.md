@@ -1,0 +1,117 @@
+### General Notes
+ctx = context ?
+cnx = connection
+sni = server name indication (when server name is used instead of IP address)
+uint8_t buffer[1024] = char array with size of 1024
+fd = he socket from picoquic_open_client_socket
+LOGGING: fprintf(F_log, "picoquicdemo::quic_client()::LOG MSG HERE with value %d\n", bytes_sent);
+
+
+
+Interesting parts marked with "TK:"
+
+- picoquic.h explains the QUIC API => important points marked with (API)
+- picoquic_demo_client_initialize_context (2.1) sets boarders to the application scenario (e.g. number of streams)
+- (11.2.3) H09: Use this simple POST to send data to the Server???
+	OR skip the format specific request e.g. by using picoquic_add_to_stream() without "_with_ctx" (maybe the server has to be changed as well then)
+-> set alpn to picoquic_alpn_http_0_9 when invoking the client
+-> try to run an application scenario with POST
+-> look up the value of PICOQUIC_MIN_SEGMENT_SIZE
+-> maybe: PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH has to be small (see line 783 in picoquicdemo.c)
+
+## Client
+picoquicdemo::main()
+calls picoquicdemo::quic_client() with [server_name, server_port, sni, esni_rr_file, alpn, root_trust_file, proposed_version, force_zero_share, force_migration, nb_packets_before_update, mtu_max, F_log, client_cnx_id_length, client_scenario, cc_log_dir, no_disk, use_long_log]
+		*SET SCENARIO BACKGROUND*
+		1. calls democlient::demo_client_parse_scenario_desc, which sets [client_sc] and [client_sc_nb]
+		2. calls democlient::picoquic_demo_client_initialize_context with [&callback_ctx (=context => not set before/empty here), client_sc (=demo_stream parameters), client_sc_nb (= number of demo_streams), alpn (=application_layer_protocol_negotiation => irrelevant?), no_disk (=> irrelevant?)]
+				2.1 sets parameters in [callback_ctx]: demo_stream, nb_demo_stream, alpn, nodisk
+		*OPEN UDP SOCKETS*
+		3. calls picosocks::picoquic_get_server_adress(-) (no changes needed here?!)
+		4. calls picosocks::picoquic_open_client_socket(-) (no changes needed here?!)
+		*CREATE QUIC CONTEXT*
+(API)	5. calls qclient = quicctx::picoquic_create (no changes needed here?!) with [8 (=number of connections), NULL, NULL, root_crt (= cert root file name => irrelevant?!), alpn, NULL, NULL, NULL, NULL, NULL, current_time, NULL, ticket_store_filename (=> irrelevant?!), NULL, 0 (= encryption key length => irrelevant?!)]
+			subsequently update context (NOT WITHIN picoquic_create()!):
+			5.1 set congestion algorithm with quicctx::picoquic_set_default_congestion_algorithm(-)
+			5.2 load tokens with token_store::picoquic_load_tokens(-)
+			5.3 set zero_share flag and set mtu_max (maximum transmission unit)
+			5.4 set connection id length with quicctx::picoquic_set_default_connection_id_length(-)
+			5.5 set logfile and logfile length with picoquic_internal::PICOQUIC_SET_LOG(-)
+			5.6 set set key log file with picoquicdemo::picoquic_set_key_log_file_from_env(-)
+			5.7 set congection control log with quicctx::picoquic_set_cc_log(-)
+			5.8 set sni and root certificate
+		*CREATE CLIENT CONNECTION*
+(API)	6. calls quicctx::picoquic_create_cnx with [qclient, picoquic_null_connection_id (= initial CID), picoquic_null_connection_id (= "remote" CID), (struct sockaddr*)&server_address, current_time, proposed_version, sni, alpn, 1 (=client mode)]
+			(within picoquic_create_cnx()!)
+			6.1 calls quicctx::picoquic_create_path (no changes needed?!) with [cnx (=connection), start_time, NULL, addr_to (= peer address)]
+			6.2 inserts connection in list / "by wake time"
+			6.2 calls quicctx::picoquic_init_transport_parameters(-) or sets them directly
+						6.2.1 sets parameters like max_stream_id, packet_size, idle_timeout, active_connection_id_limit, etc
+			6.3 initializes local flow control variables and other parameters (e.g. padding)
+			6.4 set callback function, callback context, and congestion algorithm to default + proposed_version
+			6.5 calls quicctx::picoquic_create_random_cnx_id(-)
+			6.6 set packet_context_array (size=3) to start values (for all three indexes in the array)
+				[first_sack_item, highest_ack_sent, time_stamp_largest_received, send_sequence, nb_retransmit, other ack and time variables]
+			6.7 set tls_stream array (size=4) to start values (for all four indexes) => crypto stream, not needed?
+			6.8 calls pisosplay::picosplay_init_tree with parameters [picoquic_stream_node_compare (= compare function), picoquic_stream_node_create (= create function), picoquic_stream_node_delete (= delete function), picoquic_stream_node_value (= return value function)]
+						-> "SPLAY TREE" => stream_tree in cnx: Used for handling streams => DO NOT CHANGE?! Only for efficient stream data manegement?!
+(APTLS)		6.9 calls tls_api::picoquic_tlscontext_create with [quic (=qclient), cnx (= connection), current_time] (no changes needed here?!)
+(APTLS)		6.10 calls tls_api::picoquic_setup_initial_traffic_keys with [cnx]
+			6.11 calls quicctx::picoquic_register_path with [cnx, cnx->path]
+			
+(API)	7. calls quicctx::picoquic_set_callback with [cnx_client, picoquic_demo_client_callback (= function), &callback_ctx]
+(API)	8. calls quicctx::picoquic_set_transport_parameters with [cnx_client, callback_ctx.tp]
+(!)					8.1 sets the local transport parameters of [cnx_client] to the same as [callback_ctx.tp] (initialized in step 2.1)
+(APTLS) 9. calls tls_api::picoquic_esni_client_from_file with [cnx_client, esni_rr_file (=encryption SNI file)] (no changes needed here?!)
+(API)	10. calls quicctx::picoquic_start_client_cnx with [cnx_client]
+(APTLS)				10.1 calls tls_api::picoquic_initialize_tls_stream with [cnx]
+						-> prepare the initial message when starting a connection (PICOTLS!) tls_api::picoquic_tls_set_extensions(-) // ptls_buffer_init(-) // 10.1.3 pltls_handle_message(-) // 10.1.4 tls_api::picoquic_add_to_tls_stream(-) // 10.1.5 ptls_buffer_dispose(-)
+(API)	11. if quicctx::picoquic_is_0rtt_available(cnx_client)
+			calls democlient::picoquic_demo_client_start_streams with [cnx, ctx, fin_stream_id (= last stream)] (How to know what the last stream ID is when starting the sendind?)
+					11.1 starts with ALPN specification: 
+							if alpn=picoquic_alpn_http_3, 
+(HTTP)						calls democlient::h3zero_client_init [cnx] -> use HTTP0.9 to evade this
+(API)							(deep) 11.1.1 sender::picoquic_add_to_stream [cnx, 2, h3_frame, h3_size, 0]
+(API)							(deep) 11.1.2 picoquic_mark_high_priority_stream with [cnx, 2 (= stream ID), 1]
+(API)							(deep) 11.1.3 sender::picoquic_add_to_stream [cnx, 6 (= stream ID), &encoder_stream_head, 1, 0]
+(API)							(deep) 11.1.4 sender::picoquic_add_to_stream [cnx, 10 (= stream ID), &decoder_stream_head, 1, 0]
+(!)					11.2 open all streams scheduled after the stream that just finished until it reaches ctx->nb_demo_streams (set in step 2.1)
+							calls democlient::picoquic_demo_client_open_stream with [cnx, ctx, demo_stream:stream_id, demo_stream:doc_name, demo_stream:f_name, demo_stream:is_binary, demo_stream:post_size (= values of demo streams = scenarios specified), repeat_nb (= number of repeated stream openings)]
+								11.2.1 create stream context
+								11.2.2 create file (-> fname) + check if name is formated correctly
+(!)								11.2.3 format the protocol specific request (= HTTP REQUEST)
+(HTTP)								-> calls h3zero_client_create_stream_request(-) (no details here -> evade this?!)
+(!!!)									  OR h09_demo_client_prepare_stream_open_command with [buffer (= for command, empty), sizeof(buffer) (= max size of command), path, path_len, post_size, cnx->sni, &request_length]
+												(simplistic GET request or POST -> use POST for sending something to the server??)
+												=>	"POST " + [path] + " HTTP/1.9\r\n HOST: " + [host] + "\r\nContent-Type: text/plain\r\n\r\n"		
+													-> add the timestamp here for one-way delay?
+								(deep) 11.2.4 send the request/post
+(API)								-> calls sender::picoquic_add_to_stream_with_ctx with [cnx, streamid, buffer (= command/data), length, 0/1 for POST/GET (= set_fin), stream_ctx]
+(API)								 (if post) calls sender::picoquic_mark_active_stream [cnx, stream_id, 1, stream_ctx] 
+(API)	12. calls sender::picoquic_prepare_packet [cnx_client, current_time, send_buffer, sizeof(send_buffer), &send_length, NULL (=addr_to), NULL, NULL (= addr_from), NULL]
+					12.1 quicctx::picoquic_promote_successful_probe(-)
+					(12.2 quicctx::picoquic_delete_abandoned_paths(-))
+					(12.3 sender::picoquic_insert_hole_in_send_sequence_if_needed(-))
+					(12.4 quicctx::picoquic_delete_failed_probes (-) + sender::picoquic_prepare_probe(-))
+					(12.5 sender::picoquic_prepare_alt_challenge(-))
+					12.6 select the path
+					12.7 util::picoquic_store_addr(-) + set to_length and from_length
+					12.8 Send available segments
+(API)					 	12.8.1 packet = sender::picoquic_create_packet [cnx->quic]
+							12.8.2 sender::picoquic_prepare_segment [cnx, path, packet, current_time, send_buffer + send_length, available, &segment_length, &next_wake_time]
+(API)								-> checks for alive connection
+										& calls sender::picoquic_prepare_packet_(client_init/_server_init/_ready/_closing)
+							12.8.3 (sender::picoquic_recycle_packet[cnx->quic, packet])
+					12.9 log the sent packet + update wake up time for connection
+(SCKT)	13. calls UDPSOCKET::sendto [fd (= socket), send_buffer (= msg), send_length, 0 (= flags), &server_address, server_addr_length]
+=> maybe log here also the succesful part? (line 678 only logs fail case)
+		* WAIT FOR PACKETS * (from line 688)
+		
+		
+		* CLEAN UP * (from line 930)
+		
+
+								
+## Server
+picoquicdemo::main()
+calls picoquicdemo::quic_server()

@@ -1,0 +1,986 @@
+Select returns 1252, from length 16 after 1722861 us (wait for 10000000 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 1252 bytes from 127.0.0.1:42907 at T=0.000000 (5909d9e066711)
+6b3974c7d7573736: Receiving packet type: 2 (initial), S0, Version 50435131,
+6b3974c7d7573736:     <6b3974c7d7573736>, <2e8b53d72dcc6dfc>, Seq: 0, pl: 1226
+6b3974c7d7573736:     Token length: 0
+6b3974c7d7573736:     Decrypted 1206 bytes
+6b3974c7d7573736:     Crypto HS frame, offset 0, length 285: 0100011903037697...
+6b3974c7d7573736:     padding, 917 bytes
+
+6b3974c7d7573736: 0.005200 : Connection established, state = 12, from length: 16
+6b3974c7d7573736 : Client address: 127.0.0.1, port 39847
+6b3974c7d7573736: SNI not received.
+6b3974c7d7573736: Received ALPN: h3-22
+6b3974c7d7573736: Received transport parameter TLS extension (68 bytes):
+6b3974c7d7573736:     Extension list (66 bytes):
+6b3974c7d7573736:         Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+6b3974c7d7573736:         Extension type: 4 (initial_max_data), length 4, 80100000
+6b3974c7d7573736:         Extension type: 8 (max_streams_bidi), length 2, 4201
+6b3974c7d7573736:         Extension type: 1 (ocid), length 2, 7a98
+6b3974c7d7573736:         Extension type: 3 (max_packet_size), length 2, 45a0
+6b3974c7d7573736:         Extension type: 9 (max_streams_uni), length 2, 4201
+6b3974c7d7573736:         Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+6b3974c7d7573736:         Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+6b3974c7d7573736:         Extension type: 14 (active_connection_id_limit), length 1, 08
+6b3974c7d7573736:         Extension type: 11 (max_ack_delay), length 1, 00
+6b3974c7d7573736: Sending packet type: 2 (initial), S0, Version 50435131,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, <0ae943ca82535639>, Seq: 0, pl: 184
+6b3974c7d7573736:     Token length: 0
+6b3974c7d7573736:     Prepared 164 bytes
+6b3974c7d7573736:     ACK (nb=0), 0
+6b3974c7d7573736:     Crypto HS frame, offset 0, length 155: 0200009703031256...
+
+6b3974c7d7573736: Sending packet type: 4 (handshake), S0, Version 50435131,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, <0ae943ca82535639>, Seq: 0, pl: 1017
+6b3974c7d7573736:     Prepared 997 bytes
+6b3974c7d7573736:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+6b3974c7d7573736: Sending 1252 bytes to 127.0.0.1:42907 at T=0.000000 (5909d9e066711)
+6b3974c7d7573736: Connection state = 6
+6b3974c7d7573736: Sending packet type: 4 (handshake), S0, Version 50435131,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, <0ae943ca82535639>, Seq: 1, pl: 270
+6b3974c7d7573736:     Prepared 250 bytes
+6b3974c7d7573736:     Crypto HS frame, offset 993, length 245: 6c7bcf2f4b6ba345...
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 0 (0), Phi: 0,
+6b3974c7d7573736:     Prepared 363 bytes
+6b3974c7d7573736:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+6b3974c7d7573736:     NEW CONNECTION ID[1]: 0x09935f93ca44eba1, c523003bed0d93eb5b157eb9b130a0fc
+6b3974c7d7573736:     NEW CONNECTION ID[2]: 0xf753d172646e6126, f670b828f3ab4cb7c4f145aec44775a7
+6b3974c7d7573736:     NEW CONNECTION ID[3]: 0xc667dad355e8aa38, 991069af4e7b2ca84be0531605e0f1a6
+6b3974c7d7573736:     NEW CONNECTION ID[4]: 0x5b8bcabe0330097c, 649f96a048b5b0aba7dbf668332d2acd
+6b3974c7d7573736:     NEW CONNECTION ID[5]: 0x074ddad57ab221dc, 0c313a1098916444d909a95e2ad16664
+6b3974c7d7573736:     NEW CONNECTION ID[6]: 0x242c3dfc681ecf4e, 7afbc135f42f4d1c9c9a1a85e1de48cb
+6b3974c7d7573736:     NEW CONNECTION ID[7]: 0xe950b984237e86ed, 37d6110f7610e9f64e8136dbd0972377
+6b3974c7d7573736:     NEW CONNECTION ID[8]: 0x520668c965044b22, ec5583e47575a762b009aefe94ba4bcd
+6b3974c7d7573736:     Stream 3, offset 0, length 7, fin = 0: 00040401000700
+6b3974c7d7573736:     Stream 11, offset 0, length 1, fin = 0: 03
+6b3974c7d7573736:     Stream 7, offset 0, length 1, fin = 0: 02
+
+6b3974c7d7573736: Sending 687 bytes to 127.0.0.1:42907 at T=0.000000 (5909d9e066711)
+6b3974c7d7573736: Connection state = 13
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 1 (1), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     ping, 1 bytes
+6b3974c7d7573736:     padding, 1410 bytes
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.000000 (5909d9e066711)
+6b3974c7d7573736: Connection state = 13
+6b3974c7d7573736: T= 0.000000, cwin: 15360,flight: 3379,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 13
+Select returns 394, from length 16 after 6346 us (wait for 1000000 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 394 bytes from 127.0.0.1:42907 at T=0.006346 (5909d9e067fdb)
+6b3974c7d7573736: Receiving packet type: 2 (initial), S0, Version 50435131,
+6b3974c7d7573736:     <0ae943ca82535639>, <2e8b53d72dcc6dfc>, Seq: 1, pl: 26
+6b3974c7d7573736:     Token length: 0
+6b3974c7d7573736:     Decrypted 6 bytes
+6b3974c7d7573736:     ACK (nb=0), 0
+
+6b3974c7d7573736: Receiving packet type: 4 (handshake), S0, Version 50435131,
+6b3974c7d7573736:     <0ae943ca82535639>, <2e8b53d72dcc6dfc>, Seq: 0, pl: 64
+6b3974c7d7573736:     Decrypted 44 bytes
+6b3974c7d7573736:     ACK (nb=0), 0-1
+6b3974c7d7573736:     Crypto HS frame, offset 0, length 36: 14000020a46c700d...
+
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 0 (0), Phi: 0,
+6b3974c7d7573736:     Decrypted 224 bytes
+6b3974c7d7573736:     NEW CONNECTION ID[1]: 0x31740de3a5e92576, f45b4fa7a59a60e9002ea8acac7e76f1
+6b3974c7d7573736:     NEW CONNECTION ID[2]: 0x3965616f8a0a407f, d27438bc821c80315ae325aaef72311c
+6b3974c7d7573736:     NEW CONNECTION ID[3]: 0xd2ff954c1d3c8316, cea72da5437bafd28b5742d4f73dd036
+6b3974c7d7573736:     NEW CONNECTION ID[4]: 0x35e51e9466b20ec2, 3439ba5fb4649397cd9223595873ef42
+6b3974c7d7573736:     NEW CONNECTION ID[5]: 0x75b0ce161469f04e, 2b0cbd294ce4f28a9ba0ec4de02d7ba0
+6b3974c7d7573736:     NEW CONNECTION ID[6]: 0xe1631e2ec4dd8749, ba99427d5ed02964236b381ac5c42b6d
+6b3974c7d7573736:     NEW CONNECTION ID[7]: 0x8c881e43458af863, ce0d64b5675d01594a5fced6990f477b
+6b3974c7d7573736:     NEW CONNECTION ID[8]: 0xc3f6d10b36cabece, f1e08ea95f8cff6d4dd3858d25ba2c45
+
+6b3974c7d7573736: Sending packet type: 4 (handshake), S0, Version 50435131,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, <0ae943ca82535639>, Seq: 2, pl: 25
+6b3974c7d7573736:     Prepared 5 bytes
+6b3974c7d7573736:     ACK (nb=0), 0
+
+6b3974c7d7573736: Sending 50 bytes to 127.0.0.1:42907 at T=0.006346 (5909d9e067fdb)
+6b3974c7d7573736: Connection state = 15
+Select returns 69, from length 16 after 245 us (wait for 3654 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 69 bytes from 127.0.0.1:42907 at T=0.006591 (5909d9e0680d0)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 1 (1), Phi: 0,
+6b3974c7d7573736:     Decrypted 40 bytes
+6b3974c7d7573736:     Stream 2, offset 0, length 7, fin = 0: 00040401000700
+6b3974c7d7573736:     Stream 0, offset 0, length 19, fin = 1: 01110000d1d7510b...
+6b3974c7d7573736:     Stream 10, offset 0, length 1, fin = 0: 03
+6b3974c7d7573736:     Stream 6, offset 0, length 1, fin = 0: 02
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 2 (2), Phi: 0,
+6b3974c7d7573736:     Prepared 400 bytes
+6b3974c7d7573736:     Stream 0, offset 0, length 396, fin = 1: 0140040000d9f400...
+
+6b3974c7d7573736: Sending 429 bytes to 127.0.0.1:42907 at T=0.006591 (5909d9e0680d0)
+6b3974c7d7573736: Connection state = 15
+Select returns 1440, from length 16 after 121 us (wait for 3409 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 1440 bytes from 127.0.0.1:42907 at T=0.006712 (5909d9e068149)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 2 (2), Phi: 0,
+6b3974c7d7573736:     Decrypted 1411 bytes
+6b3974c7d7573736:     ping, 1 bytes
+6b3974c7d7573736:     padding, 1410 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 3 (3), Phi: 0,
+6b3974c7d7573736:     Prepared 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 0-2
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending 55 bytes to 127.0.0.1:42907 at T=0.006712 (5909d9e068149)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: T= 0.006712, cwin: 16859,flight: 2366,nb_ret: 0,rtt_min: 5634,rtt: 5689,rtt_var: 2223,max_ack_delay: 712,state: 15
+Select returns 55, from length 16 after 109 us (wait for 43288 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.006821 (5909d9e0681b6)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 3 (3), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 0-1
+6b3974c7d7573736:     padding, 20 bytes
+
+6b3974c7d7573736: T= 0.006821, cwin: 18659,flight: 534,nb_ret: 0,rtt_min: 5634,rtt: 5763,rtt_var: 1817,max_ack_delay: 712,state: 15
+Select returns 55, from length 16 after 195 us (wait for 49525 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.007016 (5909d9e068279)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 4 (4), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 0-3
+6b3974c7d7573736:     Stream 4, offset 0, length 18, fin = 1: 01100000d1d7510a...
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 4 (4), Phi: 0,
+6b3974c7d7573736:     Prepared 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 3-4
+6b3974c7d7573736:     Stream 4, offset 0, length 6, fin = 1: 0140030000db
+6b3974c7d7573736:     padding, 12 bytes
+
+6b3974c7d7573736: Sending 55 bytes to 127.0.0.1:42907 at T=0.007016 (5909d9e068279)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: T= 0.007016, cwin: 19111,flight: 105,nb_ret: 0,rtt_min: 256,rtt: 5075,rtt_var: 2739,max_ack_delay: 712,state: 15
+Select returns 55, from length 16 after 753 us (wait for 49330 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.007769 (5909d9e06856a)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 5 (5), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     Stream 8, offset 0, length 16, fin = 1: 010e0000d1d75108...
+6b3974c7d7573736:     padding, 7 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 5 (5), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 0, length 12, fin = 0: 0140040000d9f500...
+6b3974c7d7573736:     Stream 8, offset 12, length 1393, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.007769 (5909d9e06856a)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 6 (6), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 1405, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.007769 (5909d9e06856a)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 7 (7), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 2812, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.007769 (5909d9e06856a)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 8 (8), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 4219, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.007769 (5909d9e06856a)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 353 us (wait for 247 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.008122 (5909d9e0686cb)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 6 (6), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 3-8
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 9 (9), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     ACK (nb=0), 5-6
+6b3974c7d7573736:     Stream 8, offset 5626, length 1402, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008122 (5909d9e0686cb)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 10 (10), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 7028, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008122 (5909d9e0686cb)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 236 us (wait for 260 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.008358 (5909d9e0687b7)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 7 (7), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-10
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 11 (11), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 8435, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008358 (5909d9e0687b7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 12 (12), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 9842, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008358 (5909d9e0687b7)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 173 us (wait for 206 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.008531 (5909d9e068864)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 8 (8), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-12
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 13 (13), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 11249, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008531 (5909d9e068864)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 14 (14), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 12656, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008531 (5909d9e068864)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 192 us (wait for 164 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.008723 (5909d9e068924)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 9 (9), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-14
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 15 (15), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 14063, length 1407, fin = 0: 5a5a5a5a5a5a5a0d...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008723 (5909d9e068924)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 16 (16), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 15470, length 1407, fin = 0: 5a5a5a5a5a5a0d0a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008723 (5909d9e068924)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 225 us (wait for 133 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.008948 (5909d9e068a05)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 10 (10), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-16
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 17 (17), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 16877, length 1405, fin = 0: 5a5a5a5a5a0d0a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008948 (5909d9e068a05)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 18 (18), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 18282, length 1405, fin = 0: 5a5a5a5a5a5a0d0a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008948 (5909d9e068a05)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 19 (19), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 19687, length 1405, fin = 0: 5a5a5a5a5a5a5a0d...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.008948 (5909d9e068a05)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 213 us (wait for 108 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.009161 (5909d9e068ada)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 11 (11), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-19
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 20 (20), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 21092, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009161 (5909d9e068ada)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 21 (21), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 22497, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009161 (5909d9e068ada)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 22 (22), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 23902, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009161 (5909d9e068ada)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 169 us (wait for 85 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.009330 (5909d9e068b83)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 12 (12), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-21
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 23 (23), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 25307, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009330 (5909d9e068b83)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 24 (24), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 26712, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009330 (5909d9e068b83)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 25 (25), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 28117, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009330 (5909d9e068b83)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 219 us (wait for 71 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.009549 (5909d9e068c5e)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 13 (13), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-25
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 26 (26), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 29522, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009549 (5909d9e068c5e)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 27 (27), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 30927, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009549 (5909d9e068c5e)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 28 (28), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 32332, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009549 (5909d9e068c5e)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 29 (29), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 33737, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009549 (5909d9e068c5e)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 161 us (wait for 55 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.009710 (5909d9e068cff)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 14 (14), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-27
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 30 (30), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     ACK (nb=0), 6-14
+6b3974c7d7573736:     Stream 8, offset 35142, length 1400, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009710 (5909d9e068cff)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 31 (31), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 36542, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009710 (5909d9e068cff)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 32 (32), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 37947, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009710 (5909d9e068cff)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 33 (33), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 39352, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009710 (5909d9e068cff)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 171 us (wait for 46 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.009881 (5909d9e068daa)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 15 (15), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 8-29
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 34 (34), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 40757, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009881 (5909d9e068daa)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 35 (35), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 42162, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009881 (5909d9e068daa)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 36 (36), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 43567, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009881 (5909d9e068daa)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 37 (37), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 44972, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009881 (5909d9e068daa)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 38 (38), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 46377, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.009881 (5909d9e068daa)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 188 us (wait for 40 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 16 (16), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 28-34
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 39 (39), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 47782, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 40 (40), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 49187, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 41 (41), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 50592, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 42 (42), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 51997, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 43 (43), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 53402, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 44 (44), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 54807, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 45 (45), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 56212, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010069 (5909d9e068e66)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 266 us (wait for 31 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 17 (17), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 28-38
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 46 (46), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 57617, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 47 (47), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 59022, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 48 (48), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 60427, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 49 (49), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 61832, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 50 (50), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 63237, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 51 (51), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 64642, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 52 (52), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 66047, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 53 (53), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 67452, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 54 (54), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 68857, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 55 (55), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 70262, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S1,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 56 (56), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 71667, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010335 (5909d9e068f70)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 397 us (wait for 26 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 18 (18), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 28-43
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 57 (57), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 73072, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 58 (58), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 74477, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 59 (59), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 75882, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 60 (60), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 77287, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 61 (61), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 78692, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 62 (62), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 80097, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 63 (63), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 81502, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 64 (64), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 82907, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 65 (65), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 84312, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 66 (66), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 85717, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 67 (67), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 87122, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 68 (68), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 88527, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 69 (69), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 89932, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.010732 (5909d9e0690fd)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 474 us (wait for 23 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 19 (19), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 28-46
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 70 (70), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 91337, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 71 (71), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 92742, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 72 (72), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 94147, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 73 (73), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 95552, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 74 (74), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 96957, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 75 (75), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 98362, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 76 (76), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 99767, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 77 (77), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 101172, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 78 (78), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 102577, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 79 (79), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 103982, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 80 (80), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 105387, length 1405, fin = 0: 0a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 81 (81), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 106792, length 1405, fin = 0: 0d0a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 82 (82), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 108197, length 1405, fin = 0: 5a0d0a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 83 (83), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 109602, length 1405, fin = 0: 5a5a0d0a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011206 (5909d9e0692d7)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 535 us (wait for 21 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 20 (20), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 28-51
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 84 (84), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 111007, length 1405, fin = 0: 5a5a5a0d0a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 85 (85), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 112412, length 1405, fin = 0: 5a5a5a5a0d0a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 86 (86), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 113817, length 1405, fin = 0: 5a5a5a5a5a0d0a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 87 (87), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 115222, length 1405, fin = 0: 5a5a5a5a5a5a0d0a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 88 (88), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 116627, length 1405, fin = 0: 5a5a5a5a5a5a5a0d...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 89 (89), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 118032, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 90 (90), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 119437, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 91 (91), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 120842, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 92 (92), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 122247, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 93 (93), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 123652, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 94 (94), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 125057, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 95 (95), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 126462, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.011741 (5909d9e0694ee)
+6b3974c7d7573736: Connection state = 15
+Select returns 55, from length 16 after 432 us (wait for 24 us)
+0000000000000000 : recv from: 127.0.0.1, port 39847
+6b3974c7d7573736: Receiving 55 bytes from 127.0.0.1:42907 at T=0.012173 (5909d9e06969e)
+6b3974c7d7573736: Receiving packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <0ae943ca82535639>, Seq: 21 (21), Phi: 0,
+6b3974c7d7573736:     Decrypted 26 bytes
+6b3974c7d7573736:     ACK (nb=0), 28-56
+6b3974c7d7573736:     padding, 21 bytes
+
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 96 (96), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 127867, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.012173 (5909d9e06969e)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 97 (97), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 129272, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.012173 (5909d9e06969e)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: Sending packet type: 6 (1rtt protected), S0,
+6b3974c7d7573736:     <2e8b53d72dcc6dfc>, Seq: 98 (98), Phi: 0,
+6b3974c7d7573736:     Prepared 1411 bytes
+6b3974c7d7573736:     Stream 8, offset 130677, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+6b3974c7d7573736: Sending 1440 bytes to 127.0.0.1:42907 at T=0.012173 (5909d9e06969e)
+6b3974c7d7573736: Connection state = 15
+6b3974c7d7573736: 0.185832 : Closed. Retrans= 0, spurious= 0, max sp gap = 0, max sp delay = 0
