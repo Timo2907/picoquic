@@ -1,0 +1,869 @@
+picoquicdemo::quic_server()::Select returns 1252, from length 16 after 1663683 us (wait for 10000000 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 1252 bytes from 127.0.0.1:36386 at T=0.000000 (5910507ca2f14)
+10f1b531539a6a6c: Receiving packet type: 2 (initial), S0, Version 50435131,
+10f1b531539a6a6c:     <10f1b531539a6a6c>, <2b17cd72c758f0c4>, Seq: 0, pl: 1226
+10f1b531539a6a6c:     Token length: 0
+10f1b531539a6a6c:     Decrypted 1206 bytes
+10f1b531539a6a6c:     Crypto HS frame, offset 0, length 285: 0100011903036afe...
+10f1b531539a6a6c:     padding, 917 bytes
+
+picoquicdemo::quic_server()::10f1b531539a6a6c: 0.005185 : Connection established, state = 12, from length: 16
+picoquicdemo::print_adress()::10f1b531539a6a6c : Client address: 127.0.0.1, port 8846
+10f1b531539a6a6c: SNI not received.
+10f1b531539a6a6c: Received ALPN: h3-22
+10f1b531539a6a6c: Received transport parameter TLS extension (68 bytes):
+10f1b531539a6a6c:     Extension list (66 bytes):
+10f1b531539a6a6c:         Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+10f1b531539a6a6c:         Extension type: 4 (initial_max_data), length 4, 80100000
+10f1b531539a6a6c:         Extension type: 8 (max_streams_bidi), length 2, 4201
+10f1b531539a6a6c:         Extension type: 1 (ocid), length 2, 7a98
+10f1b531539a6a6c:         Extension type: 3 (max_packet_size), length 2, 45a0
+10f1b531539a6a6c:         Extension type: 9 (max_streams_uni), length 2, 4201
+10f1b531539a6a6c:         Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+10f1b531539a6a6c:         Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+10f1b531539a6a6c:         Extension type: 14 (active_connection_id_limit), length 1, 08
+10f1b531539a6a6c:         Extension type: 11 (max_ack_delay), length 1, 00
+10f1b531539a6a6c: Sending packet type: 2 (initial), S0, Version 50435131,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, <9ef010a18416dcf0>, Seq: 0, pl: 184
+10f1b531539a6a6c:     Token length: 0
+10f1b531539a6a6c:     Prepared 164 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0
+10f1b531539a6a6c:     Crypto HS frame, offset 0, length 155: 020000970303772f...
+
+10f1b531539a6a6c: Sending packet type: 4 (handshake), S0, Version 50435131,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, <9ef010a18416dcf0>, Seq: 0, pl: 1017
+10f1b531539a6a6c:     Prepared 997 bytes
+10f1b531539a6a6c:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+10f1b531539a6a6c: Sending 1252 bytes to 127.0.0.1:36386 at T=0.000000 (5910507ca2f14)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 6
+10f1b531539a6a6c: Sending packet type: 4 (handshake), S0, Version 50435131,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, <9ef010a18416dcf0>, Seq: 1, pl: 270
+10f1b531539a6a6c:     Prepared 250 bytes
+10f1b531539a6a6c:     Crypto HS frame, offset 993, length 245: 84054625246295bb...
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 0 (0), Phi: 0,
+10f1b531539a6a6c:     Prepared 363 bytes
+10f1b531539a6a6c:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+10f1b531539a6a6c:     NEW CONNECTION ID[1]: 0xf2c3f0de051654be, 6cafd41cadda2767549fcadc66ec22eb
+10f1b531539a6a6c:     NEW CONNECTION ID[2]: 0x2c66bbbcd8979589, c2c47a252ea075c871bce8a5c991f044
+10f1b531539a6a6c:     NEW CONNECTION ID[3]: 0x5b7c623b39785fa7, d624e4c2c6a4b650c374f0088421e41b
+10f1b531539a6a6c:     NEW CONNECTION ID[4]: 0xe68f5f58c30843dd, 26f3793b9a95e5349f1da23bb9c5ae76
+10f1b531539a6a6c:     NEW CONNECTION ID[5]: 0x9d1f472bc7a3b1e6, f948ad79ceb50e5a04edff45f1b25c2f
+10f1b531539a6a6c:     NEW CONNECTION ID[6]: 0x78b5ac8f7694d866, 853ee604e32866002c48c65d0e72ec51
+10f1b531539a6a6c:     NEW CONNECTION ID[7]: 0xb709db7924fd742f, 1c9a66d150031348da03b45fc07bd692
+10f1b531539a6a6c:     NEW CONNECTION ID[8]: 0x4cab960395272469, 23d090b2e9c86e98f481c6e2894fb3ff
+10f1b531539a6a6c:     Stream 3, offset 0, length 7, fin = 0: 00040401000700
+10f1b531539a6a6c:     Stream 11, offset 0, length 1, fin = 0: 03
+10f1b531539a6a6c:     Stream 7, offset 0, length 1, fin = 0: 02
+
+10f1b531539a6a6c: Sending 687 bytes to 127.0.0.1:36386 at T=0.000000 (5910507ca2f14)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 13
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 1 (1), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     ping, 1 bytes
+10f1b531539a6a6c:     padding, 1410 bytes
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.000000 (5910507ca2f14)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 13
+10f1b531539a6a6c: T= 0.000000, cwin: 15360,flight: 3379,nb_ret: 0,rtt_min: 0,rtt: 250000,rtt_var: 0,max_ack_delay: 0,state: 13
+picoquicdemo::quic_server()::Select returns 394, from length 16 after 6367 us (wait for 1000000 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 394 bytes from 127.0.0.1:36386 at T=0.006367 (5910507ca47f3)
+10f1b531539a6a6c: Receiving packet type: 2 (initial), S0, Version 50435131,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, <2b17cd72c758f0c4>, Seq: 1, pl: 26
+10f1b531539a6a6c:     Token length: 0
+10f1b531539a6a6c:     Decrypted 6 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0
+
+10f1b531539a6a6c: Receiving packet type: 4 (handshake), S0, Version 50435131,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, <2b17cd72c758f0c4>, Seq: 0, pl: 64
+10f1b531539a6a6c:     Decrypted 44 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0-1
+10f1b531539a6a6c:     Crypto HS frame, offset 0, length 36: 14000020deea2f02...
+
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 0 (0), Phi: 0,
+10f1b531539a6a6c:     Decrypted 224 bytes
+10f1b531539a6a6c:     NEW CONNECTION ID[1]: 0x02c9a398e239f71f, 97d20353609a14d5232dd84696b3171c
+10f1b531539a6a6c:     NEW CONNECTION ID[2]: 0x757ec78d15f1ba2e, baab4593ca2e2be0feae3087704f2668
+10f1b531539a6a6c:     NEW CONNECTION ID[3]: 0x04b93816abc18e47, c2444a527f94793719224e6ba32d9938
+10f1b531539a6a6c:     NEW CONNECTION ID[4]: 0x5dc5aa14e180e87d, 6a5a02c79cf572f6bf35946321cb39e1
+10f1b531539a6a6c:     NEW CONNECTION ID[5]: 0xadead4046c0e6bb0, 43a2346fb2aac3243d03afa576e84d1c
+10f1b531539a6a6c:     NEW CONNECTION ID[6]: 0x8de41ec47d2a6387, b93084046de929c1e8276627edd8042c
+10f1b531539a6a6c:     NEW CONNECTION ID[7]: 0x9e439588713ca5dd, 6aeb64759decf69f3556d31b1b9a5c02
+10f1b531539a6a6c:     NEW CONNECTION ID[8]: 0xebe612916c3c309f, 1710da64e738cb474beeb279324cdbfd
+
+10f1b531539a6a6c: Sending packet type: 4 (handshake), S0, Version 50435131,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, <9ef010a18416dcf0>, Seq: 2, pl: 25
+10f1b531539a6a6c:     Prepared 5 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0
+
+10f1b531539a6a6c: Sending 50 bytes to 127.0.0.1:36386 at T=0.006367 (5910507ca47f3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 65, from length 16 after 308 us (wait for 3633 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 65 bytes from 127.0.0.1:36386 at T=0.006675 (5910507ca4927)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 1 (1), Phi: 0,
+10f1b531539a6a6c:     Decrypted 36 bytes
+10f1b531539a6a6c:     Stream 2, offset 0, length 7, fin = 0: 00040401000700
+10f1b531539a6a6c:     Stream 0, offset 0, length 15, fin = 1: 010d0000d1d75107...
+10f1b531539a6a6c:     Stream 10, offset 0, length 1, fin = 0: 03
+10f1b531539a6a6c:     Stream 6, offset 0, length 1, fin = 0: 02
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 2 (2), Phi: 0,
+10f1b531539a6a6c:     Prepared 1223 bytes
+10f1b531539a6a6c:     Stream 0, offset 0, length 12, fin = 0: 0140040000d9f500...
+10f1b531539a6a6c:     Stream 0, offset 12, length 1205, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1252 bytes to 127.0.0.1:36386 at T=0.006675 (5910507ca4927)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 3 (3), Phi: 0,
+10f1b531539a6a6c:     Prepared 1223 bytes
+10f1b531539a6a6c:     Stream 0, offset 1217, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1252 bytes to 127.0.0.1:36386 at T=0.006675 (5910507ca4927)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 4 (4), Phi: 0,
+10f1b531539a6a6c:     Prepared 1223 bytes
+10f1b531539a6a6c:     Stream 0, offset 2436, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1252 bytes to 127.0.0.1:36386 at T=0.006675 (5910507ca4927)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 5 (5), Phi: 0,
+10f1b531539a6a6c:     Prepared 1223 bytes
+10f1b531539a6a6c:     Stream 0, offset 3655, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1252 bytes to 127.0.0.1:36386 at T=0.006675 (5910507ca4927)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 273 us (wait for 421 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.006948 (5910507ca4a38)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 2 (2), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0-1
+10f1b531539a6a6c:     padding, 20 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 6 (6), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0-2
+10f1b531539a6a6c:     Stream 0, offset 4874, length 1402, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.006948 (5910507ca4a38)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 1440, from length 16 after 76 us (wait for 445 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 1440 bytes from 127.0.0.1:36386 at T=0.007024 (5910507ca4a84)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 3 (3), Phi: 0,
+10f1b531539a6a6c:     Decrypted 1411 bytes
+10f1b531539a6a6c:     ping, 1 bytes
+10f1b531539a6a6c:     padding, 1410 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 7 (7), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 6276, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007024 (5910507ca4a84)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 78 us (wait for 445 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.007102 (5910507ca4ad2)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 4 (4), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0-5
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 8 (8), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     ACK (nb=0), 0-4
+10f1b531539a6a6c:     Stream 0, offset 7683, length 1402, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007102 (5910507ca4ad2)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 88 us (wait for 311 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.007190 (5910507ca4b2a)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 5 (5), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-7
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 9 (9), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 9085, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007190 (5910507ca4b2a)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 204 us (wait for 244 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.007394 (5910507ca4bf6)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 6 (6), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-9
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 10 (10), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 10492, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007394 (5910507ca4bf6)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 11 (11), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 11899, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007394 (5910507ca4bf6)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 214 us (wait for 194 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.007608 (5910507ca4ccc)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 7 (7), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-11
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 12 (12), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 13306, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007608 (5910507ca4ccc)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 13 (13), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 14713, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007608 (5910507ca4ccc)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 185 us (wait for 156 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.007793 (5910507ca4d85)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 8 (8), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-13
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 14 (14), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 16120, length 1407, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007793 (5910507ca4d85)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 15 (15), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 17527, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.007793 (5910507ca4d85)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 236 us (wait for 126 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.008029 (5910507ca4e71)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 9 (9), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-15
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 16 (16), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 18932, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008029 (5910507ca4e71)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 17 (17), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 20337, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008029 (5910507ca4e71)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 18 (18), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 21742, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008029 (5910507ca4e71)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 229 us (wait for 103 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.008258 (5910507ca4f56)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 10 (10), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-18
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 19 (19), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 23147, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008258 (5910507ca4f56)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 20 (20), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 24552, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008258 (5910507ca4f56)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 21 (21), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 25957, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008258 (5910507ca4f56)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 251 us (wait for 82 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.008509 (5910507ca5051)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 11 (11), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-21
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 22 (22), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 27362, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008509 (5910507ca5051)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 23 (23), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 28767, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008509 (5910507ca5051)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 24 (24), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 30172, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008509 (5910507ca5051)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 25 (25), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 31577, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008509 (5910507ca5051)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 277 us (wait for 66 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.008786 (5910507ca5166)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 12 (12), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 2-25
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 26 (26), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     ACK (nb=0), 3-12
+10f1b531539a6a6c:     Stream 0, offset 32982, length 1400, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008786 (5910507ca5166)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 27 (27), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 34382, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008786 (5910507ca5166)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 28 (28), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 35787, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008786 (5910507ca5166)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 29 (29), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 37192, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008786 (5910507ca5166)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 30 (30), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 38597, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008786 (5910507ca5166)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 31 (31), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 40002, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.008786 (5910507ca5166)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 262 us (wait for 53 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.009048 (5910507ca526c)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 13 (13), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-27
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 32 (32), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 41407, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009048 (5910507ca526c)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 33 (33), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 42812, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009048 (5910507ca526c)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 34 (34), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 44217, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009048 (5910507ca526c)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 35 (35), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 45622, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009048 (5910507ca526c)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 36 (36), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 47027, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009048 (5910507ca526c)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 37 (37), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 48432, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009048 (5910507ca526c)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 265 us (wait for 45 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.009313 (5910507ca5375)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 14 (14), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-32
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 38 (38), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 49837, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009313 (5910507ca5375)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 39 (39), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 51242, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009313 (5910507ca5375)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 40 (40), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 52647, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009313 (5910507ca5375)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 41 (41), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 54052, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009313 (5910507ca5375)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 42 (42), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 55457, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009313 (5910507ca5375)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 43 (43), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 56862, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009313 (5910507ca5375)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 227 us (wait for 46 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.009540 (5910507ca5458)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 15 (15), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-37
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 44 (44), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 58267, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009540 (5910507ca5458)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 45 (45), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 59672, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009540 (5910507ca5458)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 46 (46), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 61077, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009540 (5910507ca5458)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 47 (47), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 62482, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009540 (5910507ca5458)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 48 (48), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 63887, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009540 (5910507ca5458)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 49 (49), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 65292, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009540 (5910507ca5458)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 277 us (wait for 42 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 16 (16), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-39
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 50 (50), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 66697, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 51 (51), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 68102, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 52 (52), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 69507, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 53 (53), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 70912, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 54 (54), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 72317, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 55 (55), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 73722, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 56 (56), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 75127, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 57 (57), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 76532, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.009817 (5910507ca556d)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 310 us (wait for 39 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 17 (17), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-43
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 58 (58), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 77937, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 59 (59), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 79342, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 60 (60), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 80747, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 61 (61), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 82152, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 62 (62), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 83557, length 1405, fin = 0: 0a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 63 (63), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 84962, length 1405, fin = 0: 0d0a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 64 (64), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 86367, length 1405, fin = 0: 5a0d0a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 65 (65), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 87772, length 1405, fin = 0: 5a5a0d0a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 66 (66), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 89177, length 1405, fin = 0: 5a5a5a0d0a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010127 (5910507ca56a3)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 329 us (wait for 37 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 18 (18), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-48
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 67 (67), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 90582, length 1405, fin = 0: 5a5a5a5a0d0a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 68 (68), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 91987, length 1405, fin = 0: 5a5a5a5a5a0d0a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 69 (69), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 93392, length 1405, fin = 0: 5a5a5a5a5a5a0d0a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 70 (70), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 94797, length 1405, fin = 0: 5a5a5a5a5a5a5a0d...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 71 (71), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 96202, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 72 (72), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 97607, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 73 (73), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 99012, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 74 (74), Phi: 0,
+10f1b531539a6a6c:     Prepared 1411 bytes
+10f1b531539a6a6c:     Stream 0, offset 100417, length 1405, fin = 0: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 1440 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 75 (75), Phi: 0,
+10f1b531539a6a6c:     Prepared 598 bytes
+10f1b531539a6a6c:     Stream 0, offset 101822, length 590, fin = 1: 5a5a5a5a5a5a5a5a...
+
+10f1b531539a6a6c: Sending 627 bytes to 127.0.0.1:36386 at T=0.010456 (5910507ca57ec)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 325 us (wait for 36 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.010781 (5910507ca5931)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 19 (19), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-53
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: T= 0.010781, cwin: 48018,flight: 30917,nb_ret: 0,rtt_min: 142,rtt: 1146,rtt_var: 858,max_ack_delay: 768,state: 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 33 us (wait for 45586 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.010814 (5910507ca5952)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 20 (20), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-58
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 76 (76), Phi: 0,
+10f1b531539a6a6c:     Prepared 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 12-20
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: Sending 55 bytes to 127.0.0.1:36386 at T=0.010814 (5910507ca5952)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 15
+10f1b531539a6a6c: T= 0.010814, cwin: 48019,flight: 23772,nb_ret: 0,rtt_min: 142,rtt: 1089,rtt_var: 759,max_ack_delay: 768,state: 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 55 us (wait for 45553 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.010869 (5910507ca5989)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 21 (21), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-63
+10f1b531539a6a6c:     padding, 21 bytes
+
+10f1b531539a6a6c: T= 0.010869, cwin: 48019,flight: 16572,nb_ret: 0,rtt_min: 142,rtt: 1046,rtt_var: 656,max_ack_delay: 768,state: 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 45 us (wait for 45498 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.010914 (5910507ca59b6)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 22 (22), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-68
+10f1b531539a6a6c:     padding, 20 bytes
+
+10f1b531539a6a6c: T= 0.010914, cwin: 48020,flight: 9372,nb_ret: 0,rtt_min: 142,rtt: 973,rtt_var: 639,max_ack_delay: 768,state: 15
+picoquicdemo::quic_server()::Select returns 55, from length 16 after 26 us (wait for 45453 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 55 bytes from 127.0.0.1:36386 at T=0.010940 (5910507ca59d0)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S1,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 23 (23), Phi: 0,
+10f1b531539a6a6c:     Decrypted 26 bytes
+10f1b531539a6a6c:     ACK (nb=0), 25-73
+10f1b531539a6a6c:     padding, 20 bytes
+
+10f1b531539a6a6c: T= 0.010940, cwin: 48020,flight: 2172,nb_ret: 0,rtt_min: 142,rtt: 912,rtt_var: 602,max_ack_delay: 768,state: 15
+picoquicdemo::quic_server()::Select returns 38, from length 16 after 190 us (wait for 45427 us)
+picoquicdemo::print_adress()::0000000000000000 : recv from: 127.0.0.1, port 8846
+10f1b531539a6a6c: Receiving 38 bytes from 127.0.0.1:36386 at T=0.011130 (5910507ca5a8e)
+10f1b531539a6a6c: Receiving packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <9ef010a18416dcf0>, Seq: 24 (24), Phi: 0,
+10f1b531539a6a6c:     Decrypted 9 bytes
+10f1b531539a6a6c:     ACK (nb=0), 59-76
+10f1b531539a6a6c:     application_close, Error 0x0000, Reason length 0
+
+10f1b531539a6a6c: Sending packet type: 6 (1rtt protected), S0,
+10f1b531539a6a6c:     <2b17cd72c758f0c4>, Seq: 77 (77), Phi: 0,
+10f1b531539a6a6c:     Prepared 4 bytes
+10f1b531539a6a6c:     connection_close, Error 0x0000, Reason length 0
+
+10f1b531539a6a6c: Sending 33 bytes to 127.0.0.1:36386 at T=0.011130 (5910507ca5a8e)
+picoquicdemo::quic_server()::10f1b531539a6a6c: Connection state = 19
+10f1b531539a6a6c: T= 0.011130, cwin: 48022,flight: 83,nb_ret: 0,rtt_min: 142,rtt: 835,rtt_var: 606,max_ack_delay: 768,state: 19
+picoquicdemo::quic_server()::Select return 0, after 150256 us (wait for 150000 us)
+picoquicdemo::quic_server()::10f1b531539a6a6c: 0.161393 : Closed. Retrans= 0, spurious= 0, max sp gap = 0, max sp delay = 0

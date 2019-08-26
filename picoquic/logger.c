@@ -1438,7 +1438,7 @@ void picoquic_log_outgoing_segment(void* F_log, int log_cnxid, picoquic_cnx_t* c
 
 void picoquic_log_processing(FILE* F, picoquic_cnx_t* cnx, size_t length, int ret)
 {
-    fprintf(F, "Processed %d bytes, state = %d (%s), return %d\n\n",
+    fprintf(F, "******** Processed %d bytes, state = %d (%s), return %d  ******** \n",
         (int)length, cnx->cnx_state,
         picoquic_log_state_name(cnx->cnx_state),
         ret);
