@@ -24,7 +24,7 @@
 		2.6.2 POST COMMAND
 				./picoquicdemo -L -l log_client.txt 127.0.0.1 6121 0:b:test:104857600;
 				(sends a 1MB file as binary named "test" to the server on stream 0)
-	
+	(WORKS AFTER COMMIT FROM 27-08-2019)
 	
 	
 	

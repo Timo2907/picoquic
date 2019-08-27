@@ -106,6 +106,13 @@ int picoquic_demo_client_initialize_context(
     int no_disk);
 void picoquic_demo_client_delete_context(picoquic_demo_callback_ctx_t* ctx);
 
+//TK: Set the context for the application scenario
+int picoquic_application_scenario_client_initialize_context(
+    picoquic_demo_callback_ctx_t* ctx,
+	size_t nb_demo_streams,
+	char const * alpn,
+    int no_disk);
+
 int demo_client_parse_scenario_desc(char const * text, size_t * nb_streams, picoquic_demo_stream_desc_t ** desc);
 void demo_client_delete_scenario_desc(size_t nb_streams, picoquic_demo_stream_desc_t * desc);
 

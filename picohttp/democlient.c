@@ -630,6 +630,21 @@ void picoquic_demo_client_delete_context(picoquic_demo_callback_ctx_t* ctx)
     }
 }
 
+int picoquic_application_scenario_client_initialize_context(
+    picoquic_demo_callback_ctx_t* ctx,
+	size_t nb_demo_streams,
+	char const * alpn,
+    int no_disk)
+{
+    memset(ctx, 0, sizeof(picoquic_demo_callback_ctx_t));
+    ctx->nb_demo_streams = nb_demo_streams;
+    ctx->alpn = picoquic_parse_alpn(alpn);
+    ctx->no_disk = no_disk;
+    return 0;
+}
+
+
+
 char const * demo_client_parse_stream_spaces(char const * text) {
     while (*text == ' ' || *text == '\t' || *text == '\n' || *text == '\r') {
         text++;

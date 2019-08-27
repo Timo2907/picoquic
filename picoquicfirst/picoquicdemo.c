@@ -166,7 +166,11 @@ int quic_server(const char* server_name, int server_port,
     int dest_if, int mtu_max, uint32_t proposed_version, 
     const char * esni_key_file_name, const char * esni_rr_file_name,
     FILE * F_log, char const * cc_log_dir, int use_long_log)
-{
+{    
+    if(F_log != NULL) {
+        fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-SERVER_STARTED\n");
+    }
+
     /* Start: start the QUIC process with cert and key files */
     int ret = 0;
     picoquic_quic_t* qserver = NULL;
@@ -423,7 +427,8 @@ int quic_server(const char* server_name, int server_port,
     return ret;
 }
 
-static const char * test_scenario_default = "0:index.html;4:test.html;8:/1234567;12:main.jpg;16:war-and-peace.txt;20:en/latest/;24:/file-123K";
+//TK: not used
+//static const char * test_scenario_default = "0:index.html;4:test.html;8:/1234567;12:main.jpg;16:war-and-peace.txt;20:en/latest/;24:/file-123K";
 
 #define PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH 4    //TK: receive max 5 packets in a row
 
@@ -534,6 +539,10 @@ int quic_client(const char* ip_address_text, int server_port,
     int client_cnx_id_length, char const * client_scenario_text, char const * cc_log_dir,
     int no_disk, int use_long_log)
 {
+    if(F_log != NULL) {
+        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CLIENT_STARTED\n");
+    }
+
     /* Start: start the QUIC process with cert and key files */
     int ret = 0;
     picoquic_quic_t* qclient = NULL;
@@ -577,13 +586,17 @@ int quic_client(const char* ip_address_text, int server_port,
         fprintf(stdout, "Files not saved to disk (-D, no_disk)\n");
     }
 
+/* NO NEED FOR SCENARIO DESCRIPTIONS FOR OUR APPLICATION SCENARIO
+
     if (client_scenario_text == NULL) {
-        client_scenario_text = test_scenario_default; //TK: change scenario here? (maybe: NULL -> application scenario instead of default)
-                                                      //TK: set client_sc_nb (size_t/number of streams) and client_sc (picoquic_demo_stream_desc_t) for correct context
+        client_scenario_text = test_scenario_default;
     }
+    
 
     fprintf(stdout, "Testing scenario: <%s>\n", client_scenario_text);
     ret = demo_client_parse_scenario_desc(client_scenario_text, &client_sc_nb, &client_sc); //TK: parse scenario
+    
+
     if (ret != 0) {
         fprintf(stdout, "Cannot parse the specified scenario.\n");
         return -1;
@@ -594,6 +607,20 @@ int quic_client(const char* ip_address_text, int server_port,
             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED\n");
         }
     }
+*/
+
+    //TK: Set the application's context parameters
+    client_sc_nb = 10; //TK: first with 10 streams
+    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, client_sc_nb, alpn, no_disk);
+    if(ret == 0) {
+        if(F_log != NULL) {
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED\n");
+        }
+    } else {
+        fprintf(stdout, "Initializing of the clients' context failed.\n");
+        return -1;
+    }
+
 
     if (ret == 0) {
         ret = picoquic_get_server_address(ip_address_text, server_port, &server_address, &server_addr_length, &is_name);
@@ -664,7 +691,6 @@ int quic_client(const char* ip_address_text, int server_port,
                 picoquic_set_null_verifier(qclient);
             }
             else if (root_crt == NULL) {
-
                 /* Standard verifier would crash */
                 fprintf(stdout, "No root crt list specified, certificate will not be verified.\n");
                 if (F_log != stdout && F_log != stderr && F_log != NULL)
@@ -691,6 +717,7 @@ int quic_client(const char* ip_address_text, int server_port,
             ret = -1;
         }
         else {
+            //TODO Everything fine here?
             picoquic_set_callback(cnx_client, picoquic_demo_client_callback, &callback_ctx);
 
 
@@ -742,6 +769,9 @@ int quic_client(const char* ip_address_text, int server_port,
         }
     }
 
+    //TODO GENERATE EPHEMERAL MSGs
+    //TODO FEED THE MSGS IN THE LOOP EVERY x MS
+
     /* Wait for packets */
     while (ret == 0 && picoquic_get_cnx_state(cnx_client) != picoquic_state_disconnected) {
         if(F_log != NULL) {
@@ -757,11 +787,15 @@ int quic_client(const char* ip_address_text, int server_port,
             buffer, sizeof(buffer),
             delta_t,
             &current_time);
+        
+        fprintf(F_log, "X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1\n");
 
         if (bytes_recv != 0 && F_log != NULL &&
             (cnx_client == NULL || cnx_client->pkt_ctx[picoquic_packet_context_application].send_sequence < PICOQUIC_LOG_PACKET_MAX_SEQUENCE || qclient->use_long_log)){
             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= %d\n", bytes_recv);
         }
+
+        fprintf(F_log, "X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2\n");
 
         if (bytes_recv != 0 && to_length != 0) {
             /* Keeping track of the addresses and ports, as we 
@@ -879,6 +913,10 @@ int quic_client(const char* ip_address_text, int server_port,
                             if(F_log != NULL) {
                                 fprintf(F_log, "#######################################################\n############# START APPLICATION SCENARIO ##############\n#######################################################\n\n");
                             }
+
+                            //TODO: Segmentation Fault here, since there are not demo_streams provided inside of &callback_ctx
+                            //TK: EITHER insert into callback_ctx "picoquic_demo_stream_desc_t const * demo_stream" files
+                            //TK: (first try this!) OR change the picoquic_demo_client_start_streams()-function so that there is no problem with 
                             picoquic_demo_client_start_streams(cnx_client, &callback_ctx, PICOQUIC_DEMO_STREAM_ID_INITIAL);
                         }
                     }
