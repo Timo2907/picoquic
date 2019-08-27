@@ -1,0 +1,1489 @@
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED
+----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= (null) IP_ADDR_TXT= 127.0.0.1
+----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.
+0ed0b1078a9d2892: Sending packet type: 2 (initial), S0, Version 50435131,
+0ed0b1078a9d2892:     <0ed0b1078a9d2892>, <2f0d9801ca0f0fd5>, Seq: 0, pl: 1226
+0ed0b1078a9d2892:     Token length: 0
+0ed0b1078a9d2892:     Prepared 1206 bytes
+0ed0b1078a9d2892:     Crypto HS frame, offset 0, length 285: 010001190303b336...
+0ed0b1078a9d2892:     padding, 917 bytes
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.000000 (59118fb2657c9)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1252
+----------------:PICOQUICDEMO::quic_client()::Local address updated
+0ed0b1078a9d2892: Receiving 1252 bytes from 127.0.0.1:6121 at T=0.008855 (59118fb267a60)
+0ed0b1078a9d2892: Receiving packet type: 2 (initial), S0, Version 50435131,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, <8f7a9d4b4de784af>, Seq: 0, pl: 184
+0ed0b1078a9d2892:     Token length: 0
+0ed0b1078a9d2892:     Decrypted 164 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0
+0ed0b1078a9d2892:     Crypto HS frame, offset 0, length 155: 020000970303f5ee...
+
+0ed0b1078a9d2892: Receiving packet type: 4 (handshake), S0, Version 50435131,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, <8f7a9d4b4de784af>, Seq: 0, pl: 1017
+0ed0b1078a9d2892:     Decrypted 997 bytes
+0ed0b1078a9d2892:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 1252 bytes, state = 7 (client_handshake_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 669
+0ed0b1078a9d2892: Receiving 669 bytes from 127.0.0.1:6121 at T=0.009306 (59118fb267c23)
+0ed0b1078a9d2892: Receiving packet type: 4 (handshake), S0, Version 50435131,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, <8f7a9d4b4de784af>, Seq: 1, pl: 270
+0ed0b1078a9d2892:     Decrypted 250 bytes
+0ed0b1078a9d2892:     Crypto HS frame, offset 993, length 245: 1438b372ce227f4a...
+
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 0 (0), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 345 bytes
+0ed0b1078a9d2892:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+0ed0b1078a9d2892:     NEW CONNECTION ID[1]: 0x437c3fba8e04a90d, 27b91d35f10fc39b82a3755f8b1ec267
+0ed0b1078a9d2892:     NEW CONNECTION ID[2]: 0x8e606f4fb142d766, daf6f8379136359936a60294e3c7c5c8
+0ed0b1078a9d2892:     NEW CONNECTION ID[3]: 0x2640f0202be68a31, 084df3a11376630b5aeb2b2d40ccde0e
+0ed0b1078a9d2892:     NEW CONNECTION ID[4]: 0x4d00f222f257bfe2, 42b251e93f51f2d402e636db827c5750
+0ed0b1078a9d2892:     NEW CONNECTION ID[5]: 0xb59e9ffb0e5c4285, f00250bd6bbcc92fa887a53b4ce54623
+0ed0b1078a9d2892:     NEW CONNECTION ID[6]: 0xd1463084c8016bf5, 13cdd611c93721d2c1b66fc982f1a236
+0ed0b1078a9d2892:     NEW CONNECTION ID[7]: 0x9571865f93065220, 89a4424d3afe7748b509d2d24a419408
+0ed0b1078a9d2892:     NEW CONNECTION ID[8]: 0x0c488623e6d39c99, 6a75064c6ba550a5b262bf3c48e034da
+
+quic/picoquic/tls_api.c:532 [picoquic_client_save_ticket_call_back]: Received incorrect session resume ticket, sni = NULL, alpn = hq-22, length = 162
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 2	******** Processed 669 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1440
+0ed0b1078a9d2892: Receiving 1440 bytes from 127.0.0.1:6121 at T=0.009523 (59118fb267cfc)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 1 (1), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 1411 bytes
+0ed0b1078a9d2892:     ping, 1 bytes
+0ed0b1078a9d2892:     padding, 1410 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 3	******** Processed 1440 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+0ed0b1078a9d2892: Sending packet type: 2 (initial), S0, Version 50435131,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, <2f0d9801ca0f0fd5>, Seq: 1, pl: 26
+0ed0b1078a9d2892:     Token length: 0
+0ed0b1078a9d2892:     Prepared 6 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0
+
+0ed0b1078a9d2892: Sending packet type: 4 (handshake), S0, Version 50435131,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, <2f0d9801ca0f0fd5>, Seq: 0, pl: 64
+0ed0b1078a9d2892:     Prepared 44 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-1
+0ed0b1078a9d2892:     Crypto HS frame, offset 0, length 36: 140000203a03eb26...
+
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 0 (0), Phi: 0,
+0ed0b1078a9d2892:     Prepared 224 bytes
+0ed0b1078a9d2892:     NEW CONNECTION ID[1]: 0xb8eb65c1c178777b, 716db60039f735ffa7f66c012e698322
+0ed0b1078a9d2892:     NEW CONNECTION ID[2]: 0x27574dc7b8558ff7, 117db8dc976f0e5e0748b4c79cb7e75e
+0ed0b1078a9d2892:     NEW CONNECTION ID[3]: 0x5a19086bc61e7ae5, ce36be979969b4e8fb54211c41cb986e
+0ed0b1078a9d2892:     NEW CONNECTION ID[4]: 0x5634c17bfbb2ab96, 65b7a5f8d23e6beeec79f1ad5ae8527c
+0ed0b1078a9d2892:     NEW CONNECTION ID[5]: 0x7f3146d385c604c9, 3e7d4c9cfbcdb144e9dcf2a2a41f0162
+0ed0b1078a9d2892:     NEW CONNECTION ID[6]: 0xb891309a6cf6be5a, 476e4afd3e33523db14e3532851d0adb
+0ed0b1078a9d2892:     NEW CONNECTION ID[7]: 0x8c4bc032f74d66be, f030648f17893f2c8d8dd52d47c613c2
+0ed0b1078a9d2892:     NEW CONNECTION ID[8]: 0x45f952954a95d1ee, 4af5af04d8aa68673fdc0a405409f318
+
+0ed0b1078a9d2892: Sending 394 bytes to 127.0.0.1:6121 at T=0.009589 (59118fb267d3e)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 394
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CONNECTION_ESTABLISHED!
+picoquicdemo::quic_client()-DETAILS: Version= 50435131 I-CID: ed0b1078a9d2892
+SNI not received.
+Received ALPN: hq-22
+Received transport parameter TLS extension (88 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (ocid), length 2, 7a98
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 2 (stateless_reset_token), length 16, 6e27bf498b783b0fca5d1e0fd67c6e26
+        Extension type: 9 (max_streams_uni), length 2, 4201
+        Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+        Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+        Extension type: 14 (active_connection_id_limit), length 1, 08
+        Extension type: 11 (max_ack_delay), length 1, 00
+
+#######################################################
+############### START APPLICATION SCENARIO ###############
+#######################################################
+
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 1
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 1 (1), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 0, length 57, fin = 0: 504f5354202f7465...
+0ed0b1078a9d2892:     Stream 0, offset 57, length 1160, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.009800 (59118fb267e11)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 2
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 2 (2), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-1
+0ed0b1078a9d2892:     Stream 0, offset 1217, length 1214, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010032 (59118fb267ef9)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 50
+0ed0b1078a9d2892: Receiving 50 bytes from 127.0.0.1:6121 at T=0.010088 (59118fb267f31)
+0ed0b1078a9d2892: Receiving packet type: 4 (handshake), S0, Version 50435131,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, <8f7a9d4b4de784af>, Seq: 2, pl: 25
+0ed0b1078a9d2892:     Decrypted 5 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 50 bytes, state = 14 (client_ready_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 3
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 3 (3), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 2431, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010114 (59118fb267f4b)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 4
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 4 (4), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 3650, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010154 (59118fb267f73)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 5
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 5 (5), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 4869, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010190 (59118fb267f97)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 6
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 6 (6), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 6088, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010233 (59118fb267fc2)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010271 (59118fb267fe8)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 2 (2), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-2
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 7
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 7 (7), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 7307, length 1219, fin = 0: 0d0a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010317 (59118fb268016)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 8
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 8 (8), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 8526, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010360 (59118fb268041)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010400 (59118fb268069)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 3 (3), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-4
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 9
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 9 (9), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 9745, length 1219, fin = 0: 5a5a5a5a0d0a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010421 (59118fb26807e)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 10
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 10 (10), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 10964, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010458 (59118fb2680a3)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 11
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 11 (11), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 12183, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010493 (59118fb2680c6)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010530 (59118fb2680eb)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 4 (4), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-6
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 12
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 12 (12), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 13402, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010568 (59118fb268111)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010613 (59118fb26813e)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 5 (5), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-8
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 13
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 13 (13), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 14621, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010633 (59118fb268152)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 14
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 14 (14), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 15840, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010671 (59118fb268178)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 15
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 15 (15), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 17059, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010706 (59118fb26819b)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010745 (59118fb2681c2)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 6 (6), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-10
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 16
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 16 (16), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 18276, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010765 (59118fb2681d6)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 17
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 17 (17), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 19493, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010822 (59118fb26820f)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010861 (59118fb268236)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 7 (7), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-12
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 18
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 18 (18), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 20710, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010882 (59118fb26824b)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 19
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 19 (19), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 21927, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010918 (59118fb26826f)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 20
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 20 (20), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 23144, length 1217, fin = 0: 0a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.010952 (59118fb268291)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010989 (59118fb2682b6)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 8 (8), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-14
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 21
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 21 (21), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 24361, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011025 (59118fb2682da)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011071 (59118fb268308)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 9 (9), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-16
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 22
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 22 (22), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 1-9
+0ed0b1078a9d2892:     Stream 0, offset 25578, length 1212, fin = 0: 5a5a5a5a5a5a5a0d...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011092 (59118fb26831d)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 23
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 23 (23), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 26790, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011131 (59118fb268344)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 24
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 24 (24), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 28007, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011166 (59118fb268367)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011203 (59118fb26838c)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 10 (10), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-18
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 25
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 25 (25), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 29224, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011223 (59118fb2683a0)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 26
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 26 (26), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 30441, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011281 (59118fb2683da)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011322 (59118fb268403)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 11 (11), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 0-20
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 27
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 27 (27), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 31658, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011342 (59118fb268417)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 28
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 28 (28), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 32875, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011379 (59118fb26843c)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 29
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 29 (29), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 34092, length 1217, fin = 0: 5a5a5a0d0a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011413 (59118fb26845e)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011462 (59118fb26848f)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 12 (12), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 17-22
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 30
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 30 (30), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 35309, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011483 (59118fb2684a4)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011547 (59118fb2684e4)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 13 (13), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 17-24
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 31
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 31 (31), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 36526, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011570 (59118fb2684fb)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 32
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 32 (32), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 37743, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011608 (59118fb268521)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011648 (59118fb268549)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 14 (14), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 17-26
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 33
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 33 (33), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 38960, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011668 (59118fb26855d)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 34
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 34 (34), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 40177, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011705 (59118fb268582)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011742 (59118fb2685a7)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 15 (15), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     MAX STREAM DATA, Stream: 0, max data: 0x20139.
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 35
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 35 (35), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 10-15
+0ed0b1078a9d2892:     Stream 0, offset 41394, length 1212, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011779 (59118fb2685cc)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011826 (59118fb2685fb)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 16 (16), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 17-28
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 36
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 36 (36), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 42606, length 1217, fin = 0: 0a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011846 (59118fb26860f)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 37
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 37 (37), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 43823, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011884 (59118fb268635)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.011974 (59118fb26868f)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 17 (17), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 17-30
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 38
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 38 (38), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 45040, length 1217, fin = 0: 5a5a5a5a5a5a5a0d...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.011995 (59118fb2686a4)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012057 (59118fb2686e2)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 18 (18), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 17-32
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 39
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 39 (39), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 46257, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012077 (59118fb2686f6)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 40
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 40 (40), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 47474, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012113 (59118fb26871a)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012148 (59118fb26873d)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 19 (19), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 17-34
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 41
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 41 (41), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 48691, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012166 (59118fb26874f)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 42
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 42 (42), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 49908, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012200 (59118fb268771)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 43
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 43 (43), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 51125, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012231 (59118fb268790)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012285 (59118fb2687c6)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 20 (20), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-36
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 44
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 44 (44), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 52342, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012305 (59118fb2687da)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 45
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 45 (45), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 53559, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012340 (59118fb2687fd)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012374 (59118fb26881f)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 21 (21), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-38
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 46
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 46 (46), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 54776, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012393 (59118fb268832)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 47
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 47 (47), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 55993, length 1217, fin = 0: 5a5a5a5a5a5a0d0a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012426 (59118fb268853)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 48
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 48 (48), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 57210, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012458 (59118fb268873)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012515 (59118fb2688ac)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 22 (22), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-40
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 49
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 49 (49), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 58427, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012535 (59118fb2688c0)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012573 (59118fb2688e6)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 23 (23), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-42
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 50
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 50 (50), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 59644, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012592 (59118fb2688f9)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 51
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 51 (51), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 60861, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012626 (59118fb26891b)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 52
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 52 (52), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 62078, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012658 (59118fb26893b)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012710 (59118fb26896f)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 24 (24), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-44
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 53
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 53 (53), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 63295, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012731 (59118fb268984)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012773 (59118fb2689ae)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 25 (25), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-46
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 54
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 54 (54), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 16-25
+0ed0b1078a9d2892:     Stream 0, offset 64512, length 1212, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012791 (59118fb2689c0)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 55
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 55 (55), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 65724, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012827 (59118fb2689e4)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 56
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 56 (56), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 66941, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012859 (59118fb268a04)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012894 (59118fb268a27)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 26 (26), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-48
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 57
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 57 (57), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 68158, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012928 (59118fb268a49)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.012970 (59118fb268a73)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 27 (27), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-50
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 58
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 58 (58), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 69375, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.012989 (59118fb268a86)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 59
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 59 (59), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 70592, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013023 (59118fb268aa8)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 60
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 60 (60), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 71809, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013055 (59118fb268ac8)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013089 (59118fb268aea)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 28 (28), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 27-52
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 61
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 61 (61), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 73026, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013108 (59118fb268afd)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 62
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 62 (62), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 74243, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013161 (59118fb268b32)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013198 (59118fb268b57)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 29 (29), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 47-54
+0ed0b1078a9d2892:     MAX STREAM DATA, Stream: 0, max data: 0x402b1.
+0ed0b1078a9d2892:     padding, 15 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 63
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 63 (63), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 26-29
+0ed0b1078a9d2892:     Stream 0, offset 75460, length 1212, fin = 0: 5a0d0a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013219 (59118fb268b6c)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 64
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 64 (64), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 76672, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013254 (59118fb268b8f)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 65
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 65 (65), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 77889, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013285 (59118fb268bae)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013322 (59118fb268bd3)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 30 (30), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 47-56
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 66
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 66 (66), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 79106, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013356 (59118fb268bf5)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013399 (59118fb268c20)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 31 (31), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 47-58
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 67
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 67 (67), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 80323, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013418 (59118fb268c33)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 68
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 68 (68), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 81540, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013453 (59118fb268c56)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013489 (59118fb268c7a)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 32 (32), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 47-60
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 69
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 69 (69), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 82757, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013507 (59118fb268c8c)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 70
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 70 (70), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 83974, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013541 (59118fb268cae)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013597 (59118fb268ce6)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 33 (33), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 47-62
+0ed0b1078a9d2892:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 71
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 71 (71), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 85191, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013616 (59118fb268cf9)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 72
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 72 (72), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 86408, length 1217, fin = 0: 5a5a5a5a5a0d0a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013652 (59118fb268d1d)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 73
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 73 (73), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 87625, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013683 (59118fb268d3c)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013717 (59118fb268d5e)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 34 (34), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-64
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 74
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 74 (74), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 88842, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013736 (59118fb268d71)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 75
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 75 (75), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 90059, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013770 (59118fb268d93)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013825 (59118fb268dca)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 35 (35), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-66
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 76
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 76 (76), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 91276, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013845 (59118fb268dde)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 77
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 77 (77), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 92493, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013880 (59118fb268e01)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.013915 (59118fb268e24)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 36 (36), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-68
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 78
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 78 (78), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 93710, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013934 (59118fb268e37)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 79
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 79 (79), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 94927, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.013967 (59118fb268e58)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014003 (59118fb268e7c)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 37 (37), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-70
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 80
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 80 (80), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 96144, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.014038 (59118fb268e9f)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 81
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 81 (81), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 97361, length 1217, fin = 0: 5a5a5a5a0d0a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.014076 (59118fb268ec5)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014112 (59118fb268ee9)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 38 (38), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-72
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 82
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 82 (82), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 98578, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.014130 (59118fb268efb)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 83
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 83 (83), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 99795, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.014164 (59118fb268f1d)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 84
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 84 (84), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1223 bytes
+0ed0b1078a9d2892:     Stream 0, offset 101012, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 1252 bytes to 127.0.0.1:6121 at T=0.014195 (59118fb268f3c)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014255 (59118fb268f78)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 39 (39), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-74
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 85
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 85 (85), Phi: 0,
+0ed0b1078a9d2892:     Prepared 241 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 30-39
+0ed0b1078a9d2892:     Stream 0, offset 102229, length 228, fin = 1: 5a5a5a5a5a5a5a5a...
+
+0ed0b1078a9d2892: Sending 270 bytes to 127.0.0.1:6121 at T=0.014276 (59118fb268f8d)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 270
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014318 (59118fb268fb7)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 40 (40), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-76
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 86
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 86 (86), Phi: 0,
+0ed0b1078a9d2892:     Prepared 1411 bytes
+0ed0b1078a9d2892:     ping, 1 bytes
+0ed0b1078a9d2892:     padding, 1410 bytes
+
+0ed0b1078a9d2892: Sending 1440 bytes to 127.0.0.1:6121 at T=0.014336 (59118fb268fc9)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1440
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 87
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014427 (59118fb269024)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 41 (41), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-78
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 88
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014521 (59118fb269082)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 42 (42), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-80
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 89
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014637 (59118fb2690f6)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 43 (43), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-82
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 90
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014737 (59118fb26915a)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 44 (44), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 55-84
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 91
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 263
+0ed0b1078a9d2892: Receiving 263 bytes from 127.0.0.1:6121 at T=0.014832 (59118fb2691b9)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 45 (45), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 234 bytes
+0ed0b1078a9d2892:     Stream 0, offset 0, length 35, fin = 0: 323030204f4b0d0a...
+0ed0b1078a9d2892:     Stream 0, offset 35, length 191, fin = 1: 3c21444f43545950...
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 263 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+0ed0b1078a9d2892: Receiving 55 bytes from 127.0.0.1:6121 at T=0.014960 (59118fb269239)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S1,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 46 (46), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 26 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 75-86
+0ed0b1078a9d2892:     padding, 20 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 2	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 92
+----------------:PICOQUICDEMO::quic_client()::All done, Closing the connection.
+----------------:PICOQUICDEMO::quic_client()-STATISTICS::Received 226 bytes in 0.014985 seconds, 0.120654 Mbps.
+############### CLOSING THE CONNECTION (scenario finished) ###############
+0ed0b1078a9d2892: Sending packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <8f7a9d4b4de784af>, Seq: 87 (87), Phi: 0,
+0ed0b1078a9d2892:     Prepared 8 bytes
+0ed0b1078a9d2892:     ACK (nb=0), 40-46
+0ed0b1078a9d2892:     application_close, Error 0x0000, Reason length 0
+
+0ed0b1078a9d2892: Sending 37 bytes to 127.0.0.1:6121 at T=0.014985 (59118fb269252)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 37
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 33
+0ed0b1078a9d2892: Receiving 33 bytes from 127.0.0.1:6121 at T=0.015188 (59118fb26931d)
+0ed0b1078a9d2892: Receiving packet type: 6 (1rtt protected), S0,
+0ed0b1078a9d2892:     <2f0d9801ca0f0fd5>, Seq: 47 (47), Phi: 0,
+0ed0b1078a9d2892:     Decrypted 4 bytes
+0ed0b1078a9d2892:     connection_close, Error 0x0000, Reason length 0
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 33 bytes, state = 20 (disconnected), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_DELETED
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_FREED
+----------------:PICOQUICDEMO::quic_client()-SOCKET_CLOSED
+----------------:PICOQUICDEMO::quic_client()-SCENARIO_DELETED
+----------------:PICOQUICDEMO::quic_client()-CLEANUP_FINISHED

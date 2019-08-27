@@ -113,7 +113,7 @@ void print_address(FILE* F_log, struct sockaddr* address, char* label, picoquic_
         (address->sa_family == AF_INET) ? (void*)&(((struct sockaddr_in*)address)->sin_addr) : (void*)&(((struct sockaddr_in6*)address)->sin6_addr),
         hostname, sizeof(hostname));
 
-    fprintf(F_log, "picoquicdemo::print_adress()::%016llx : ", (unsigned long long)picoquic_val64_connection_id(cnx_id));
+    fprintf(F_log, "%016llx: ", (unsigned long long)picoquic_val64_connection_id(cnx_id));
 
     if (x != NULL) {
         fprintf(F_log, "%s %s, port %d\n", label, x,
@@ -191,6 +191,11 @@ int quic_server(const char* server_name, int server_port,
     /* Open a UDP socket */
     ret = picoquic_open_server_sockets(&server_sockets, server_port);
 
+    if(F_log != NULL) {
+        fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-SOCKET_OPENED\n");
+    }
+
+
     /* Wait for packets and process them */
     if (ret == 0) {
         current_time = picoquic_current_time();
@@ -227,10 +232,14 @@ int quic_server(const char* server_name, int server_port,
                     ret = picoquic_esni_server_setup(qserver, esni_rr_file_name);
                 }
             }
+            if(F_log != NULL) {
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-QSERVER_CREATED\n");
+            }
         }
     }
 
-    /* Wait for packets */
+
+    /* Wait for packets and process them */
     while (ret == 0 && (just_once == 0 || connection_done == 0)) {
         int64_t delta_t = picoquic_get_next_wake_delay(qserver, current_time, delay_max);
         uint64_t time_before = current_time;
@@ -244,6 +253,8 @@ int quic_server(const char* server_name, int server_port,
             picoquic_log_congestion_state(F_log, cnx_server, current_time);
         }
 
+        /* Receiving packets */
+
         bytes_recv = picoquic_select(server_sockets.s_socket, PICOQUIC_NB_SERVER_SOCKETS,
             &addr_from, &from_length,
             &addr_to, &to_length, &if_index_to, &received_ecn,
@@ -253,12 +264,22 @@ int quic_server(const char* server_name, int server_port,
         if (just_once != 0 && F_log != NULL && 
             (cnx_server == NULL || cnx_server->pkt_ctx[picoquic_packet_context_application].send_sequence < PICOQUIC_LOG_PACKET_MAX_SEQUENCE || qserver->use_long_log)) {
             if (bytes_recv > 0) {
-                fprintf(F_log, "picoquicdemo::quic_server()::Select returns %d, from length %d after %d us (wait for %d us)\n",
-                    bytes_recv, from_length, (int)(current_time - time_before), (int)delta_t);
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= %d after %d us (wait for %d us) ",
+                    bytes_recv, (int)(current_time - time_before), (int)delta_t);
                 print_address(F_log, (struct sockaddr*)&addr_from, "recv from:", picoquic_null_connection_id);
+
+               if (cnx_server != NULL) {
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION\t");
+                    picoquic_log_processing(F_log, cnx_server, bytes_recv, ret);
+               } else {
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION\t");
+                    fprintf(F_log, "******** Initial processing: CNX_SERVER is NULL. ********\n");
+               }
             } else {
-                fprintf(F_log, "picoquicdemo::quic_server()::Select return %d, after %d us (wait for %d us)\n", bytes_recv,
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= %d, after %d us (wait for %d us)\n", bytes_recv,
                     (int)(current_time - time_before), (int)delta_t);
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO\t");
+                picoquic_log_processing(F_log, cnx_server, bytes_recv, ret);
             }
         }
 
@@ -283,7 +304,7 @@ int quic_server(const char* server_name, int server_port,
                     memset(&client_from, 0, sizeof(client_from));
                     memcpy(&client_from, &addr_from, from_length);
                     if (F_log != NULL) {
-                        fprintf(F_log, "picoquicdemo::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_server)));
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_server)));
                         picoquic_log_time(F_log, cnx_server, picoquic_current_time(), "", " : ");
                         fprintf(F_log, "Connection established, state = %d, from length: %d\n",
                             picoquic_get_cnx_state(picoquic_get_first_cnx(qserver)), from_length);
@@ -291,6 +312,8 @@ int quic_server(const char* server_name, int server_port,
                         print_address(F_log, (struct sockaddr*)&client_from, "Client address:",
                             picoquic_get_logging_cnxid(cnx_server));
                         picoquic_log_transport_extension(F_log, cnx_server, 1);
+
+                        fprintf(F_log, "\n#######################################################\n############### CONNECTION ESTABLISHED! ###############\n#######################################################\n\n");
                     }
                 }
             }
@@ -307,11 +330,15 @@ int quic_server(const char* server_name, int server_port,
 
                 /* TODO: log stateless packet */
                 if (F_log != NULL) {
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-STATELESS_PACKET_SENT_THROUGH_SERVER_SOCKETS\n");
                     fflush(F_log);
                 }
 
                 picoquic_delete_stateless_packet(sp);
             }
+
+
+            /* Sending packets */
 
             while (ret == 0 && (cnx_next = picoquic_get_earliest_cnx_to_wake(qserver, loop_time)) != NULL) {
                 int peer_addr_len = 0;
@@ -327,7 +354,7 @@ int quic_server(const char* server_name, int server_port,
                     ret = 0;
 
                     if (F_log != NULL) {
-                        fprintf(F_log, "picoquicdemo::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_next)));
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_next)));
                         picoquic_log_time(F_log, cnx_server, picoquic_current_time(), "", " : ");
                         fprintf(F_log, "Closed. Retrans= %d, spurious= %d, max sp gap = %d, max sp delay = %d\n",
                             (int)cnx_next->nb_retransmission_total, (int)cnx_next->nb_spurious,
@@ -341,6 +368,9 @@ int quic_server(const char* server_name, int server_port,
 
                     picoquic_delete_cnx(cnx_next);
 
+                    if(F_log != NULL) {
+                        fprintf(F_log, "############### CONNECTION CLOSED (DISCONNECTED!) ###############\n");
+                    }
 
                     connection_done = 1;
 
@@ -353,15 +383,17 @@ int quic_server(const char* server_name, int server_port,
                             cnx_next->cnx_state < picoquic_state_server_false_start ||
                             cnx_next->cnx_state >= picoquic_state_disconnecting) &&
                             cnx_next->pkt_ctx[picoquic_packet_context_application].send_sequence < 100) {
-                            fprintf(F_log, "picoquicdemo::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_next)));
-                            fprintf(F_log, "Connection state = %d\n",
-                                picoquic_get_cnx_state(cnx_next));
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= %d\n", picoquic_get_cnx_state(cnx_next));
                         }
 
                         (void)picoquic_send_through_server_sockets(&server_sockets,
                             (struct sockaddr *)&peer_addr, peer_addr_len, (struct sockaddr *)&local_addr, local_addr_len,
                             dest_if == -1 ? picoquic_get_local_if_index(cnx_next) : dest_if,
                             (const char*)send_buffer, (int)send_length);
+
+                            if (F_log != NULL) {                    
+                                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=%d bytes\n", (int)send_length);
+                            }
                     }
                 }
                 else {
@@ -377,9 +409,16 @@ int quic_server(const char* server_name, int server_port,
     /* Clean up */
     if (qserver != NULL) {
         picoquic_free(qserver);
+        
+        if(F_log != NULL) {
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-QSERVER_FREED\n");
+        }
     }
 
     picoquic_close_server_sockets(&server_sockets);
+    if(F_log != NULL) {
+        fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-SOCKET_CLOSED\n");
+    }
 
     return ret;
 }
@@ -424,7 +463,7 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
             fprintf(stdout, "Switch to new port. Will test NAT rebinding support.\n");
             if (F_log != stdout && F_log != stderr && F_log != NULL)
             {
-                fprintf(F_log, "picoquicdemo::quic_client_migrate()::Switch to new port. Will test NAT rebinding support.\n");
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client_migrate()::Switch to new port. Will test NAT rebinding support.\n");
             }
         }
         else if (force_migration == 2) {
@@ -441,7 +480,7 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
                     fprintf(stdout, "Renew CNXID failed, error: %x.\n", ret);
                     if (F_log != stdout && F_log != stderr && F_log != NULL)
                     {
-                        fprintf(F_log, "picoquicdemo::quic_client_migrate()::Create Probe failed, error: %x.\n", ret);
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client_migrate()::Create Probe failed, error: %x.\n", ret);
                     }
                 }
             }
@@ -449,7 +488,7 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
                 fprintf(stdout, "Switching to new CNXID.\n");
                 if (F_log != stdout && F_log != stderr && F_log != NULL)
                 {
-                    fprintf(F_log, "picoquicdemo::quic_client_migrate()::Switching to new CNXID.\n");
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client_migrate()::Switching to new CNXID.\n");
                 }
             }
         }
@@ -460,7 +499,7 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
                     fprintf(stdout, "Migration disabled, will test NAT rebinding support.\n");
                     if (F_log != stdout && F_log != stderr && F_log != NULL)
                     {
-                        fprintf(F_log, "picoquicdemo::quic_client_migrate()::Will test NAT rebinding support.\n");
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client_migrate()::Will test NAT rebinding support.\n");
                     }
 
                     ret = 0;
@@ -469,7 +508,7 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
                     fprintf(stdout, "Create Probe failed, error: %x.\n", ret);
                     if (F_log != stdout && F_log != stderr && F_log != NULL)
                     {
-                        fprintf(F_log, "picoquicdemo::quic_client_migrate()::Create Probe failed, error: %x.\n", ret);
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client_migrate()::Create Probe failed, error: %x.\n", ret);
                     }
                 }
             }
@@ -477,7 +516,7 @@ int quic_client_migrate(picoquic_cnx_t * cnx, SOCKET_TYPE * fd, struct sockaddr 
                 fprintf(stdout, "Switch to new port, sending probe.\n");
                 if (F_log != stdout && F_log != stderr && F_log != NULL)
                 {
-                    fprintf(F_log, "picoquicdemo::quic_client_migrate()::Switch to new port, sending probe.\n");
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client_migrate()::Switch to new port, sending probe.\n");
                 }
             }
         }
@@ -530,7 +569,8 @@ int quic_client(const char* ip_address_text, int server_port,
     picoquic_demo_stream_desc_t * client_sc = NULL;
 
     if (alpn == NULL) {
-        alpn = "h3-22"; //TK: Set default to other alpn? -> h3 not used whatsoever
+        //alpn = "h3-22"; //TK: Set default to other alpn -> h3 not used by our application
+        alpn = "hq-22";
     }
 
     if (no_disk) {
@@ -543,7 +583,7 @@ int quic_client(const char* ip_address_text, int server_port,
     }
 
     fprintf(stdout, "Testing scenario: <%s>\n", client_scenario_text);
-    ret = demo_client_parse_scenario_desc(client_scenario_text, &client_sc_nb, &client_sc); //TK: not needed anymore ?
+    ret = demo_client_parse_scenario_desc(client_scenario_text, &client_sc_nb, &client_sc); //TK: parse scenario
     if (ret != 0) {
         fprintf(stdout, "Cannot parse the specified scenario.\n");
         return -1;
@@ -551,7 +591,7 @@ int quic_client(const char* ip_address_text, int server_port,
     else {
         ret = picoquic_demo_client_initialize_context(&callback_ctx, client_sc, client_sc_nb, alpn, no_disk);
         if(F_log != NULL) {
-            fprintf(F_log, "picoquicdemo::quic_client()-CONTEXT_INITIALIZED\n");
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED\n");
         }
     }
 
@@ -561,7 +601,7 @@ int quic_client(const char* ip_address_text, int server_port,
             sni = ip_address_text;
         }
         if(F_log != NULL) {
-            fprintf(F_log, "picoquicdemo::quic_client()-GOT_SERVER_ADDRESS. SNI= %s IP_ADDR_TXT= %s\n", sni, ip_address_text);
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= %s IP_ADDR_TXT= %s\n", sni, ip_address_text);
         }
     }
 
@@ -573,7 +613,7 @@ int quic_client(const char* ip_address_text, int server_port,
             ret = -1;
         } else {
             if(F_log != NULL) {
-                fprintf(F_log, "picoquicdemo::quic_client()-SOCKET_OPENED\n");
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED\n");
             }
         }
         
@@ -619,7 +659,7 @@ int quic_client(const char* ip_address_text, int server_port,
                 fprintf(stdout, "No server name specified, certificate will not be verified.\n");
                 if (F_log != stdout && F_log != stderr && F_log != NULL)
                 {
-                    fprintf(F_log, "picoquicdemo::quic_client()::No server name specified, certificate will not be verified.\n");
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.\n");
                 }
                 picoquic_set_null_verifier(qclient);
             }
@@ -629,11 +669,14 @@ int quic_client(const char* ip_address_text, int server_port,
                 fprintf(stdout, "No root crt list specified, certificate will not be verified.\n");
                 if (F_log != stdout && F_log != stderr && F_log != NULL)
                 {
-                    fprintf(F_log, "picoquicdemo::quic_client()::No root crt list specified, certificate will not be verified.\n");
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::No root crt list specified, certificate will not be verified.\n");
                 }
                 picoquic_set_null_verifier(qclient);
             }
 
+            if(F_log != NULL) {
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED\n");
+            }
         }
     }
 
@@ -670,7 +713,7 @@ int quic_client(const char* ip_address_text, int server_port,
                     /* Queue a simple frame to perform 0-RTT test */
                     /* Start the download scenario */
                     if(F_log != NULL) {
-                        fprintf(F_log, "############### START DOWNLOAD SCENARIO (0-rtt) ###############\n");
+                        fprintf(F_log, "############### START APPLICATION SCENARIO (0-rtt) ###############\n");
                     }
                     ret = picoquic_demo_client_start_streams(cnx_client, &callback_ctx, PICOQUIC_DEMO_STREAM_ID_INITIAL);
                 }
@@ -688,10 +731,10 @@ int quic_client(const char* ip_address_text, int server_port,
                     if (F_log != NULL) {
                         if (bytes_sent <= 0)
                         {
-                            fprintf(F_log, "picoquicdemo::quic_client()-SENDTO::Cannot send first packet to server, returns %d\n", bytes_sent);
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SENDTO::Cannot send first packet to server, returns %d\n", bytes_sent);
                             ret = -1;
                         } else {
-                            fprintf(F_log, "picoquicdemo::quic_client()-SENDTO::FIRST::bytes_sent= %d\n", bytes_sent);
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= %d\n", bytes_sent);
                         }
                     }
                 }
@@ -702,7 +745,7 @@ int quic_client(const char* ip_address_text, int server_port,
     /* Wait for packets */
     while (ret == 0 && picoquic_get_cnx_state(cnx_client) != picoquic_state_disconnected) {
         if(F_log != NULL) {
-            fprintf(F_log, "picoquicdemo::quic_client()-WAIT_FOR_PACKETS \n");
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS \n");
         }
 
         unsigned char received_ecn;
@@ -717,7 +760,7 @@ int quic_client(const char* ip_address_text, int server_port,
 
         if (bytes_recv != 0 && F_log != NULL &&
             (cnx_client == NULL || cnx_client->pkt_ctx[picoquic_packet_context_application].send_sequence < PICOQUIC_LOG_PACKET_MAX_SEQUENCE || qclient->use_long_log)){
-            fprintf(F_log, "picoquicdemo::quic_client()-PICOQUIC_SELECT::bytes_recv= %d\n", bytes_recv);
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= %d\n", bytes_recv);
         }
 
         if (bytes_recv != 0 && to_length != 0) {
@@ -740,7 +783,7 @@ int quic_client(const char* ip_address_text, int server_port,
                         ((struct sockaddr_in6 *)&local_address)->sin6_port;
                 }
                 if (F_log != NULL) {
-                    fprintf(F_log, "picoquicdemo::quic_client()::Local address updated\n");
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::Local address updated\n");
                 }
             }
 
@@ -767,7 +810,7 @@ int quic_client(const char* ip_address_text, int server_port,
                 client_receive_loop++;
 
                 if (F_log != NULL) {
-                    fprintf(F_log, "picoquicdemo::quic_client()-RECEPTION_IN_LOOP= %d\t", client_receive_loop);
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= %d\t", client_receive_loop);
                     picoquic_log_processing(F_log, cnx_client, bytes_recv, ret);
                 }
 
@@ -775,7 +818,7 @@ int quic_client(const char* ip_address_text, int server_port,
                     if (picoquic_tls_is_psk_handshake(cnx_client)) {
                         fprintf(stdout, "The session was properly resumed!\n");
                         if (F_log != stdout && F_log != stderr && F_log != NULL) {
-                            fprintf(F_log, "picoquicdemo::quic_client()::The session was properly resumed!\n");
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::The session was properly resumed!\n");
                         }
                     }
 
@@ -787,7 +830,7 @@ int quic_client(const char* ip_address_text, int server_port,
                 }
 
                 if (ret != 0 && F_log != NULL) {
-                    fprintf(F_log, "picoquicdemo::quic_client()-PACKET_ERROR_FOUND! Details:\n");
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-PACKET_ERROR_FOUND! Details:\n");
                     picoquic_log_error_packet(F_log, buffer, (size_t)bytes_recv, ret);
                 }
 
@@ -806,12 +849,12 @@ int quic_client(const char* ip_address_text, int server_port,
                 if (F_log != NULL) {
                     if (bytes_recv == 0) {
                         if(client_receive_loop == 0) {
-                            fprintf(F_log, "picoquicdemo::quic_client()-NO_BYTES_RECEIVED\n");
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED\n");
                         } else {
-                            fprintf(F_log, "picoquicdemo::quic_client()-NO_MORE_BYTES_RECEIVED\n");
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED\n");
                         }    
                     } else {
-                        fprintf(F_log, "picoquicdemo::quic_client()-RECEIVE_LOOP_INTERRUPTED \n");
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-RECEIVE_LOOP_INTERRUPTED \n");
                     }
                 }
                 
@@ -821,7 +864,7 @@ int quic_client(const char* ip_address_text, int server_port,
                     picoquic_get_cnx_state(cnx_client) == picoquic_state_client_ready_start)) {
                     if (established == 0) {
                         if (F_log != NULL) {
-                            fprintf(F_log, "picoquicdemo::quic_client()-CONNECTION_ESTABLISHED!\npicoquicdemo::quic_client()-DETAILS: Version= %x I-CID: %llx\n",
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONNECTION_ESTABLISHED!\npicoquicdemo::quic_client()-DETAILS: Version= %x I-CID: %llx\n",
                                             picoquic_supported_versions[cnx_client->version_index].version,
                                             (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_client)));
                             picoquic_log_transport_extension(F_log, cnx_client, 0);
@@ -834,7 +877,7 @@ int quic_client(const char* ip_address_text, int server_port,
                         if (zero_rtt_available == 0) {
                             /* Start the download scenario */
                             if(F_log != NULL) {
-                                fprintf(F_log, "#######################################################\n############### START DOWNLOAD SCENARIO ###############\n#######################################################\n\n");
+                                fprintf(F_log, "#######################################################\n############# START APPLICATION SCENARIO ##############\n#######################################################\n\n");
                             }
                             picoquic_demo_client_start_streams(cnx_client, &callback_ctx, PICOQUIC_DEMO_STREAM_ID_INITIAL);
                         }
@@ -842,7 +885,7 @@ int quic_client(const char* ip_address_text, int server_port,
 
                     client_ready_loop++;
                     if(F_log != NULL) {
-                        fprintf(F_log, "picoquicdemo::quic_client()-CLI_READY_LOOP= %d\n", client_ready_loop);
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= %d\n", client_ready_loop);
                     }
 
                     if (force_migration && migration_started == 0 && 
@@ -881,14 +924,14 @@ int quic_client(const char* ip_address_text, int server_port,
                                     cnx_client->nb_zero_rtt_sent, cnx_client->nb_zero_rtt_acked);
                                 if (F_log != stdout && F_log != stderr && F_log != NULL)
                                 {
-                                    fprintf(F_log, "picoquicdemo::quic_client()::Out of %d zero RTT packets, %d were acked by the server.\n",
+                                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::Out of %d zero RTT packets, %d were acked by the server.\n",
                                         cnx_client->nb_zero_rtt_sent, cnx_client->nb_zero_rtt_acked);
                                 }
                             }
                             fprintf(stdout, "All done, Closing the connection.\n");
                             if (F_log != stdout && F_log != stderr && F_log != NULL)
                             {
-                                fprintf(F_log, "picoquicdemo::quic_client()::All done, Closing the connection.\n");
+                                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::All done, Closing the connection.\n");
                             }
                             if (picoquic_get_data_received(cnx_client) > 0) {
                                 double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_client));
@@ -900,7 +943,7 @@ int quic_client(const char* ip_address_text, int server_port,
                                         duration_usec/1000000.0, receive_rate_mbps);
                                     if (F_log != stdout && F_log != stderr && F_log != NULL)
                                     {
-                                        fprintf(F_log, "picoquicdemo::quic_client()-STATISTICS::Received %llu bytes in %f seconds, %f Mbps.\n",
+                                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Received %llu bytes in %f seconds, %f Mbps.\n",
                                             (unsigned long long)picoquic_get_data_received(cnx_client),
                                             duration_usec / 1000000.0, receive_rate_mbps);
                                     }
@@ -917,7 +960,7 @@ int quic_client(const char* ip_address_text, int server_port,
                             fprintf(stdout, "No progress for 10 seconds. Closing. \n");
                             if (F_log != stdout && F_log != stderr && F_log != NULL)
                             {
-                                fprintf(F_log, "picoquicdemo::quic_client()::No progress for 10 seconds. Closing. \n ############### CLOSING THE CONNECTION (idle) ###############\n");
+                                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::No progress for 10 seconds. Closing. \n ############### CLOSING THE CONNECTION (idle) ###############\n");
                             }
                             ret = picoquic_close(cnx_client, 0);
                         }
@@ -939,7 +982,7 @@ int quic_client(const char* ip_address_text, int server_port,
                         if (address_updated) {
                             if (picoquic_compare_addr((struct sockaddr *)&x_from, (struct sockaddr *)&client_address) != 0) {
                                 if(F_log != NULL) {
-                                    fprintf(F_log, "picoquicdemo::quic_client()::Dropping packet sent from wrong address\n");
+                                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::Dropping packet sent from wrong address\n");
                                 }
                                 send_length = 0;
                             }
@@ -956,11 +999,11 @@ int quic_client(const char* ip_address_text, int server_port,
 
                             if (F_log != stdout && F_log != stderr && F_log != NULL)
                             {
-                                fprintf(F_log, "picoquicdemo::quic_client()::Cannot send packet to server, returns %d\n", bytes_sent);
+                                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::Cannot send packet to server, returns %d\n", bytes_sent);
                             }
                         } else {
                             if(F_log != NULL) {
-                                fprintf(F_log, "picoquicdemo::quic_client()-SENDTO::bytes_sent= %d\n", bytes_sent);
+                                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= %d\n", bytes_sent);
                             }
                         }
                     }
@@ -979,7 +1022,7 @@ int quic_client(const char* ip_address_text, int server_port,
     /* Clean up */
     picoquic_demo_client_delete_context(&callback_ctx);
     if(F_log != NULL) {
-        fprintf(F_log, "picoquicdemo::quic_client()-CONTEXT_DELETED\n");
+        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_DELETED\n");
     }
 
     if (qclient != NULL) {
@@ -988,7 +1031,7 @@ int quic_client(const char* ip_address_text, int server_port,
 
         if (sni != NULL && 0 == picoquic_get_ticket(qclient->p_first_ticket, current_time, sni, (uint16_t)strlen(sni), alpn, (uint16_t)strlen(alpn), &ticket, &ticket_length, NULL, 0)) {
             FILE * F = (F_log != NULL) ? F_log : stdout;
-            fprintf(F, "picoquicdemo::quic_client()::Received ticket from %s:\n", sni);
+            fprintf(F, "----------------:PICOQUICDEMO::quic_client()::Received ticket from %s:\n", sni);
             picoquic_log_picotls_ticket(F, picoquic_null_connection_id, ticket, ticket_length);
         }
 
@@ -1003,14 +1046,14 @@ int quic_client(const char* ip_address_text, int server_port,
 
         picoquic_free(qclient);
         if(F_log != NULL) {
-            fprintf(F_log, "picoquicdemo::quic_client()-QCLIENT_FREED\n");
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-QCLIENT_FREED\n");
         }
     }
 
     if (fd != INVALID_SOCKET) {
         SOCKET_CLOSE(fd);
         if(F_log != NULL) {
-            fprintf(F_log, "picoquicdemo::quic_client()-SOCKET_CLOSED\n");
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SOCKET_CLOSED\n");
         }
     }
 
@@ -1019,12 +1062,12 @@ int quic_client(const char* ip_address_text, int server_port,
         demo_client_delete_scenario_desc(client_sc_nb, client_sc);
         client_sc = NULL;
         if(F_log != NULL) {
-            fprintf(F_log, "picoquicdemo::quic_client()-SCENARIO_DELETED\n");
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SCENARIO_DELETED\n");
         }
     }
 
     if(F_log != NULL) {
-        fprintf(F_log, "picoquicdemo::quic_client()-CLEANUP_FINISHED\n");
+        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CLEANUP_FINISHED\n");
     }
     return ret;
 }

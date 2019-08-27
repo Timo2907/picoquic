@@ -15,12 +15,15 @@
 	2.4 make
 	2.5 for usage description: ./picoquicdemo -h
 	2.5 start server: ./picoquicdemo -p 6121
-	2.5.1 ./picoquicdemo -L -l log_server.txt -p 6121 -1 
-			(provides extended log-file and closes after 1 connection)
+		2.5.1 ./picoquicdemo -L -l log_server.txt -p 6121 -1 
+				(provides extended log-file and closes after 1 connection)
 	2.6 start client: ./picoquicdemo 127.0.0.1 6121
-	2.6.1 ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121 0:/104857600; 
-			(provides extended log-file downloads a file with 104857600 bytes = 1MB)
-	
+		2.6.1 GET REQUEST
+				./picoquicdemo -L -l log_client.txt 127.0.0.1 6121 0:/104857600; 
+				(provides extended log-file and downloads a file with 104857600 bytes = 1MB on stream 0)
+		2.6.2 POST COMMAND
+				./picoquicdemo -L -l log_client.txt 127.0.0.1 6121 0:b:test:104857600;
+				(sends a 1MB file as binary named "test" to the server on stream 0)
 	
 	
 	
