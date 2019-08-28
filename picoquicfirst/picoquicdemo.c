@@ -610,8 +610,8 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-    client_sc_nb = 10; //TK: first with 10 streams
-    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, client_sc_nb, alpn, no_disk);
+    client_sc_nb = 1; //TK: first with 1 stream
+    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk); //TODO maybe insert number of messages/timing between messages?
     if(ret == 0) {
         if(F_log != NULL) {
             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED\n");
@@ -774,6 +774,7 @@ int quic_client(const char* ip_address_text, int server_port,
 
     /* Wait for packets */
     while (ret == 0 && picoquic_get_cnx_state(cnx_client) != picoquic_state_disconnected) {
+        
         if(F_log != NULL) {
             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS \n");
         }
@@ -787,15 +788,11 @@ int quic_client(const char* ip_address_text, int server_port,
             buffer, sizeof(buffer),
             delta_t,
             &current_time);
-        
-        fprintf(F_log, "X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1\n");
 
         if (bytes_recv != 0 && F_log != NULL &&
             (cnx_client == NULL || cnx_client->pkt_ctx[picoquic_packet_context_application].send_sequence < PICOQUIC_LOG_PACKET_MAX_SEQUENCE || qclient->use_long_log)){
             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= %d\n", bytes_recv);
         }
-
-        fprintf(F_log, "X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2\n");
 
         if (bytes_recv != 0 && to_length != 0) {
             /* Keeping track of the addresses and ports, as we 
@@ -914,9 +911,9 @@ int quic_client(const char* ip_address_text, int server_port,
                                 fprintf(F_log, "#######################################################\n############# START APPLICATION SCENARIO ##############\n#######################################################\n\n");
                             }
 
-                            //TODO: Segmentation Fault here, since there are not demo_streams provided inside of &callback_ctx
+                            //TODO: Segmentation Fault here, although one stream is provided
                             //TK: EITHER insert into callback_ctx "picoquic_demo_stream_desc_t const * demo_stream" files
-                            //TK: (first try this!) OR change the picoquic_demo_client_start_streams()-function so that there is no problem with 
+                            //TK: OR change the picoquic_demo_client_start_streams()-function so that there is no problem with it
                             picoquic_demo_client_start_streams(cnx_client, &callback_ctx, PICOQUIC_DEMO_STREAM_ID_INITIAL);
                         }
                     }

@@ -377,7 +377,9 @@ int picoquic_demo_client_start_streams(picoquic_cnx_t* cnx,
 	/* Open all the streams scheduled after the stream that
 	 * just finished */
     for (size_t i = 0; ret == 0 && i < ctx->nb_demo_streams; i++) {
+
         if (ctx->demo_stream[i].previous_stream_id == fin_stream_id) {
+
             uint64_t repeat_nb = 0;
             do {
                 ret = picoquic_demo_client_open_stream(cnx, ctx, ctx->demo_stream[i].stream_id,
@@ -386,6 +388,7 @@ int picoquic_demo_client_start_streams(picoquic_cnx_t* cnx,
                     ctx->demo_stream[i].is_binary,
                     (size_t)ctx->demo_stream[i].post_size,
                     repeat_nb);
+
                 repeat_nb++;
             } while (ret == 0 && repeat_nb < ctx->demo_stream[i].repeat_count);
 
@@ -632,14 +635,53 @@ void picoquic_demo_client_delete_context(picoquic_demo_callback_ctx_t* ctx)
 
 int picoquic_application_scenario_client_initialize_context(
     picoquic_demo_callback_ctx_t* ctx,
+    picoquic_demo_stream_desc_t ** stream_desc,
 	size_t nb_demo_streams,
 	char const * alpn,
     int no_disk)
 {
+    /*
+
+    *stream_desc = (picoquic_demo_stream_desc_t*)malloc(nb_demo_streams*sizeof(picoquic_demo_stream_desc_t)); //TODO free the space in cleanup phase?
+    uint64_t previous_stream_id = PICOQUIC_DEMO_STREAM_ID_INITIAL;
+    uint64_t payload = 100;
+
+    for(int i = 0; i < nb_demo_streams; i++)
+    { 
+        picoquic_demo_stream_desc_t* new_stream_desc = &(*desc)[i];
+
+        new_stream_desc->is_binary = 0;
+        new_stream_desc->doc_name = "/";
+        new_stream_desc->f_name = "test.txt";
+        new_stream_desc->post_size = payload;
+
+        stream_id = new_stream_desc->stream_id + 4;
+        previous = new_stream_desc->stream_id;
+    } 
+    */ 
+
+    /*  
+        TODO: change from 1 stream to variable number of streams
+        TODO: timing of streams
+    */
+
+    picoquic_demo_stream_desc_t * stream_desc_f = (picoquic_demo_stream_desc_t*)malloc(sizeof(picoquic_demo_stream_desc_t));
+
+    stream_desc_f->stream_id = 4; //stream id
+    stream_desc_f->previous_stream_id = PICOQUIC_DEMO_STREAM_ID_INITIAL;
+    stream_desc_f->doc_name = "/";
+    stream_desc_f->f_name = "test.txt";
+    stream_desc_f->repeat_count = 0;
+    stream_desc_f->is_binary = 0; //txt file
+    stream_desc_f->post_size = 102400; //payload bytes
+
+
     memset(ctx, 0, sizeof(picoquic_demo_callback_ctx_t));
+    ctx->demo_stream = stream_desc_f; //TODO change here from stream_desc_f to stream_desc
     ctx->nb_demo_streams = nb_demo_streams;
     ctx->alpn = picoquic_parse_alpn(alpn);
     ctx->no_disk = no_disk;
+
     return 0;
 }
 

@@ -149,7 +149,7 @@ calls picoquicdemo::quic_client() with [server_name, server_port, sni, esni_rr_f
 * static const char kPaddingCharacter = '*';
 * static const int kNumberOfEphemeralMessages = 36000;
 * static const int kCycleInMicroseconds = 100000; //TK: set parameters for application scenario
-* (...)
+(...)
 * static std::string GenerateEphemeralMessage(int round) { //TK: build the message
 *  //JS: Include the current timestamp in the body of the client request (to log one-way delay)
 *  long long current_timestamp = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
