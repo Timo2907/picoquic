@@ -1,0 +1,103 @@
+----------------:PICOQUICDEMO::quic_client()-CLIENT_STARTED
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED
+----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= (null) IP_ADDR_TXT= 127.0.0.1
+----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED
+37d454cdeea54680: Sending packet type: 2 (initial), S0, Version 50435131,
+37d454cdeea54680:     <37d454cdeea54680>, <e6b32f390d221cbf>, Seq: 0, pl: 1226
+37d454cdeea54680:     Token length: 0
+37d454cdeea54680:     Prepared 1206 bytes
+37d454cdeea54680:     Crypto HS frame, offset 0, length 285: 0100011903036f95...
+37d454cdeea54680:     padding, 917 bytes
+
+37d454cdeea54680: Sending 1252 bytes to 127.0.0.1:6121 at T=0.000000 (5911c1e1bdf21)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+oquic/picoquic/sender.c:1219 [picoquic_retransmit_needed]: Retransmit packet type 2, pc=2, seq = 0, is_client = 1
+
+37d454cdeea54680: Sending packet type: 2 (initial), S0, Version 50435131,
+37d454cdeea54680:     <37d454cdeea54680>, <e6b32f390d221cbf>, Seq: 1, pl: 1226
+37d454cdeea54680:     Token length: 0
+37d454cdeea54680:     Prepared 1206 bytes
+37d454cdeea54680:     Crypto HS frame, offset 0, length 285: 0100011903036f95...
+37d454cdeea54680:     padding, 917 bytes
+
+37d454cdeea54680: Sending 1252 bytes to 127.0.0.1:6121 at T=1.001069 (5911c1e2b258e)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+oquic/picoquic/sender.c:1219 [picoquic_retransmit_needed]: Retransmit packet type 2, pc=2, seq = 1, is_client = 1
+
+37d454cdeea54680: Sending packet type: 2 (initial), S0, Version 50435131,
+37d454cdeea54680:     <37d454cdeea54680>, <e6b32f390d221cbf>, Seq: 2, pl: 1226
+37d454cdeea54680:     Token length: 0
+37d454cdeea54680:     Prepared 1206 bytes
+37d454cdeea54680:     Crypto HS frame, offset 0, length 285: 0100011903036f95...
+37d454cdeea54680:     padding, 917 bytes
+
+37d454cdeea54680: Sending 1252 bytes to 127.0.0.1:6121 at T=2.002138 (5911c1e3a6bfb)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+oquic/picoquic/sender.c:1219 [picoquic_retransmit_needed]: Retransmit packet type 2, pc=2, seq = 2, is_client = 1
+
+37d454cdeea54680: Sending packet type: 2 (initial), S0, Version 50435131,
+37d454cdeea54680:     <37d454cdeea54680>, <e6b32f390d221cbf>, Seq: 3, pl: 1226
+37d454cdeea54680:     Token length: 0
+37d454cdeea54680:     Prepared 1206 bytes
+37d454cdeea54680:     Crypto HS frame, offset 0, length 285: 0100011903036f95...
+37d454cdeea54680:     padding, 917 bytes
+
+37d454cdeea54680: Sending 1252 bytes to 127.0.0.1:6121 at T=4.004186 (5911c1e58f87b)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+oquic/picoquic/sender.c:1219 [picoquic_retransmit_needed]: Retransmit packet type 2, pc=2, seq = 3, is_client = 1
+
+37d454cdeea54680: Sending packet type: 2 (initial), S0, Version 50435131,
+37d454cdeea54680:     <37d454cdeea54680>, <e6b32f390d221cbf>, Seq: 4, pl: 1226
+37d454cdeea54680:     Token length: 0
+37d454cdeea54680:     Prepared 1206 bytes
+37d454cdeea54680:     Crypto HS frame, offset 0, length 285: 0100011903036f95...
+37d454cdeea54680:     padding, 917 bytes
+
+37d454cdeea54680: Sending 1252 bytes to 127.0.0.1:6121 at T=8.008240 (5911c1e961151)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_DELETED
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_FREED
+----------------:PICOQUICDEMO::quic_client()-SOCKET_CLOSED
+----------------:PICOQUICDEMO::quic_client()-CLEANUP_FINISHED

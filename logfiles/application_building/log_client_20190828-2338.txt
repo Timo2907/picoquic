@@ -1,0 +1,128 @@
+----------------:PICOQUICDEMO::quic_client()-CLIENT_STARTED
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED
+----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= (null) IP_ADDR_TXT= 127.0.0.1
+----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED
+b55085165823429e: Sending packet type: 2 (initial), S0, Version 50435131,
+b55085165823429e:     <b55085165823429e>, <e616c655c6cf98c6>, Seq: 0, pl: 1226
+b55085165823429e:     Token length: 0
+b55085165823429e:     Prepared 1206 bytes
+b55085165823429e:     Crypto HS frame, offset 0, length 285: 010001190303b8a3...
+b55085165823429e:     padding, 917 bytes
+
+b55085165823429e: Sending 1252 bytes to 127.0.0.1:6121 at T=0.000000 (59134359829a8)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG1
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG2
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG3
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG1
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG2
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1252
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG3
+----------------:PICOQUICDEMO::quic_client()::Local address updated
+b55085165823429e: Receiving 1252 bytes from 127.0.0.1:6121 at T=0.008803 (5913435984c0b)
+b55085165823429e: Receiving packet type: 2 (initial), S0, Version 50435131,
+b55085165823429e:     <e616c655c6cf98c6>, <87054987b3e31a5c>, Seq: 0, pl: 184
+b55085165823429e:     Token length: 0
+b55085165823429e:     Decrypted 164 bytes
+b55085165823429e:     ACK (nb=0), 0
+b55085165823429e:     Crypto HS frame, offset 0, length 155: 020000970303114f...
+
+b55085165823429e: Receiving packet type: 4 (handshake), S0, Version 50435131,
+b55085165823429e:     <e616c655c6cf98c6>, <87054987b3e31a5c>, Seq: 0, pl: 1017
+b55085165823429e:     Decrypted 997 bytes
+b55085165823429e:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 1252 bytes, state = 7 (client_handshake_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG1
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG2
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 669
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG3
+b55085165823429e: Receiving 669 bytes from 127.0.0.1:6121 at T=0.009459 (5913435984e9b)
+b55085165823429e: Receiving packet type: 4 (handshake), S0, Version 50435131,
+b55085165823429e:     <e616c655c6cf98c6>, <87054987b3e31a5c>, Seq: 1, pl: 270
+b55085165823429e:     Decrypted 250 bytes
+b55085165823429e:     Crypto HS frame, offset 993, length 245: bde27ed0ece4fd00...
+
+b55085165823429e: Receiving packet type: 6 (1rtt protected), S0,
+b55085165823429e:     <e616c655c6cf98c6>, Seq: 0 (0), Phi: 0,
+b55085165823429e:     Decrypted 345 bytes
+b55085165823429e:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+b55085165823429e:     NEW CONNECTION ID[1]: 0x6e58310311513433, 94848c5d8726cc4c41a4cfee5b95cc6c
+b55085165823429e:     NEW CONNECTION ID[2]: 0x0d918aa2ec8514c3, fec4e97f7a5d62af9d822aa504b7adc1
+b55085165823429e:     NEW CONNECTION ID[3]: 0x704dcaecf53af5b9, dc3d5b7acb64de1e711c2a64842b33ff
+b55085165823429e:     NEW CONNECTION ID[4]: 0xf0252d3e511be5a0, 560bb059c1ab3e5e7c5635f1005985ab
+b55085165823429e:     NEW CONNECTION ID[5]: 0x7d0b45970d2fe9b7, 86f89b923582cb772451fd5db1d073fa
+b55085165823429e:     NEW CONNECTION ID[6]: 0x7df069d106e69ebc, d9c46687763de50a7f64b7b4cb5b1ccb
+b55085165823429e:     NEW CONNECTION ID[7]: 0x4c1f43a56449ee7e, 4fa98ff80afc28cb406c939c1dfceff9
+b55085165823429e:     NEW CONNECTION ID[8]: 0x14c26f800042034f, 273d795cacc737a847a2845b80f98d74
+
+quic/picoquic/tls_api.c:532 [picoquic_client_save_ticket_call_back]: Received incorrect session resume ticket, sni = NULL, alpn = hq-22, length = 162
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 2	******** Processed 669 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG1
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG2
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1440
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG3
+b55085165823429e: Receiving 1440 bytes from 127.0.0.1:6121 at T=0.009705 (5913435984f91)
+b55085165823429e: Receiving packet type: 6 (1rtt protected), S0,
+b55085165823429e:     <e616c655c6cf98c6>, Seq: 1 (1), Phi: 0,
+b55085165823429e:     Decrypted 1411 bytes
+b55085165823429e:     ping, 1 bytes
+b55085165823429e:     padding, 1410 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 3	******** Processed 1440 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG1
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG2
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG3
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+b55085165823429e: Sending packet type: 2 (initial), S0, Version 50435131,
+b55085165823429e:     <87054987b3e31a5c>, <e616c655c6cf98c6>, Seq: 1, pl: 26
+b55085165823429e:     Token length: 0
+b55085165823429e:     Prepared 6 bytes
+b55085165823429e:     ACK (nb=0), 0
+
+b55085165823429e: Sending packet type: 4 (handshake), S0, Version 50435131,
+b55085165823429e:     <87054987b3e31a5c>, <e616c655c6cf98c6>, Seq: 0, pl: 64
+b55085165823429e:     Prepared 44 bytes
+b55085165823429e:     ACK (nb=0), 0-1
+b55085165823429e:     Crypto HS frame, offset 0, length 36: 140000201bfdc636...
+
+b55085165823429e: Sending packet type: 6 (1rtt protected), S1,
+b55085165823429e:     <87054987b3e31a5c>, Seq: 0 (0), Phi: 0,
+b55085165823429e:     Prepared 224 bytes
+b55085165823429e:     NEW CONNECTION ID[1]: 0x6a09b371f81228ca, eac0c1c0f223bf70b19a8fb694c11684
+b55085165823429e:     NEW CONNECTION ID[2]: 0x9ececf339fcc9760, 467e61d3ae625a94023322ca2906a61f
+b55085165823429e:     NEW CONNECTION ID[3]: 0x968ef3ec7923c431, 9545a26da6a7e78d084f4c9e7ac44861
+b55085165823429e:     NEW CONNECTION ID[4]: 0x459bc81bcaa3b7c7, 2ff02815a29ae097a78e023b61335f75
+b55085165823429e:     NEW CONNECTION ID[5]: 0x66ee9f633be7f923, 326d6c07a145299033565c9d7cfffe76
+b55085165823429e:     NEW CONNECTION ID[6]: 0xbe61f80894d5c671, e5e9db745843fbc07746b89f90d8fb5d
+b55085165823429e:     NEW CONNECTION ID[7]: 0x3bbdf281dd4625ba, 1b47917dfcd523edc7b07b2c74ed61fb
+b55085165823429e:     NEW CONNECTION ID[8]: 0x5251b44d4fb5bd7e, e8f3b370aa6d3b9783824b5f819c1079
+
+b55085165823429e: Sending 394 bytes to 127.0.0.1:6121 at T=0.009750 (5913435984fbe)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 394
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG1
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG2
+XXXXXXXXXXXXXXXX:PICOQUICDEMO::quic_client()::DEBUG3
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CONNECTION_ESTABLISHED!
+picoquicdemo::quic_client()-DETAILS: Version= 50435131 I-CID: b55085165823429e
+SNI not received.
+Received ALPN: hq-22
+Received transport parameter TLS extension (88 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (ocid), length 2, 7a98
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 2 (stateless_reset_token), length 16, cc5fe5a34d40d

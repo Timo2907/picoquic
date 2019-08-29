@@ -1,0 +1,259 @@
+----------------:PICOQUICDEMO::quic_server()-SERVER_STARTED
+----------------:PICOQUICDEMO::quic_server()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_server()-QSERVER_CREATED
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 2397604 us (wait for 10000000 us) 0000000000000000: recv from: 127.0.0.1, port 15575
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Initial processing: CNX_SERVER is NULL. ********
+a634fede504302a6: Receiving 1252 bytes from 127.0.0.1:55100 at T=0.000000 (591343ea4e67e)
+a634fede504302a6: Receiving packet type: 2 (initial), S0, Version 50435131,
+a634fede504302a6:     <a634fede504302a6>, <36e95dd985d589ef>, Seq: 0, pl: 1226
+a634fede504302a6:     Token length: 0
+a634fede504302a6:     Decrypted 1206 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 285: 010001190303baeb...
+a634fede504302a6:     padding, 917 bytes
+
+----------------:PICOQUICDEMO::quic_server()::a634fede504302a6: 0.005272 : Connection established, state = 12, from length: 16
+a634fede504302a6: Client address: 127.0.0.1, port 15575
+a634fede504302a6: SNI not received.
+a634fede504302a6: Received ALPN: hq-22
+a634fede504302a6: Received transport parameter TLS extension (68 bytes):
+a634fede504302a6:     Extension list (66 bytes):
+a634fede504302a6:         Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+a634fede504302a6:         Extension type: 4 (initial_max_data), length 4, 80100000
+a634fede504302a6:         Extension type: 8 (max_streams_bidi), length 2, 4201
+a634fede504302a6:         Extension type: 1 (ocid), length 2, 7a98
+a634fede504302a6:         Extension type: 3 (max_packet_size), length 2, 45a0
+a634fede504302a6:         Extension type: 9 (max_streams_uni), length 2, 4201
+a634fede504302a6:         Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+a634fede504302a6:         Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+a634fede504302a6:         Extension type: 14 (active_connection_id_limit), length 1, 08
+a634fede504302a6:         Extension type: 11 (max_ack_delay), length 1, 00
+
+#######################################################
+############### CONNECTION ESTABLISHED! ###############
+#######################################################
+
+a634fede504302a6: Sending packet type: 2 (initial), S0, Version 50435131,
+a634fede504302a6:     <36e95dd985d589ef>, <7bea3d1167419d8c>, Seq: 0, pl: 184
+a634fede504302a6:     Token length: 0
+a634fede504302a6:     Prepared 164 bytes
+a634fede504302a6:     ACK (nb=0), 0
+a634fede504302a6:     Crypto HS frame, offset 0, length 155: 0200009703033e0a...
+
+a634fede504302a6: Sending packet type: 4 (handshake), S0, Version 50435131,
+a634fede504302a6:     <36e95dd985d589ef>, <7bea3d1167419d8c>, Seq: 0, pl: 1017
+a634fede504302a6:     Prepared 997 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+a634fede504302a6: Sending 1252 bytes to 127.0.0.1:55100 at T=0.000000 (591343ea4e67e)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 6
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=1252 bytes
+a634fede504302a6: 0.005413 : Server CB, Stream: 0, 0 bytes, fin=9 (almost ready)
+a634fede504302a6: Sending packet type: 4 (handshake), S0, Version 50435131,
+a634fede504302a6:     <36e95dd985d589ef>, <7bea3d1167419d8c>, Seq: 1, pl: 270
+a634fede504302a6:     Prepared 250 bytes
+a634fede504302a6:     Crypto HS frame, offset 993, length 245: 5235474fa526ae82...
+
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S0,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 0 (0), Phi: 0,
+a634fede504302a6:     Prepared 345 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+a634fede504302a6:     NEW CONNECTION ID[1]: 0x66224457d9481601, 45dacae5f2bc66e591a02509263da146
+a634fede504302a6:     NEW CONNECTION ID[2]: 0x9143a15f49969bc8, 2c407e3a2235afa4fe958f4f14333e0b
+a634fede504302a6:     NEW CONNECTION ID[3]: 0x361ce5eab3133ab8, eeef513bbb9fc0a463cef294a7358d58
+a634fede504302a6:     NEW CONNECTION ID[4]: 0xe4c9512b1149104d, 50caf2d73c0cef3d85f487c1a02f7a6c
+a634fede504302a6:     NEW CONNECTION ID[5]: 0x2b409de9baa5c562, 76d9cdaa5373bd426507945ce0b523ac
+a634fede504302a6:     NEW CONNECTION ID[6]: 0xd5f8bca2f7811406, 806869747799b7db03a0a9c3e375393b
+a634fede504302a6:     NEW CONNECTION ID[7]: 0x0674be984aaa0a72, a0b78f9851757beed38a66223b2d96a3
+a634fede504302a6:     NEW CONNECTION ID[8]: 0x79c03bb84f708a04, 6530c6c725ddd0b92862f4f45a5303c4
+
+a634fede504302a6: Sending 669 bytes to 127.0.0.1:55100 at T=0.000000 (591343ea4e67e)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 13
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=669 bytes
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S0,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 1 (1), Phi: 0,
+a634fede504302a6:     Prepared 1411 bytes
+a634fede504302a6:     ping, 1 bytes
+a634fede504302a6:     padding, 1410 bytes
+
+a634fede504302a6: Sending 1440 bytes to 127.0.0.1:55100 at T=0.000000 (591343ea4e67e)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 13
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=1440 bytes
+a634fede504302a6: T= 0.000000, cwin: 15360, bytes-in-flight: 3361, nb_ret: 0, rtt_min: 0, rtt: 250000, rtt_var: 0, max_ack_delay: 0, state: 13
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 394 after 6532 us (wait for 1000000 us) 0000000000000000: recv from: 127.0.0.1, port 15575
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 394 bytes, state = 13 (server_false_start), return 0  ******** 
+a634fede504302a6: Receiving 394 bytes from 127.0.0.1:55100 at T=0.006532 (591343ea50002)
+a634fede504302a6: Receiving packet type: 2 (initial), S0, Version 50435131,
+a634fede504302a6:     <7bea3d1167419d8c>, <36e95dd985d589ef>, Seq: 1, pl: 26
+a634fede504302a6:     Token length: 0
+a634fede504302a6:     Decrypted 6 bytes
+a634fede504302a6:     ACK (nb=0), 0
+
+a634fede504302a6: Receiving packet type: 4 (handshake), S0, Version 50435131,
+a634fede504302a6:     <7bea3d1167419d8c>, <36e95dd985d589ef>, Seq: 0, pl: 64
+a634fede504302a6:     Decrypted 44 bytes
+a634fede504302a6:     ACK (nb=0), 0-1
+a634fede504302a6:     Crypto HS frame, offset 0, length 36: 14000020c745fb57...
+
+a634fede504302a6: Receiving packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <7bea3d1167419d8c>, Seq: 0 (0), Phi: 0,
+a634fede504302a6:     Decrypted 224 bytes
+a634fede504302a6:     NEW CONNECTION ID[1]: 0x11ed69b9983541c7, 3e590722225e7e76c754ca29f0c5afcc
+a634fede504302a6:     NEW CONNECTION ID[2]: 0x06b19a5a77c9acc9, 941212f528b8033abc585b5a5ca4c943
+a634fede504302a6:     NEW CONNECTION ID[3]: 0x0d8d97694ecb3107, 031b16ade933d0559a566d8e2a7e0e57
+a634fede504302a6:     NEW CONNECTION ID[4]: 0x96665572d1caed54, 629f1ad30c481a3daa416fd40361fdb6
+a634fede504302a6:     NEW CONNECTION ID[5]: 0x650cc63691214385, 87d42a07efd37867cd20f57e2ee82953
+a634fede504302a6:     NEW CONNECTION ID[6]: 0x47839a639055850b, 04646d1cb49e5649bd77f1c567a13a83
+a634fede504302a6:     NEW CONNECTION ID[7]: 0xfb9ff0f40ce8e3fb, 134c3206450479ca63f008779d231efd
+a634fede504302a6:     NEW CONNECTION ID[8]: 0x4d25401816fbaf7d, e9162593d9ee2079d6aacd01fc203712
+
+a634fede504302a6: 0.006706 : Server CB, Stream: 0, 0 bytes, fin=10 (ready)
+a634fede504302a6: Sending packet type: 4 (handshake), S0, Version 50435131,
+a634fede504302a6:     <36e95dd985d589ef>, <7bea3d1167419d8c>, Seq: 2, pl: 25
+a634fede504302a6:     Prepared 5 bytes
+a634fede504302a6:     ACK (nb=0), 0
+
+a634fede504302a6: Sending 50 bytes to 127.0.0.1:55100 at T=0.006532 (591343ea50002)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=50 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 3774 us (wait for 3468 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 2 (2), Phi: 0,
+a634fede504302a6:     Prepared 26 bytes
+a634fede504302a6:     ACK (nb=0), 0
+a634fede504302a6:     padding, 20 bytes
+
+a634fede504302a6: Sending 55 bytes to 127.0.0.1:55100 at T=0.010306 (591343ea50ec0)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+a634fede504302a6: T= 0.010306, cwin: 16859, bytes-in-flight: 1919, nb_ret: 0, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 39895 us (wait for 39694 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 3 (3), Phi: 0,
+a634fede504302a6:     Prepared 351 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+a634fede504302a6:     NEW CONNECTION ID[1]: 0x66224457d9481601, 45dacae5f2bc66e591a02509263da146
+a634fede504302a6:     NEW CONNECTION ID[2]: 0x9143a15f49969bc8, 2c407e3a2235afa4fe958f4f14333e0b
+a634fede504302a6:     NEW CONNECTION ID[3]: 0x361ce5eab3133ab8, eeef513bbb9fc0a463cef294a7358d58
+a634fede504302a6:     NEW CONNECTION ID[4]: 0xe4c9512b1149104d, 50caf2d73c0cef3d85f487c1a02f7a6c
+a634fede504302a6:     NEW CONNECTION ID[5]: 0x2b409de9baa5c562, 76d9cdaa5373bd426507945ce0b523ac
+a634fede504302a6:     NEW CONNECTION ID[6]: 0xd5f8bca2f7811406, 806869747799b7db03a0a9c3e375393b
+a634fede504302a6:     NEW CONNECTION ID[7]: 0x0674be984aaa0a72, a0b78f9851757beed38a66223b2d96a3
+a634fede504302a6:     NEW CONNECTION ID[8]: 0x79c03bb84f708a04, 6530c6c725ddd0b92862f4f45a5303c4
+a634fede504302a6:     ACK (nb=0), 0
+
+a634fede504302a6: Sending 380 bytes to 127.0.0.1:55100 at T=0.050201 (591343ea5aa97)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=380 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 6599 us (wait for 6331 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: T= 0.056800, cwin: 3072, bytes-in-flight: 1875, nb_ret: 1, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 944242 us (wait for 943200 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 4 (4), Phi: 0,
+a634fede504302a6:     Prepared 1371 bytes
+a634fede504302a6:     ping, 1 bytes
+a634fede504302a6:     padding, 1370 bytes
+
+a634fede504302a6: Sending 1400 bytes to 127.0.0.1:55100 at T=1.001042 (591343eb42cd0)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=1400 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 9571 us (wait for 9264 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: T= 1.010613, cwin: 3072, bytes-in-flight: 1780, nb_ret: 1, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 39732 us (wait for 39588 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 5 (5), Phi: 0,
+a634fede504302a6:     Prepared 353 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+a634fede504302a6:     NEW CONNECTION ID[1]: 0x66224457d9481601, 45dacae5f2bc66e591a02509263da146
+a634fede504302a6:     NEW CONNECTION ID[2]: 0x9143a15f49969bc8, 2c407e3a2235afa4fe958f4f14333e0b
+a634fede504302a6:     NEW CONNECTION ID[3]: 0x361ce5eab3133ab8, eeef513bbb9fc0a463cef294a7358d58
+a634fede504302a6:     NEW CONNECTION ID[4]: 0xe4c9512b1149104d, 50caf2d73c0cef3d85f487c1a02f7a6c
+a634fede504302a6:     NEW CONNECTION ID[5]: 0x2b409de9baa5c562, 76d9cdaa5373bd426507945ce0b523ac
+a634fede504302a6:     NEW CONNECTION ID[6]: 0xd5f8bca2f7811406, 806869747799b7db03a0a9c3e375393b
+a634fede504302a6:     NEW CONNECTION ID[7]: 0x0674be984aaa0a72, a0b78f9851757beed38a66223b2d96a3
+a634fede504302a6:     NEW CONNECTION ID[8]: 0x79c03bb84f708a04, 6530c6c725ddd0b92862f4f45a5303c4
+a634fede504302a6:     ACK (nb=0), 0
+
+a634fede504302a6: Sending 382 bytes to 127.0.0.1:55100 at T=1.050345 (591343eb4ed67)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=382 bytes
+a634fede504302a6: T= 1.050345, cwin: 3072, bytes-in-flight: 1782, nb_ret: 2, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 1952987 us (wait for 1950697 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: T= 3.003332, cwin: 3072, bytes-in-flight: 382, nb_ret: 2, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 47158 us (wait for 47013 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 6 (6), Phi: 0,
+a634fede504302a6:     Prepared 353 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+a634fede504302a6:     NEW CONNECTION ID[1]: 0x66224457d9481601, 45dacae5f2bc66e591a02509263da146
+a634fede504302a6:     NEW CONNECTION ID[2]: 0x9143a15f49969bc8, 2c407e3a2235afa4fe958f4f14333e0b
+a634fede504302a6:     NEW CONNECTION ID[3]: 0x361ce5eab3133ab8, eeef513bbb9fc0a463cef294a7358d58
+a634fede504302a6:     NEW CONNECTION ID[4]: 0xe4c9512b1149104d, 50caf2d73c0cef3d85f487c1a02f7a6c
+a634fede504302a6:     NEW CONNECTION ID[5]: 0x2b409de9baa5c562, 76d9cdaa5373bd426507945ce0b523ac
+a634fede504302a6:     NEW CONNECTION ID[6]: 0xd5f8bca2f7811406, 806869747799b7db03a0a9c3e375393b
+a634fede504302a6:     NEW CONNECTION ID[7]: 0x0674be984aaa0a72, a0b78f9851757beed38a66223b2d96a3
+a634fede504302a6:     NEW CONNECTION ID[8]: 0x79c03bb84f708a04, 6530c6c725ddd0b92862f4f45a5303c4
+a634fede504302a6:     ACK (nb=0), 0
+
+a634fede504302a6: Sending 382 bytes to 127.0.0.1:55100 at T=3.050490 (591343ed37278)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=382 bytes
+a634fede504302a6: T= 3.050490, cwin: 3072, bytes-in-flight: 382, nb_ret: 3, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 4004211 us (wait for 4000000 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 7 (7), Phi: 0,
+a634fede504302a6:     Prepared 353 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+a634fede504302a6:     NEW CONNECTION ID[1]: 0x66224457d9481601, 45dacae5f2bc66e591a02509263da146
+a634fede504302a6:     NEW CONNECTION ID[2]: 0x9143a15f49969bc8, 2c407e3a2235afa4fe958f4f14333e0b
+a634fede504302a6:     NEW CONNECTION ID[3]: 0x361ce5eab3133ab8, eeef513bbb9fc0a463cef294a7358d58
+a634fede504302a6:     NEW CONNECTION ID[4]: 0xe4c9512b1149104d, 50caf2d73c0cef3d85f487c1a02f7a6c
+a634fede504302a6:     NEW CONNECTION ID[5]: 0x2b409de9baa5c562, 76d9cdaa5373bd426507945ce0b523ac
+a634fede504302a6:     NEW CONNECTION ID[6]: 0xd5f8bca2f7811406, 806869747799b7db03a0a9c3e375393b
+a634fede504302a6:     NEW CONNECTION ID[7]: 0x0674be984aaa0a72, a0b78f9851757beed38a66223b2d96a3
+a634fede504302a6:     NEW CONNECTION ID[8]: 0x79c03bb84f708a04, 6530c6c725ddd0b92862f4f45a5303c4
+a634fede504302a6:     ACK (nb=0), 0
+
+a634fede504302a6: Sending 382 bytes to 127.0.0.1:55100 at T=7.054701 (591343f108beb)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=382 bytes
+a634fede504302a6: T= 7.054701, cwin: 3072, bytes-in-flight: 382, nb_ret: 4, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 8008256 us (wait for 8000000 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: Sending packet type: 6 (1rtt protected), S1,
+a634fede504302a6:     <36e95dd985d589ef>, Seq: 8 (8), Phi: 0,
+a634fede504302a6:     Prepared 353 bytes
+a634fede504302a6:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+a634fede504302a6:     NEW CONNECTION ID[1]: 0x66224457d9481601, 45dacae5f2bc66e591a02509263da146
+a634fede504302a6:     NEW CONNECTION ID[2]: 0x9143a15f49969bc8, 2c407e3a2235afa4fe958f4f14333e0b
+a634fede504302a6:     NEW CONNECTION ID[3]: 0x361ce5eab3133ab8, eeef513bbb9fc0a463cef294a7358d58
+a634fede504302a6:     NEW CONNECTION ID[4]: 0xe4c9512b1149104d, 50caf2d73c0cef3d85f487c1a02f7a6c
+a634fede504302a6:     NEW CONNECTION ID[5]: 0x2b409de9baa5c562, 76d9cdaa5373bd426507945ce0b523ac
+a634fede504302a6:     NEW CONNECTION ID[6]: 0xd5f8bca2f7811406, 806869747799b7db03a0a9c3e375393b
+a634fede504302a6:     NEW CONNECTION ID[7]: 0x0674be984aaa0a72, a0b78f9851757beed38a66223b2d96a3
+a634fede504302a6:     NEW CONNECTION ID[8]: 0x79c03bb84f708a04, 6530c6c725ddd0b92862f4f45a5303c4
+a634fede504302a6:     ACK (nb=0), 0
+
+a634fede504302a6: Sending 382 bytes to 127.0.0.1:55100 at T=15.062957 (591343f8abe2b)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=382 bytes
+a634fede504302a6: T= 15.062957, cwin: 3072, bytes-in-flight: 382, nb_ret: 5, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 10010236 us (wait for 10000000 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+a634fede504302a6: T= 25.073193, cwin: 3072, bytes-in-flight: 382, nb_ret: 5, rtt_min: 5732, rtt: 5793, rtt_var: 2272, max_ack_delay: 800, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 5995843 us (wait for 5989764 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 15 (ready), return 0  ******** 
+oquic/picoquic/sender.c:1203 [picoquic_retransmit_needed]: Too many retransmits of packet number 8, disconnect
+a634fede504302a6: 31.069066 : Server CB, Stream: 0, 0 bytes, fin=5 (connection close)
+----------------:PICOQUICDEMO::quic_server()::a634fede504302a6: 31.069076 : Closed. Retrans= 5, spurious= 0, max sp gap = 0, max sp delay = 0
+############### CONNECTION CLOSED (DISCONNECTED!) ###############
+----------------:PICOQUICDEMO::quic_server()-QSERVER_FREED
+----------------:PICOQUICDEMO::quic_server()-SOCKET_CLOSED

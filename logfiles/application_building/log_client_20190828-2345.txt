@@ -1,0 +1,60 @@
+----------------:PICOQUICDEMO::quic_client()-CLIENT_STARTED
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED
+----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= (null) IP_ADDR_TXT= 127.0.0.1
+----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED
+3fcf1f23cb5c63a2: Sending packet type: 2 (initial), S0, Version 50435131,
+3fcf1f23cb5c63a2:     <3fcf1f23cb5c63a2>, <4d4175f4340463cd>, Seq: 0, pl: 1226
+3fcf1f23cb5c63a2:     Token length: 0
+3fcf1f23cb5c63a2:     Prepared 1206 bytes
+3fcf1f23cb5c63a2:     Crypto HS frame, offset 0, length 285: 0100011903037d91...
+3fcf1f23cb5c63a2:     padding, 917 bytes
+
+3fcf1f23cb5c63a2: Sending 1252 bytes to 127.0.0.1:6121 at T=0.000000 (59134505f6a55)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1252
+----------------:PICOQUICDEMO::quic_client()::Local address updated
+3fcf1f23cb5c63a2: Receiving 1252 bytes from 127.0.0.1:6121 at T=0.008922 (59134505f8d2f)
+3fcf1f23cb5c63a2: Receiving packet type: 2 (initial), S0, Version 50435131,
+3fcf1f23cb5c63a2:     <4d4175f4340463cd>, <6833b5901fea933b>, Seq: 0, pl: 184
+3fcf1f23cb5c63a2:     Token length: 0
+3fcf1f23cb5c63a2:     Decrypted 164 bytes
+3fcf1f23cb5c63a2:     ACK (nb=0), 0
+3fcf1f23cb5c63a2:     Crypto HS frame, offset 0, length 155: 02000097030305d1...
+
+3fcf1f23cb5c63a2: Receiving packet type: 4 (handshake), S0, Version 50435131,
+3fcf1f23cb5c63a2:     <4d4175f4340463cd>, <6833b5901fea933b>, Seq: 0, pl: 1017
+3fcf1f23cb5c63a2:     Decrypted 997 bytes
+3fcf1f23cb5c63a2:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 1252 bytes, state = 7 (client_handshake_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 669
+3fcf1f23cb5c63a2: Receiving 669 bytes from 127.0.0.1:6121 at T=0.009369 (59134505f8eee)
+3fcf1f23cb5c63a2: Receiving packet type: 4 (handshake), S0, Version 50435131,
+3fcf1f23cb5c63a2:     <4d4175f4340463cd>, <6833b5901fea933b>, Seq: 1, pl: 270
+3fcf1f23cb5c63a2:     Decrypted 250 bytes
+3fcf1f23cb5c63a2:     Crypto HS frame, offset 993, length 245: 9f1a352db1e008a8...
+
+3fcf1f23cb5c63a2: Receiving packet type: 6 (1rtt protected), S0,
+3fcf1f23cb5c63a2:     <4d4175f4340463cd>, Seq: 0 (0), Phi: 0,
+3fcf1f23cb5c63a2:     Decrypted 345 bytes
+3fcf1f23cb5c63a2:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[1]: 0x45a1749c986cf730, ed9874c743c50cceecf9cd4a93145b96
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[2]: 0x9a60736ce44de14c, d78a99eac1cc97775b2a2512c214cbc8
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[3]: 0x8adf4d33a39e147e, e088358591a19cb6b060463355430611
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[4]: 0x40a1d1d0dbf6db03, d656588f4cc359d2bb4cf78ff0d04eb7
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[5]: 0xc96a42d85a9c9e2f, e42baeb317d827a4cdd8359c4099820d
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[6]: 0x2feb4eb94f4c78e4, 7fe8911c21cfd88352eab2b5809c31bb
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[7]: 0x94d77a79b5c98769, f79c76b1bf9ef609082108c0c68a0e29
+3fcf1f23cb5c63a2:     NEW CONNECTION ID[8]: 0xe6f2ab63ac77f3e8, a8a751c8df95967bbcde7d7edb9040fe
+
+quic/picoquic/tls_api.c:532 [picoquic_client_save_ticket_call_back]: Received incorrect session resume ticket, sni = NULL, alpn = hq-22, length = 162
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 2	******** Processed 669 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+--------------

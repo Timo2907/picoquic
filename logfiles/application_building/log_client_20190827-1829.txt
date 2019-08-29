@@ -1,0 +1,130 @@
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED
+----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= (null) IP_ADDR_TXT= 127.0.0.1
+----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED
+fc5e7e606542722a: Sending packet type: 2 (initial), S0, Version 50435131,
+fc5e7e606542722a:     <fc5e7e606542722a>, <9f10c0213576a097>, Seq: 0, pl: 1226
+fc5e7e606542722a:     Token length: 0
+fc5e7e606542722a:     Prepared 1206 bytes
+fc5e7e606542722a:     Crypto HS frame, offset 0, length 285: 010001190303e944...
+fc5e7e606542722a:     padding, 917 bytes
+
+fc5e7e606542722a: Sending 1252 bytes to 127.0.0.1:6121 at T=0.000000 (5911bc7ac53b2)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1252
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()::Local address updated
+fc5e7e606542722a: Receiving 1252 bytes from 127.0.0.1:6121 at T=0.008797 (5911bc7ac760f)
+fc5e7e606542722a: Receiving packet type: 2 (initial), S0, Version 50435131,
+fc5e7e606542722a:     <9f10c0213576a097>, <c4735d182c24b10b>, Seq: 0, pl: 184
+fc5e7e606542722a:     Token length: 0
+fc5e7e606542722a:     Decrypted 164 bytes
+fc5e7e606542722a:     ACK (nb=0), 0
+fc5e7e606542722a:     Crypto HS frame, offset 0, length 155: 0200009703033746...
+
+fc5e7e606542722a: Receiving packet type: 4 (handshake), S0, Version 50435131,
+fc5e7e606542722a:     <9f10c0213576a097>, <c4735d182c24b10b>, Seq: 0, pl: 1017
+fc5e7e606542722a:     Decrypted 997 bytes
+fc5e7e606542722a:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 1252 bytes, state = 7 (client_handshake_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 669
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+fc5e7e606542722a: Receiving 669 bytes from 127.0.0.1:6121 at T=0.009257 (5911bc7ac77db)
+fc5e7e606542722a: Receiving packet type: 4 (handshake), S0, Version 50435131,
+fc5e7e606542722a:     <9f10c0213576a097>, <c4735d182c24b10b>, Seq: 1, pl: 270
+fc5e7e606542722a:     Decrypted 250 bytes
+fc5e7e606542722a:     Crypto HS frame, offset 993, length 245: 7f0f6c0b51999b12...
+
+fc5e7e606542722a: Receiving packet type: 6 (1rtt protected), S0,
+fc5e7e606542722a:     <9f10c0213576a097>, Seq: 0 (0), Phi: 0,
+fc5e7e606542722a:     Decrypted 345 bytes
+fc5e7e606542722a:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+fc5e7e606542722a:     NEW CONNECTION ID[1]: 0x101c819498ed15b6, 7d765a287c56d9ebef3e62433e84a825
+fc5e7e606542722a:     NEW CONNECTION ID[2]: 0xd0faccff8ad4fc6c, 0951921583c006de61cf274c2dd8c406
+fc5e7e606542722a:     NEW CONNECTION ID[3]: 0x69ca29db1b652d65, 49a5ecaf076a43f24f560c4bba1086c8
+fc5e7e606542722a:     NEW CONNECTION ID[4]: 0x0a246db3fe5bb4f3, dbab7a310b43842af11ac2d0a3462b78
+fc5e7e606542722a:     NEW CONNECTION ID[5]: 0x1a5b22589ff83d57, 5d4be8ec0dd6bab593c3715071fb4fa1
+fc5e7e606542722a:     NEW CONNECTION ID[6]: 0x74cffe695f0afa7d, 4d8eb97fcab476c798fb00b173886063
+fc5e7e606542722a:     NEW CONNECTION ID[7]: 0x3aa4703d04b00603, 021cffc96b49f9aea22cb8ac7adb330e
+fc5e7e606542722a:     NEW CONNECTION ID[8]: 0xf770f76f4e91485f, 272cec340ae993e5395cab9cf7873260
+
+quic/picoquic/tls_api.c:532 [picoquic_client_save_ticket_call_back]: Received incorrect session resume ticket, sni = NULL, alpn = hq-22, length = 162
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 2	******** Processed 669 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1440
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+fc5e7e606542722a: Receiving 1440 bytes from 127.0.0.1:6121 at T=0.009506 (5911bc7ac78d4)
+fc5e7e606542722a: Receiving packet type: 6 (1rtt protected), S0,
+fc5e7e606542722a:     <9f10c0213576a097>, Seq: 1 (1), Phi: 0,
+fc5e7e606542722a:     Decrypted 1411 bytes
+fc5e7e606542722a:     ping, 1 bytes
+fc5e7e606542722a:     padding, 1410 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 3	******** Processed 1440 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+fc5e7e606542722a: Sending packet type: 2 (initial), S0, Version 50435131,
+fc5e7e606542722a:     <c4735d182c24b10b>, <9f10c0213576a097>, Seq: 1, pl: 26
+fc5e7e606542722a:     Token length: 0
+fc5e7e606542722a:     Prepared 6 bytes
+fc5e7e606542722a:     ACK (nb=0), 0
+
+fc5e7e606542722a: Sending packet type: 4 (handshake), S0, Version 50435131,
+fc5e7e606542722a:     <c4735d182c24b10b>, <9f10c0213576a097>, Seq: 0, pl: 64
+fc5e7e606542722a:     Prepared 44 bytes
+fc5e7e606542722a:     ACK (nb=0), 0-1
+fc5e7e606542722a:     Crypto HS frame, offset 0, length 36: 1400002026e93c71...
+
+fc5e7e606542722a: Sending packet type: 6 (1rtt protected), S1,
+fc5e7e606542722a:     <c4735d182c24b10b>, Seq: 0 (0), Phi: 0,
+fc5e7e606542722a:     Prepared 224 bytes
+fc5e7e606542722a:     NEW CONNECTION ID[1]: 0x5d77c6220653afc4, 79f23aca603f72022b71802316f44690
+fc5e7e606542722a:     NEW CONNECTION ID[2]: 0xa7b3e18593e4be61, 6d4d7233453f17ae6e886600bea0477e
+fc5e7e606542722a:     NEW CONNECTION ID[3]: 0x288f80d4a025c29e, c2b883582151aedeb04f466f63f91103
+fc5e7e606542722a:     NEW CONNECTION ID[4]: 0x4d70152d93c1495e, 11f1aa3461423c9d30245287d25f33f6
+fc5e7e606542722a:     NEW CONNECTION ID[5]: 0x0d02eab41891ef7b, 2e535fd5b828f3f04a6e70d651ce6574
+fc5e7e606542722a:     NEW CONNECTION ID[6]: 0x3a033fbe83a6ff07, f0694bd1f3d4cf14abbac2d7110309b0
+fc5e7e606542722a:     NEW CONNECTION ID[7]: 0xf2633203c9186e8a, fa99bc0db04a6f5510c24955286a0a1f
+fc5e7e606542722a:     NEW CONNECTION ID[8]: 0x7ef9a684e4655838, ac16efc3fc80f34b683e705ea0fe1dd2
+
+fc5e7e606542722a: Sending 394 bytes to 127.0.0.1:6121 at T=0.009537 (5911bc7ac78f3)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 394
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CONNECTION_ESTABLISHED!
+picoquicdemo::quic_client()-DETAILS: Version= 50435131 I-CID: fc5e7e606542722a
+SNI not received.
+Received ALPN: hq-22
+Received transport parameter TLS extension (88 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (ocid), length 2, 7a98
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 2 (stateless_reset_token), length 16, 5fde457ff51ff098fa60ab0689e01eb3
+        Extension type: 9 (max_streams_uni), length 2, 4201
+        Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+        Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+        Extension type: 14 (active_connection_id_limit), length 1, 08
+        Extension type: 11 (max_ack_delay), length 1, 00
+
+#######################################################
+############# START APPLICATION SCENARIO ##############
+##############################################

@@ -1,0 +1,130 @@
+----------------:PICOQUICDEMO::quic_client()-CLIENT_STARTED
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED
+----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= (null) IP_ADDR_TXT= 127.0.0.1
+----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED
+854a2b95d72858f2: Sending packet type: 2 (initial), S0, Version 50435131,
+854a2b95d72858f2:     <854a2b95d72858f2>, <642de76cbd69b2bf>, Seq: 0, pl: 1226
+854a2b95d72858f2:     Token length: 0
+854a2b95d72858f2:     Prepared 1206 bytes
+854a2b95d72858f2:     Crypto HS frame, offset 0, length 285: 010001190303b1d7...
+854a2b95d72858f2:     padding, 917 bytes
+
+854a2b95d72858f2: Sending 1252 bytes to 127.0.0.1:6121 at T=0.000000 (5911bf396b88e)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1252
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()::Local address updated
+854a2b95d72858f2: Receiving 1252 bytes from 127.0.0.1:6121 at T=0.008822 (5911bf396db04)
+854a2b95d72858f2: Receiving packet type: 2 (initial), S0, Version 50435131,
+854a2b95d72858f2:     <642de76cbd69b2bf>, <faa23ea6e74811e8>, Seq: 0, pl: 184
+854a2b95d72858f2:     Token length: 0
+854a2b95d72858f2:     Decrypted 164 bytes
+854a2b95d72858f2:     ACK (nb=0), 0
+854a2b95d72858f2:     Crypto HS frame, offset 0, length 155: 020000970303e130...
+
+854a2b95d72858f2: Receiving packet type: 4 (handshake), S0, Version 50435131,
+854a2b95d72858f2:     <642de76cbd69b2bf>, <faa23ea6e74811e8>, Seq: 0, pl: 1017
+854a2b95d72858f2:     Decrypted 997 bytes
+854a2b95d72858f2:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 1252 bytes, state = 7 (client_handshake_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 669
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+854a2b95d72858f2: Receiving 669 bytes from 127.0.0.1:6121 at T=0.009282 (5911bf396dcd0)
+854a2b95d72858f2: Receiving packet type: 4 (handshake), S0, Version 50435131,
+854a2b95d72858f2:     <642de76cbd69b2bf>, <faa23ea6e74811e8>, Seq: 1, pl: 270
+854a2b95d72858f2:     Decrypted 250 bytes
+854a2b95d72858f2:     Crypto HS frame, offset 993, length 245: 25a397041ee31ddc...
+
+854a2b95d72858f2: Receiving packet type: 6 (1rtt protected), S0,
+854a2b95d72858f2:     <642de76cbd69b2bf>, Seq: 0 (0), Phi: 0,
+854a2b95d72858f2:     Decrypted 345 bytes
+854a2b95d72858f2:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+854a2b95d72858f2:     NEW CONNECTION ID[1]: 0x22cb9ef4c610fb8c, e952d7f3a96e154a8539db0bfd7c9b44
+854a2b95d72858f2:     NEW CONNECTION ID[2]: 0xf58de4037d444e14, ce8504414531cbd1eb8c634d41af2af4
+854a2b95d72858f2:     NEW CONNECTION ID[3]: 0x929bba1ff8c78cb8, 4960b66430821930f321275662c14cb3
+854a2b95d72858f2:     NEW CONNECTION ID[4]: 0xa88005cacf0b2fad, fce4835afc55047c1089ca15eafb3b8e
+854a2b95d72858f2:     NEW CONNECTION ID[5]: 0x77c0e98fa4ebd9a4, 364d0b70375ac4f4dff637db8c03bc02
+854a2b95d72858f2:     NEW CONNECTION ID[6]: 0x554c2cdefbdeafab, 08d80ad408540169c92a2c5c7f4be005
+854a2b95d72858f2:     NEW CONNECTION ID[7]: 0x7ce44d9e2d499840, 4bbad1ad8d76ac6a4ba99bbafc7d3cea
+854a2b95d72858f2:     NEW CONNECTION ID[8]: 0xc88e8db59eb222bb, 96d8c6ff6521a4ea847cd7953a808e64
+
+quic/picoquic/tls_api.c:532 [picoquic_client_save_ticket_call_back]: Received incorrect session resume ticket, sni = NULL, alpn = hq-22, length = 162
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 2	******** Processed 669 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1440
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+854a2b95d72858f2: Receiving 1440 bytes from 127.0.0.1:6121 at T=0.009531 (5911bf396ddc9)
+854a2b95d72858f2: Receiving packet type: 6 (1rtt protected), S0,
+854a2b95d72858f2:     <642de76cbd69b2bf>, Seq: 1 (1), Phi: 0,
+854a2b95d72858f2:     Decrypted 1411 bytes
+854a2b95d72858f2:     ping, 1 bytes
+854a2b95d72858f2:     padding, 1410 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 3	******** Processed 1440 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+854a2b95d72858f2: Sending packet type: 2 (initial), S0, Version 50435131,
+854a2b95d72858f2:     <faa23ea6e74811e8>, <642de76cbd69b2bf>, Seq: 1, pl: 26
+854a2b95d72858f2:     Token length: 0
+854a2b95d72858f2:     Prepared 6 bytes
+854a2b95d72858f2:     ACK (nb=0), 0
+
+854a2b95d72858f2: Sending packet type: 4 (handshake), S0, Version 50435131,
+854a2b95d72858f2:     <faa23ea6e74811e8>, <642de76cbd69b2bf>, Seq: 0, pl: 64
+854a2b95d72858f2:     Prepared 44 bytes
+854a2b95d72858f2:     ACK (nb=0), 0-1
+854a2b95d72858f2:     Crypto HS frame, offset 0, length 36: 14000020ca65e210...
+
+854a2b95d72858f2: Sending packet type: 6 (1rtt protected), S1,
+854a2b95d72858f2:     <faa23ea6e74811e8>, Seq: 0 (0), Phi: 0,
+854a2b95d72858f2:     Prepared 224 bytes
+854a2b95d72858f2:     NEW CONNECTION ID[1]: 0xa7c3659936f05108, 6e99d0ebbd1a235aba64df3d14f61923
+854a2b95d72858f2:     NEW CONNECTION ID[2]: 0x267a4c78ed026df1, a3b0ccdf5952640f17b00b0e900c8736
+854a2b95d72858f2:     NEW CONNECTION ID[3]: 0xb1c7cb591c6cce8d, 57bd0a0360af852930f8acdb1b82a89a
+854a2b95d72858f2:     NEW CONNECTION ID[4]: 0x08cc8b792ea56385, 21edf03779473becc2bab9709e1b9265
+854a2b95d72858f2:     NEW CONNECTION ID[5]: 0xfe8881a089e2ac97, b6bb7486e1faa36973b5442b71b961df
+854a2b95d72858f2:     NEW CONNECTION ID[6]: 0x19274320682ed4fc, b897c9a4cf8af3f069f2fb95f3da41fb
+854a2b95d72858f2:     NEW CONNECTION ID[7]: 0x29364624a4a6fcb2, 85e4a997aca1898047c302ce44d469be
+854a2b95d72858f2:     NEW CONNECTION ID[8]: 0x4a676f65a6adb558, 8704c9ea4bfe5a74e9ceec0fd0937a5e
+
+854a2b95d72858f2: Sending 394 bytes to 127.0.0.1:6121 at T=0.009563 (5911bf396dde9)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 394
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select1
+X-X-X-X-X-X-X-X-X:DEBUG::picoquic_select2
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CONNECTION_ESTABLISHED!
+picoquicdemo::quic_client()-DETAILS: Version= 50435131 I-CID: 854a2b95d72858f2
+SNI not received.
+Received ALPN: hq-22
+Received transport parameter TLS extension (88 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (ocid), length 2, 7a98
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 2 (stateless_reset_token), length 16, 3b681bcf99186f9c011d8fb8d30194e4
+        Extension type: 9 (max_streams_uni), length 2, 4201
+        Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+        Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+        Extension type: 14 (active_connection_id_limit), length 1, 08
+        Extension type: 11 (max_ack_delay), length 1, 00
+
+#######################################################
+############# START APPLICATION SCENARIO #

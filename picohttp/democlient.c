@@ -640,44 +640,33 @@ int picoquic_application_scenario_client_initialize_context(
 	char const * alpn,
     int no_disk)
 {
-    /*
-
-    *stream_desc = (picoquic_demo_stream_desc_t*)malloc(nb_demo_streams*sizeof(picoquic_demo_stream_desc_t)); //TODO free the space in cleanup phase?
+    *stream_desc = (picoquic_demo_stream_desc_t*)malloc(nb_demo_streams*sizeof(picoquic_demo_stream_desc_t));
     uint64_t previous_stream_id = PICOQUIC_DEMO_STREAM_ID_INITIAL;
-    uint64_t payload = 100;
+    uint64_t stream_id = 0;
+    uint64_t payload = 100; //100 bytes payload = 136 bytes post
+    size_t i;
 
-    for(int i = 0; i < nb_demo_streams; i++)
-    { 
-        picoquic_demo_stream_desc_t* new_stream_desc = &(*desc)[i];
+    for(i=0; i < nb_demo_streams; i++)
+    {
+        picoquic_demo_stream_desc_t* new_stream_desc = &(*stream_desc)[i];
 
         new_stream_desc->is_binary = 0;
         new_stream_desc->doc_name = "/";
         new_stream_desc->f_name = "test.txt";
         new_stream_desc->post_size = payload;
+        new_stream_desc->stream_id = stream_id;
+        new_stream_desc->previous_stream_id = previous_stream_id;
 
         stream_id = new_stream_desc->stream_id + 4;
-        previous = new_stream_desc->stream_id;
+        previous_stream_id = new_stream_desc->stream_id;
     } 
-    */ 
 
     /*  
-        TODO: change from 1 stream to variable number of streams
         TODO: timing of streams
     */
 
-    picoquic_demo_stream_desc_t * stream_desc_f = (picoquic_demo_stream_desc_t*)malloc(sizeof(picoquic_demo_stream_desc_t));
-
-    stream_desc_f->stream_id = 4; //stream id
-    stream_desc_f->previous_stream_id = PICOQUIC_DEMO_STREAM_ID_INITIAL;
-    stream_desc_f->doc_name = "/";
-    stream_desc_f->f_name = "test.txt";
-    stream_desc_f->repeat_count = 0;
-    stream_desc_f->is_binary = 0; //txt file
-    stream_desc_f->post_size = 102400; //payload bytes
-
-
     memset(ctx, 0, sizeof(picoquic_demo_callback_ctx_t));
-    ctx->demo_stream = stream_desc_f; //TODO change here from stream_desc_f to stream_desc
+    ctx->demo_stream = *stream_desc;
     ctx->nb_demo_streams = nb_demo_streams;
     ctx->alpn = picoquic_parse_alpn(alpn);
     ctx->no_disk = no_disk;

@@ -610,11 +610,11 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-    client_sc_nb = 1; //TK: first with 1 stream
-    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk); //TODO maybe insert number of messages/timing between messages?
+    client_sc_nb = 150; //TK: number of streams = number of msgs -> 150 msgs à 100ms per msg = 15 sec
+    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk); //TODO maybe insert parameters number of messages/timing between messages?
     if(ret == 0) {
         if(F_log != NULL) {
-            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED\n");
+            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED with client_sc_nb= %zu\n", client_sc_nb);
         }
     } else {
         fprintf(stdout, "Initializing of the clients' context failed.\n");

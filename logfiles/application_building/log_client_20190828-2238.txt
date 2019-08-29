@@ -1,0 +1,196 @@
+----------------:PICOQUICDEMO::quic_client()-CLIENT_STARTED
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED
+----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= (null) IP_ADDR_TXT= 127.0.0.1
+----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED
+7b4b169032e1a789: Sending packet type: 2 (initial), S0, Version 50435131,
+7b4b169032e1a789:     <7b4b169032e1a789>, <cb6e052cad088086>, Seq: 0, pl: 1226
+7b4b169032e1a789:     Token length: 0
+7b4b169032e1a789:     Prepared 1206 bytes
+7b4b169032e1a789:     Crypto HS frame, offset 0, length 285: 010001190303f13d...
+7b4b169032e1a789:     padding, 917 bytes
+
+7b4b169032e1a789: Sending 1252 bytes to 127.0.0.1:6121 at T=0.000000 (591335dab378e)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::FIRST::bytes_sent= 1252
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1252
+----------------:PICOQUICDEMO::quic_client()::Local address updated
+7b4b169032e1a789: Receiving 1252 bytes from 127.0.0.1:6121 at T=0.008962 (591335dab5a90)
+7b4b169032e1a789: Receiving packet type: 2 (initial), S0, Version 50435131,
+7b4b169032e1a789:     <cb6e052cad088086>, <857a1b4a0c45c19d>, Seq: 0, pl: 184
+7b4b169032e1a789:     Token length: 0
+7b4b169032e1a789:     Decrypted 164 bytes
+7b4b169032e1a789:     ACK (nb=0), 0
+7b4b169032e1a789:     Crypto HS frame, offset 0, length 155: 0200009703032d37...
+
+7b4b169032e1a789: Receiving packet type: 4 (handshake), S0, Version 50435131,
+7b4b169032e1a789:     <cb6e052cad088086>, <857a1b4a0c45c19d>, Seq: 0, pl: 1017
+7b4b169032e1a789:     Decrypted 997 bytes
+7b4b169032e1a789:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 1252 bytes, state = 7 (client_handshake_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 669
+7b4b169032e1a789: Receiving 669 bytes from 127.0.0.1:6121 at T=0.009411 (591335dab5c51)
+7b4b169032e1a789: Receiving packet type: 4 (handshake), S0, Version 50435131,
+7b4b169032e1a789:     <cb6e052cad088086>, <857a1b4a0c45c19d>, Seq: 1, pl: 270
+7b4b169032e1a789:     Decrypted 250 bytes
+7b4b169032e1a789:     Crypto HS frame, offset 993, length 245: 6df22f281a0baec0...
+
+7b4b169032e1a789: Receiving packet type: 6 (1rtt protected), S0,
+7b4b169032e1a789:     <cb6e052cad088086>, Seq: 0 (0), Phi: 0,
+7b4b169032e1a789:     Decrypted 345 bytes
+7b4b169032e1a789:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+7b4b169032e1a789:     NEW CONNECTION ID[1]: 0xdc86334ed99d23e0, 0c8cd58eeaabe1d09a244fd8a1fdfa0f
+7b4b169032e1a789:     NEW CONNECTION ID[2]: 0x1b04cebbd6411c39, 89c69c4813f29dae3173b13772476366
+7b4b169032e1a789:     NEW CONNECTION ID[3]: 0x56e967c495cd965c, 247c2fe7aa81b3f8fc39c5017736a9bd
+7b4b169032e1a789:     NEW CONNECTION ID[4]: 0x3395d341e4a7d753, f2e291babc9e3af6b6a447f91dd3552d
+7b4b169032e1a789:     NEW CONNECTION ID[5]: 0xfba3ee317c8cd555, b8d4e8e54f51058170034e26c2475c75
+7b4b169032e1a789:     NEW CONNECTION ID[6]: 0xbc207a834af6fde9, b4309ff3c005c513b86f2bd2f5e61611
+7b4b169032e1a789:     NEW CONNECTION ID[7]: 0x4f5cacd5b19511b4, 4152a270eeb29730f88814fdb858245b
+7b4b169032e1a789:     NEW CONNECTION ID[8]: 0x160f061d8854d3be, eecb0c373b143b9ed24c7ba67ce9e976
+
+quic/picoquic/tls_api.c:532 [picoquic_client_save_ticket_call_back]: Received incorrect session resume ticket, sni = NULL, alpn = hq-22, length = 162
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 2	******** Processed 669 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 1440
+7b4b169032e1a789: Receiving 1440 bytes from 127.0.0.1:6121 at T=0.009621 (591335dab5d23)
+7b4b169032e1a789: Receiving packet type: 6 (1rtt protected), S0,
+7b4b169032e1a789:     <cb6e052cad088086>, Seq: 1 (1), Phi: 0,
+7b4b169032e1a789:     Decrypted 1411 bytes
+7b4b169032e1a789:     ping, 1 bytes
+7b4b169032e1a789:     padding, 1410 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 3	******** Processed 1440 bytes, state = 11 (client_almost_ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+7b4b169032e1a789: Sending packet type: 2 (initial), S0, Version 50435131,
+7b4b169032e1a789:     <857a1b4a0c45c19d>, <cb6e052cad088086>, Seq: 1, pl: 26
+7b4b169032e1a789:     Token length: 0
+7b4b169032e1a789:     Prepared 6 bytes
+7b4b169032e1a789:     ACK (nb=0), 0
+
+7b4b169032e1a789: Sending packet type: 4 (handshake), S0, Version 50435131,
+7b4b169032e1a789:     <857a1b4a0c45c19d>, <cb6e052cad088086>, Seq: 0, pl: 64
+7b4b169032e1a789:     Prepared 44 bytes
+7b4b169032e1a789:     ACK (nb=0), 0-1
+7b4b169032e1a789:     Crypto HS frame, offset 0, length 36: 14000020937ccd1d...
+
+7b4b169032e1a789: Sending packet type: 6 (1rtt protected), S1,
+7b4b169032e1a789:     <857a1b4a0c45c19d>, Seq: 0 (0), Phi: 0,
+7b4b169032e1a789:     Prepared 224 bytes
+7b4b169032e1a789:     NEW CONNECTION ID[1]: 0x870f2e0d32f7541e, 98b9a2b4eb29bb6e6c71c0c2b9949d3b
+7b4b169032e1a789:     NEW CONNECTION ID[2]: 0xf7a7c5e9e43a5e97, 2ed695b4b7e58d983937d3e5ddb3ff44
+7b4b169032e1a789:     NEW CONNECTION ID[3]: 0x3f91b64658968cc7, fa75c860b3904f96658f6df20bd7fd0a
+7b4b169032e1a789:     NEW CONNECTION ID[4]: 0xf879edec90062971, e4c9679c7d2bbd1bb090f618cc4cd49d
+7b4b169032e1a789:     NEW CONNECTION ID[5]: 0xd34139c67786cddc, 8bca323a5959319c67ff6e3da13c4ede
+7b4b169032e1a789:     NEW CONNECTION ID[6]: 0x53180af7c72af5ff, 0cf48b577530cc6cb0772409dc48d1a4
+7b4b169032e1a789:     NEW CONNECTION ID[7]: 0xbcf95011bd339280, 72514b9d8c08bfff53543bb80befe44e
+7b4b169032e1a789:     NEW CONNECTION ID[8]: 0x8a6987030e5bb7c8, 9eaa91ab0dc90c138391e92761c33de3
+
+7b4b169032e1a789: Sending 394 bytes to 127.0.0.1:6121 at T=0.009706 (591335dab5d78)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 394
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CONNECTION_ESTABLISHED!
+picoquicdemo::quic_client()-DETAILS: Version= 50435131 I-CID: 7b4b169032e1a789
+SNI not received.
+Received ALPN: hq-22
+Received transport parameter TLS extension (88 bytes):
+    Extension list (86 bytes):
+        Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+        Extension type: 4 (initial_max_data), length 4, 80100000
+        Extension type: 8 (max_streams_bidi), length 2, 4201
+        Extension type: 1 (ocid), length 2, 7a98
+        Extension type: 3 (max_packet_size), length 2, 45a0
+        Extension type: 2 (stateless_reset_token), length 16, 8ab432666b9f24c29574cd279ee2761b
+        Extension type: 9 (max_streams_uni), length 2, 4201
+        Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+        Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+        Extension type: 14 (active_connection_id_limit), length 1, 08
+        Extension type: 11 (max_ack_delay), length 1, 00
+
+#######################################################
+############# START APPLICATION SCENARIO ##############
+#######################################################
+
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 1
+7b4b169032e1a789: Sending packet type: 6 (1rtt protected), S1,
+7b4b169032e1a789:     <857a1b4a0c45c19d>, Seq: 1 (1), Phi: 0,
+7b4b169032e1a789:     Prepared 1411 bytes
+7b4b169032e1a789:     ping, 1 bytes
+7b4b169032e1a789:     padding, 1410 bytes
+
+7b4b169032e1a789: Sending 1440 bytes to 127.0.0.1:6121 at T=0.009936 (591335dab5e5e)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 1440
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 2
+7b4b169032e1a789: Sending packet type: 6 (1rtt protected), S1,
+7b4b169032e1a789:     <857a1b4a0c45c19d>, Seq: 2 (2), Phi: 0,
+7b4b169032e1a789:     Prepared 26 bytes
+7b4b169032e1a789:     ACK (nb=0), 0-1
+7b4b169032e1a789:     padding, 21 bytes
+
+7b4b169032e1a789: Sending 55 bytes to 127.0.0.1:6121 at T=0.010084 (591335dab5ef2)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 55
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 3
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 50
+7b4b169032e1a789: Receiving 50 bytes from 127.0.0.1:6121 at T=0.010239 (591335dab5f8d)
+7b4b169032e1a789: Receiving packet type: 4 (handshake), S0, Version 50435131,
+7b4b169032e1a789:     <cb6e052cad088086>, <857a1b4a0c45c19d>, Seq: 2, pl: 25
+7b4b169032e1a789:     Decrypted 5 bytes
+7b4b169032e1a789:     ACK (nb=0), 0
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 50 bytes, state = 14 (client_ready_start), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 4
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 55
+7b4b169032e1a789: Receiving 55 bytes from 127.0.0.1:6121 at T=0.010393 (591335dab6027)
+7b4b169032e1a789: Receiving packet type: 6 (1rtt protected), S1,
+7b4b169032e1a789:     <cb6e052cad088086>, Seq: 2 (2), Phi: 0,
+7b4b169032e1a789:     Decrypted 26 bytes
+7b4b169032e1a789:     ACK (nb=0), 0-2
+7b4b169032e1a789:     padding, 21 bytes
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 55 bytes, state = 15 (ready), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 5
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= 6
+----------------:PICOQUICDEMO::quic_client()::No progress for 10 seconds. Closing. 
+ ############### CLOSING THE CONNECTION (idle) ###############
+7b4b169032e1a789: Sending packet type: 6 (1rtt protected), S0,
+7b4b169032e1a789:     <857a1b4a0c45c19d>, Seq: 3 (3), Phi: 0,
+7b4b169032e1a789:     Prepared 11 bytes
+7b4b169032e1a789:     ACK (nb=0), 1-2
+7b4b169032e1a789:     application_close, Error 0x0000, Reason length 0
+
+7b4b169032e1a789: Sending 40 bytes to 127.0.0.1:6121 at T=10.020281 (591335e441d47)
+----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= 40
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED
+----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS 
+----------------:PICOQUICDEMO::quic_client()-PICOQUIC_SELECT::bytes_recv= 33
+7b4b169032e1a789: Receiving 33 bytes from 127.0.0.1:6121 at T=10.020622 (591335e441e9c)
+7b4b169032e1a789: Receiving packet type: 6 (1rtt protected), S0,
+7b4b169032e1a789:     <cb6e052cad088086>, Seq: 3 (3), Phi: 0,
+7b4b169032e1a789:     Decrypted 4 bytes
+7b4b169032e1a789:     connection_close, Error 0x0000, Reason length 0
+
+----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= 1	******** Processed 33 bytes, state = 20 (disconnected), return 0  ******** 
+----------------:PICOQUICDEMO::quic_client()-CONTEXT_DELETED
+----------------:PICOQUICDEMO::quic_client()-QCLIENT_FREED
+----------------:PICOQUICDEMO::quic_client()-SOCKET_CLOSED
+----------------:PICOQUICDEMO::quic_client()-CLEANUP_FINISHED
