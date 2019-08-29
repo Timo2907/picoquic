@@ -37,3 +37,14 @@ gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
 		https://quicwg.org/base-drafts/draft-ietf-quic-transport.html#rfc.section.2.1
 		
 	3.3 TODO: timing of streams
+		3.3.1 Step 1: Where does it switch from one stream to the next stream? 
+				-> delay this for 100 ms? 
+				https://www.geeksforgeeks.org/time-delay-c/
+				https://c-for-dummies.com/blog/?p=69
+				
+		3.3.2 current_time is in usec:
+				double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_client)); (divided by 1000000.0 for seconds)
+		3.3.3 EXPLAIN TIMING HERE
+
+
+TODO: The Server should only provide ACKs and no other packets!

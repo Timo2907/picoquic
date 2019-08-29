@@ -1,0 +1,1335 @@
+----------------:PICOQUICDEMO::quic_server()-SERVER_STARTED
+----------------:PICOQUICDEMO::quic_server()-SOCKET_OPENED
+----------------:PICOQUICDEMO::quic_server()-QSERVER_CREATED
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 1835966 us (wait for 10000000 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Initial processing: CNX_SERVER is NULL. ********
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.000000 (5913482eb7f34)
+9584fd088e3eebd1: Receiving packet type: 2 (initial), S0, Version 50435131,
+9584fd088e3eebd1:     <9584fd088e3eebd1>, <e62f559244c85a12>, Seq: 0, pl: 1226
+9584fd088e3eebd1:     Token length: 0
+9584fd088e3eebd1:     Decrypted 1206 bytes
+9584fd088e3eebd1:     Crypto HS frame, offset 0, length 285: 010001190303aa60...
+9584fd088e3eebd1:     padding, 917 bytes
+
+----------------:PICOQUICDEMO::quic_server()::9584fd088e3eebd1: 0.005250 : Connection established, state = 12, from length: 16
+9584fd088e3eebd1: Client address: 127.0.0.1, port 1465
+9584fd088e3eebd1: SNI not received.
+9584fd088e3eebd1: Received ALPN: hq-22
+9584fd088e3eebd1: Received transport parameter TLS extension (68 bytes):
+9584fd088e3eebd1:     Extension list (66 bytes):
+9584fd088e3eebd1:         Extension type: 5 (max_stream_data_bidi_local), length 4, 80200000
+9584fd088e3eebd1:         Extension type: 4 (initial_max_data), length 4, 80100000
+9584fd088e3eebd1:         Extension type: 8 (max_streams_bidi), length 2, 4201
+9584fd088e3eebd1:         Extension type: 1 (ocid), length 2, 7a98
+9584fd088e3eebd1:         Extension type: 3 (max_packet_size), length 2, 45a0
+9584fd088e3eebd1:         Extension type: 9 (max_streams_uni), length 2, 4201
+9584fd088e3eebd1:         Extension type: 6 (max_stream_data_bidi_remote), length 4, 80010063
+9584fd088e3eebd1:         Extension type: 7 (max_stream_data_uni), length 4, 8000ffff
+9584fd088e3eebd1:         Extension type: 14 (active_connection_id_limit), length 1, 08
+9584fd088e3eebd1:         Extension type: 11 (max_ack_delay), length 1, 00
+
+#######################################################
+############### CONNECTION ESTABLISHED! ###############
+#######################################################
+
+9584fd088e3eebd1: Sending packet type: 2 (initial), S0, Version 50435131,
+9584fd088e3eebd1:     <e62f559244c85a12>, <0f67fbe78233c407>, Seq: 0, pl: 184
+9584fd088e3eebd1:     Token length: 0
+9584fd088e3eebd1:     Prepared 164 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0
+9584fd088e3eebd1:     Crypto HS frame, offset 0, length 155: 0200009703038bc3...
+
+9584fd088e3eebd1: Sending packet type: 4 (handshake), S0, Version 50435131,
+9584fd088e3eebd1:     <e62f559244c85a12>, <0f67fbe78233c407>, Seq: 0, pl: 1017
+9584fd088e3eebd1:     Prepared 997 bytes
+9584fd088e3eebd1:     Crypto HS frame, offset 0, length 993: 0800006a00680010...
+
+9584fd088e3eebd1: Sending 1252 bytes to 127.0.0.1:47365 at T=0.000000 (5913482eb7f34)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 6
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=1252 bytes
+9584fd088e3eebd1: 0.005387 : Server CB, Stream: 0, 0 bytes, fin=9 (almost ready)
+9584fd088e3eebd1: Sending packet type: 4 (handshake), S0, Version 50435131,
+9584fd088e3eebd1:     <e62f559244c85a12>, <0f67fbe78233c407>, Seq: 1, pl: 270
+9584fd088e3eebd1:     Prepared 250 bytes
+9584fd088e3eebd1:     Crypto HS frame, offset 993, length 245: 0d54cdbefe83e088...
+
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 0 (0), Phi: 0,
+9584fd088e3eebd1:     Prepared 345 bytes
+9584fd088e3eebd1:     Crypto HS frame, offset 0, length 117: 04000071000186a0...
+9584fd088e3eebd1:     NEW CONNECTION ID[1]: 0xb32628568746184d, 8cc6e37213f91e9af1dd4e16ad4a928b
+9584fd088e3eebd1:     NEW CONNECTION ID[2]: 0xaa04b78eae45f825, 9d02708019ac8734c5e09b264df34ddd
+9584fd088e3eebd1:     NEW CONNECTION ID[3]: 0x77034faf0a0cc8e8, a16cb7600c99493b7f2d708bfee5023f
+9584fd088e3eebd1:     NEW CONNECTION ID[4]: 0xb20800ed32444ed4, 1160bf7f4aca2d005160732ea9ba1843
+9584fd088e3eebd1:     NEW CONNECTION ID[5]: 0x7b5a2d22c8f2b696, 7d7e218c82bd28f85eea98003eea10e2
+9584fd088e3eebd1:     NEW CONNECTION ID[6]: 0xe9a086c587ef1984, 12c9fe78611a24076faaa981be490ba6
+9584fd088e3eebd1:     NEW CONNECTION ID[7]: 0xc6aeaa5f7a1ba2fe, 78349382d7814b2aa5fa21a611fdc06d
+9584fd088e3eebd1:     NEW CONNECTION ID[8]: 0x8511764278150b09, 04757f4fc0d691b9a7013757c8fcde86
+
+9584fd088e3eebd1: Sending 669 bytes to 127.0.0.1:47365 at T=0.000000 (5913482eb7f34)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 13
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=669 bytes
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 1 (1), Phi: 0,
+9584fd088e3eebd1:     Prepared 1411 bytes
+9584fd088e3eebd1:     ping, 1 bytes
+9584fd088e3eebd1:     padding, 1410 bytes
+
+9584fd088e3eebd1: Sending 1440 bytes to 127.0.0.1:47365 at T=0.000000 (5913482eb7f34)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 13
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=1440 bytes
+9584fd088e3eebd1: T= 0.000000, cwin: 15360, bytes-in-flight: 3361, nb_ret: 0, rtt_min: 0, rtt: 250000, rtt_var: 0, max_ack_delay: 0, state: 13
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 394 after 6428 us (wait for 1000000 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 394 bytes, state = 13 (server_false_start), return 0  ******** 
+9584fd088e3eebd1: Receiving 394 bytes from 127.0.0.1:47365 at T=0.006428 (5913482eb9850)
+9584fd088e3eebd1: Receiving packet type: 2 (initial), S0, Version 50435131,
+9584fd088e3eebd1:     <0f67fbe78233c407>, <e62f559244c85a12>, Seq: 1, pl: 26
+9584fd088e3eebd1:     Token length: 0
+9584fd088e3eebd1:     Decrypted 6 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0
+
+9584fd088e3eebd1: Receiving packet type: 4 (handshake), S0, Version 50435131,
+9584fd088e3eebd1:     <0f67fbe78233c407>, <e62f559244c85a12>, Seq: 0, pl: 64
+9584fd088e3eebd1:     Decrypted 44 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-1
+9584fd088e3eebd1:     Crypto HS frame, offset 0, length 36: 14000020b2b45b08...
+
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 0 (0), Phi: 0,
+9584fd088e3eebd1:     Decrypted 224 bytes
+9584fd088e3eebd1:     NEW CONNECTION ID[1]: 0xd3bf36de7c56a961, 51776c782f7515425cc18d7673c0aa6b
+9584fd088e3eebd1:     NEW CONNECTION ID[2]: 0xb505ca0fa71a9b36, 4e6b6346ffca35671d5e6c62a42d2ec7
+9584fd088e3eebd1:     NEW CONNECTION ID[3]: 0xb9034590744c5bef, 2fab11132babd466721ce9aaacd48f6c
+9584fd088e3eebd1:     NEW CONNECTION ID[4]: 0x8740c325c3dab237, 207acb08dd052662d779c3048f343dfa
+9584fd088e3eebd1:     NEW CONNECTION ID[5]: 0x695cbada2b32b3fa, 193dba2c5cefc02c7baf73f702191ee9
+9584fd088e3eebd1:     NEW CONNECTION ID[6]: 0x17da5d31c4421c0c, 2cef4c0b95abf6a4a7dc5b1ef8a29559
+9584fd088e3eebd1:     NEW CONNECTION ID[7]: 0x5bfccdf985222644, f66506ce5117f7257928f2415670cbd2
+9584fd088e3eebd1:     NEW CONNECTION ID[8]: 0x9c8bda8acba072d5, 2cab23d4c1f2e4d6f98ba3b88ed05d9b
+
+9584fd088e3eebd1: 0.006589 : Server CB, Stream: 0, 0 bytes, fin=10 (ready)
+9584fd088e3eebd1: Sending packet type: 4 (handshake), S0, Version 50435131,
+9584fd088e3eebd1:     <e62f559244c85a12>, <0f67fbe78233c407>, Seq: 2, pl: 25
+9584fd088e3eebd1:     Prepared 5 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0
+
+9584fd088e3eebd1: Sending 50 bytes to 127.0.0.1:47365 at T=0.006428 (5913482eb9850)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=50 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 231 us (wait for 3572 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.006659 (5913482eb9937)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 1 (1), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 0, length 53, fin = 0: 504f5354202f2048...
+9584fd088e3eebd1:     Stream 4, offset 53, length 1164, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.006723 : Server CB, Stream: 4, 53 bytes, fin=0 (stream data)
+9584fd088e3eebd1: 0.006730 : Server CB, Stream: 4, 1164 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 86 us (wait for 3341 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.006745 (5913482eb998d)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 2 (2), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-1
+9584fd088e3eebd1:     Stream 4, offset 1217, length 1214, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.006775 : Server CB, Stream: 4, 1214 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 2 (2), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-2
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.006745 (5913482eb998d)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+9584fd088e3eebd1: T= 0.006745, cwin: 18641, bytes-in-flight: 105, nb_ret: 0, rtt_min: 5668, rtt: 5795, rtt_var: 1822, max_ack_delay: 760, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 104 us (wait for 49683 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.006849 (5913482eb99f5)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 3 (3), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 2431, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.006875 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 37 us (wait for 9896 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.006886 (5913482eb9a1a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 4 (4), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 3650, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.006908 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 3 (3), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-4
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.006886 (5913482eb9a1a)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+9584fd088e3eebd1: T= 0.006886, cwin: 18641, bytes-in-flight: 160, nb_ret: 0, rtt_min: 5668, rtt: 5795, rtt_var: 1822, max_ack_delay: 760, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 70 us (wait for 49542 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.006956 (5913482eb9a60)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 5 (5), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 4869, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007000 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 57 us (wait for 9930 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007013 (5913482eb9a99)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 6 (6), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 6088, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007035 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 4 (4), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-6
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007013 (5913482eb9a99)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+9584fd088e3eebd1: T= 0.007013, cwin: 18641, bytes-in-flight: 215, nb_ret: 0, rtt_min: 5668, rtt: 5795, rtt_var: 1822, max_ack_delay: 760, state: 15
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 72 us (wait for 49415 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007085 (5913482eb9ae1)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 7 (7), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 7307, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007109 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 9928 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007119 (5913482eb9b03)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 8 (8), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 8526, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007141 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 5 (5), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-8
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007119 (5913482eb9b03)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 63 us (wait for 448 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007182 (5913482eb9b42)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 9 (9), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 9745, length 1219, fin = 0: 0d0a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007222 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 52 us (wait for 9937 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007234 (5913482eb9b76)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 10 (10), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 10964, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007257 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 6 (6), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-10
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007234 (5913482eb9b76)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 70 us (wait for 448 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007304 (5913482eb9bbc)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 11 (11), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 12183, length 1219, fin = 0: 5a5a5a5a0d0a5a5a...
+
+9584fd088e3eebd1: 0.007336 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 43 us (wait for 9930 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007347 (5913482eb9be7)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 12 (12), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 13402, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007368 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 7 (7), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-12
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007347 (5913482eb9be7)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 65 us (wait for 448 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007412 (5913482eb9c28)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 13 (13), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 14621, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007436 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 9935 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007446 (5913482eb9c4a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 14 (14), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 15840, length 1219, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007486 : Server CB, Stream: 4, 1219 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 8 (8), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-14
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007446 (5913482eb9c4a)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 87 us (wait for 448 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007533 (5913482eb9ca1)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 15 (15), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 17059, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007557 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 36 us (wait for 9913 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007569 (5913482eb9cc5)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 16 (16), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 18276, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007589 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 9 (9), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-16
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007569 (5913482eb9cc5)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 69 us (wait for 448 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007638 (5913482eb9d0a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 17 (17), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 19493, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007661 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 9931 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007672 (5913482eb9d2c)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 18 (18), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 20710, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007709 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 10 (10), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-18
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007672 (5913482eb9d2c)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 86 us (wait for 448 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007758 (5913482eb9d82)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 19 (19), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 21927, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007782 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 9914 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007792 (5913482eb9da4)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 20 (20), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 23144, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007813 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 11 (11), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 0-20
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007792 (5913482eb9da4)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 64 us (wait for 448 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007856 (5913482eb9de4)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 21 (21), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 24361, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.007885 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 41 us (wait for 9936 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007897 (5913482eb9e0d)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 22 (22), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     ACK (nb=0), 1-9
+9584fd088e3eebd1:     Stream 4, offset 25578, length 1212, fin = 0: 5a5a5a0d0a5a5a5a...
+
+9584fd088e3eebd1: 0.007942 : Server CB, Stream: 4, 1212 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 12 (12), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 17-22
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.007897 (5913482eb9e0d)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 95 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.007992 (5913482eb9e6c)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 23 (23), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 26790, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008017 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 36 us (wait for 905 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008028 (5913482eb9e90)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 24 (24), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 28007, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008049 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 13 (13), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 17-24
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008028 (5913482eb9e90)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 63 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008091 (5913482eb9ecf)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 25 (25), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 29224, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008114 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 937 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008125 (5913482eb9ef1)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 26 (26), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 30441, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008146 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 14 (14), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 17-26
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008125 (5913482eb9ef1)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 84 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008209 (5913482eb9f45)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 27 (27), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 31658, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008235 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 15 (15), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     MAX STREAM DATA, Stream: 4, max data: 0x20139.
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008209 (5913482eb9f45)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 70 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008279 (5913482eb9f8b)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 28 (28), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 32875, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008302 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 16 (16), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 17-28
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008279 (5913482eb9f8b)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 64 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008343 (5913482eb9fcb)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 29 (29), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 34092, length 1217, fin = 0: 0a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008366 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 936 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008377 (5913482eb9fed)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 30 (30), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 35309, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008398 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 17 (17), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 17-30
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008377 (5913482eb9fed)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 82 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008459 (5913482eba03f)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 31 (31), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 36526, length 1217, fin = 0: 5a5a5a5a5a5a5a0d...
+
+9584fd088e3eebd1: 0.008484 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 37 us (wait for 918 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008496 (5913482eba064)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 32 (32), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 37743, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008517 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 18 (18), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 17-32
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008496 (5913482eba064)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 62 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008558 (5913482eba0a2)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 33 (33), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 38960, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008582 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 35 us (wait for 938 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008593 (5913482eba0c5)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 34 (34), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 40177, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008614 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 19 (19), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 17-34
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008593 (5913482eba0c5)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 81 us (wait for 389 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008674 (5913482eba116)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 35 (35), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     ACK (nb=0), 10-15
+9584fd088e3eebd1:     Stream 4, offset 41394, length 1212, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008704 : Server CB, Stream: 4, 1212 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 42 us (wait for 919 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008716 (5913482eba140)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 36 (36), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 42606, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008738 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 20 (20), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-36
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008716 (5913482eba140)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 64 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008780 (5913482eba180)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 37 (37), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 43823, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008804 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 936 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008814 (5913482eba1a2)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 38 (38), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 45040, length 1217, fin = 0: 5a5a5a0d0a5a5a5a...
+
+9584fd088e3eebd1: 0.008835 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 21 (21), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-38
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008814 (5913482eba1a2)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 62 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008876 (5913482eba1e0)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 39 (39), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 46257, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008918 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 55 us (wait for 938 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008931 (5913482eba217)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 40 (40), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 47474, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.008952 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 22 (22), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-40
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.008931 (5913482eba217)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 65 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.008996 (5913482eba258)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 41 (41), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 48691, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009020 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 35 us (wait for 935 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009031 (5913482eba27b)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 42 (42), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 49908, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009052 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 23 (23), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-42
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009031 (5913482eba27b)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 62 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009093 (5913482eba2b9)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 43 (43), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 51125, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009132 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 52 us (wait for 938 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009145 (5913482eba2ed)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 44 (44), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 52342, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009167 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 24 (24), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-44
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009145 (5913482eba2ed)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 67 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009212 (5913482eba330)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 45 (45), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 53559, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009236 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 35 us (wait for 933 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009247 (5913482eba353)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 46 (46), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 54776, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009268 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 25 (25), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-46
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009247 (5913482eba353)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 62 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009309 (5913482eba391)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 47 (47), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 55993, length 1217, fin = 0: 5a5a0d0a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009332 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 938 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009343 (5913482eba3b3)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 48 (48), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 57210, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009381 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 26 (26), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-48
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009343 (5913482eba3b3)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 85 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009428 (5913482eba408)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 49 (49), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 58427, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009451 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 915 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009462 (5913482eba42a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 50 (50), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 59644, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009483 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 27 (27), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-50
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009462 (5913482eba42a)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 63 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009525 (5913482eba469)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 51 (51), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 60861, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009548 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 937 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009559 (5913482eba48b)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 52 (52), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 62078, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009596 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 28 (28), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-52
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009559 (5913482eba48b)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 91 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009650 (5913482eba4e6)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 53 (53), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 63295, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009675 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 36 us (wait for 909 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009686 (5913482eba50a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 54 (54), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 64512, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009707 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 29 (29), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 27-54
+9584fd088e3eebd1:     MAX STREAM DATA, Stream: 4, max data: 0x402bb.
+9584fd088e3eebd1:     padding, 15 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009686 (5913482eba50a)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 66 us (wait for 340 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009752 (5913482eba54c)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 55 (55), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     ACK (nb=0), 16-25
+9584fd088e3eebd1:     Stream 4, offset 65729, length 1212, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009781 : Server CB, Stream: 4, 1212 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 40 us (wait for 934 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009792 (5913482eba574)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 56 (56), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 66941, length 1217, fin = 0: 5a5a5a5a5a5a0d0a...
+
+9584fd088e3eebd1: 0.009829 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 30 (30), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-56
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009792 (5913482eba574)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 86 us (wait for 296 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009878 (5913482eba5ca)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 57 (57), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 68158, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009902 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 35 us (wait for 914 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009913 (5913482eba5ed)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 58 (58), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 69375, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.009934 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 31 (31), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-58
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.009913 (5913482eba5ed)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 64 us (wait for 296 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.009977 (5913482eba62d)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 59 (59), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 70592, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010000 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 936 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010011 (5913482eba64f)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 60 (60), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 71809, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010032 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 32 (32), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-60
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010011 (5913482eba64f)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 120 us (wait for 296 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010131 (5913482eba6c7)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 61 (61), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 73026, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010157 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 37 us (wait for 880 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010168 (5913482eba6ec)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 62 (62), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 74243, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010188 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 33 (33), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-62
+9584fd088e3eebd1:     padding, 21 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010168 (5913482eba6ec)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 59 us (wait for 296 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010227 (5913482eba727)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 63 (63), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     ACK (nb=0), 16-29
+9584fd088e3eebd1:     Stream 4, offset 75460, length 1212, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010253 : Server CB, Stream: 4, 1212 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 36 us (wait for 941 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010263 (5913482eba74b)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 64 (64), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 76672, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010283 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 34 (34), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-64
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010263 (5913482eba74b)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 59 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010322 (5913482eba786)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 65 (65), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 77889, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010362 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 52 us (wait for 941 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010374 (5913482eba7ba)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 66 (66), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 79106, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010393 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 35 (35), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-66
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010374 (5913482eba7ba)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 61 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010435 (5913482eba7f7)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 67 (67), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 80323, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010457 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 32 us (wait for 939 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010467 (5913482eba817)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 68 (68), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 81540, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010486 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 36 (36), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-68
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010467 (5913482eba817)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 58 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010525 (5913482eba851)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 69 (69), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 82757, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010562 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 49 us (wait for 942 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010574 (5913482eba882)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 70 (70), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 83974, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010595 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 37 (37), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-70
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010574 (5913482eba882)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 62 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010636 (5913482eba8c0)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 71 (71), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 85191, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010658 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 32 us (wait for 938 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010668 (5913482eba8e0)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 72 (72), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 86408, length 1217, fin = 0: 5a0d0a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010687 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 38 (38), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-72
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010668 (5913482eba8e0)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 58 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010726 (5913482eba91a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 73 (73), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 87625, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010747 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 48 us (wait for 942 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010774 (5913482eba94a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 74 (74), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 88842, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010795 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 39 (39), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-74
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010774 (5913482eba94a)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 63 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010837 (5913482eba989)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 75 (75), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 90059, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010858 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 32 us (wait for 937 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010869 (5913482eba9a9)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 76 (76), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 91276, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010888 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 40 (40), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-76
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010869 (5913482eba9a9)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 58 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010927 (5913482eba9e3)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 77 (77), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 92493, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010948 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 31 us (wait for 942 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.010958 (5913482ebaa02)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 78 (78), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 93710, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.010995 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 41 (41), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-78
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.010958 (5913482ebaa02)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 88 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.011046 (5913482ebaa5a)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 79 (79), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 94927, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.011069 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 34 us (wait for 912 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.011080 (5913482ebaa7c)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 80 (80), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 96144, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.011099 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 42 (42), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 47-80
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.011080 (5913482ebaa7c)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 62 us (wait for 262 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.011142 (5913482ebaaba)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 81 (81), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 97361, length 1217, fin = 0: 0d0a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.011164 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 32 us (wait for 938 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.011174 (5913482ebaada)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 82 (82), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     ACK (nb=0), 26-38
+9584fd088e3eebd1:     Stream 4, offset 98578, length 1212, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.011216 : Server CB, Stream: 4, 1212 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 43 (43), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 73-82
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.011174 (5913482ebaada)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 92 us (wait for 230 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.011266 (5913482ebab36)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 83 (83), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 99790, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.011289 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1252 after 33 us (wait for 908 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1252 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1252 bytes from 127.0.0.1:47365 at T=0.011299 (5913482ebab57)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 84 (84), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1223 bytes
+9584fd088e3eebd1:     Stream 4, offset 101007, length 1217, fin = 0: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.011319 : Server CB, Stream: 4, 1217 bytes, fin=0 (stream data)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 44 (44), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 73-84
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.011299 (5913482ebab57)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 266 after 62 us (wait for 230 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 266 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 266 bytes from 127.0.0.1:47365 at T=0.011361 (5913482ebab95)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 85 (85), Phi: 0,
+9584fd088e3eebd1:     Decrypted 237 bytes
+9584fd088e3eebd1:     Stream 4, offset 102224, length 229, fin = 1: 5a5a5a5a5a5a5a5a...
+
+9584fd088e3eebd1: 0.011383 : Server CB, Stream: 4, 229 bytes, fin=1 (stream fin)
+9584fd088e3eebd1: Server CB, Stream: 4, Processing command: POST / HTTP/1.0
+9584fd088e3eebd1: Server CB, Stream: 4, POST / HTTP/1.0, 102436 data received
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 45 (45), Phi: 0,
+9584fd088e3eebd1:     Prepared 234 bytes
+9584fd088e3eebd1:     Stream 4, offset 0, length 35, fin = 0: 323030204f4b0d0a...
+9584fd088e3eebd1:     Stream 4, offset 35, length 191, fin = 1: 3c21444f43545950...
+
+9584fd088e3eebd1: Sending 263 bytes to 127.0.0.1:47365 at T=0.011361 (5913482ebab95)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=263 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 1440 after 88 us (wait for 230 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 1440 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 1440 bytes from 127.0.0.1:47365 at T=0.011449 (5913482ebabed)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 86 (86), Phi: 0,
+9584fd088e3eebd1:     Decrypted 1411 bytes
+9584fd088e3eebd1:     ping, 1 bytes
+9584fd088e3eebd1:     padding, 1410 bytes
+
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S0,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 46 (46), Phi: 0,
+9584fd088e3eebd1:     Prepared 26 bytes
+9584fd088e3eebd1:     ACK (nb=0), 73-86
+9584fd088e3eebd1:     padding, 20 bytes
+
+9584fd088e3eebd1: Sending 55 bytes to 127.0.0.1:47365 at T=0.011449 (5913482ebabed)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 15
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=55 bytes
+----------------:PICOQUICDEMO::quic_server()-RECEPTION::bytes= 37 after 265 us (wait for 230 us) 0000000000000000: recv from: 127.0.0.1, port 1465
+----------------:PICOQUICDEMO::quic_server()-RECEPTION	******** Processed 37 bytes, state = 15 (ready), return 0  ******** 
+9584fd088e3eebd1: Receiving 37 bytes from 127.0.0.1:47365 at T=0.011714 (5913482ebacf6)
+9584fd088e3eebd1: Receiving packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <0f67fbe78233c407>, Seq: 87 (87), Phi: 0,
+9584fd088e3eebd1:     Decrypted 8 bytes
+9584fd088e3eebd1:     ACK (nb=0), 39-46
+9584fd088e3eebd1:     application_close, Error 0x0000, Reason length 0
+
+9584fd088e3eebd1: 0.011742 : Server CB, Stream: 0, 0 bytes, fin=6 (application close)
+9584fd088e3eebd1: Sending packet type: 6 (1rtt protected), S1,
+9584fd088e3eebd1:     <e62f559244c85a12>, Seq: 47 (47), Phi: 0,
+9584fd088e3eebd1:     Prepared 4 bytes
+9584fd088e3eebd1:     connection_close, Error 0x0000, Reason length 0
+
+9584fd088e3eebd1: Sending 33 bytes to 127.0.0.1:47365 at T=0.011714 (5913482ebacf6)
+----------------:PICOQUICDEMO::quic_server()-CONNECTION_STATE= 19
+----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=33 bytes
+9584fd088e3eebd1: T= 0.011714, cwin: 20604, bytes-in-flight: 83, nb_ret: 0, rtt_min: 241, rtt: 2827, rtt_var: 3262, max_ack_delay: 760, state: 19
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 150315 us (wait for 150000 us)
+----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO	******** Processed 0 bytes, state = 19 (draining), return 0  ******** 
+----------------:PICOQUICDEMO::quic_server()::9584fd088e3eebd1: 0.162041 : Closed. Retrans= 0, spurious= 0, max sp gap = 0, max sp delay = 0
+############### CONNECTION CLOSED (DISCONNECTED!) ###############
+----------------:PICOQUICDEMO::quic_server()-QSERVER_FREED
+----------------:PICOQUICDEMO::quic_server()-SOCKET_CLOSED

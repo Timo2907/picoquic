@@ -343,7 +343,6 @@ int quic_server(const char* server_name, int server_port,
 
 
             /* Sending packets */
-
             while (ret == 0 && (cnx_next = picoquic_get_earliest_cnx_to_wake(qserver, loop_time)) != NULL) {
                 int peer_addr_len = 0;
                 struct sockaddr_storage peer_addr;
@@ -358,6 +357,12 @@ int quic_server(const char* server_name, int server_port,
                     ret = 0;
 
                     if (F_log != NULL) {
+                        double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_next));
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Received %llu bytes in %f seconds\n",
+                                            (unsigned long long)picoquic_get_data_received(cnx_next),
+                                            duration_usec / 1000000.0);
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Sent %llu bytes in %f seconds.\n",
+                                            (unsigned long long)picoquic_get_data_sent(cnx_next), duration_usec / 1000000.0);
                         fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_next)));
                         picoquic_log_time(F_log, cnx_server, picoquic_current_time(), "", " : ");
                         fprintf(F_log, "Closed. Retrans= %d, spurious= %d, max sp gap = %d, max sp delay = %d\n",
@@ -576,6 +581,9 @@ int quic_client(const char* ip_address_text, int server_port,
     int zero_rtt_available = 0;
     size_t client_sc_nb = 0;
     picoquic_demo_stream_desc_t * client_sc = NULL;
+    uint64_t time_between_msgs = 0;
+    uint64_t last_sending_time = 0;
+    uint64_t difference_in_time = 0;
 
     if (alpn == NULL) {
         //alpn = "h3-22"; //TK: Set default to other alpn -> h3 not used by our application
@@ -611,7 +619,8 @@ int quic_client(const char* ip_address_text, int server_port,
 
     //TK: Set the application's context parameters
     client_sc_nb = 150; //TK: number of streams = number of msgs -> 150 msgs à 100ms per msg = 15 sec
-    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk); //TODO maybe insert parameters number of messages/timing between messages?
+    time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms)
+    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk); //TODO maybe with timing parameter between messages?
     if(ret == 0) {
         if(F_log != NULL) {
             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED with client_sc_nb= %zu\n", client_sc_nb);
@@ -771,13 +780,10 @@ int quic_client(const char* ip_address_text, int server_port,
 
     //TODO GENERATE EPHEMERAL MSGs
     //TODO FEED THE MSGS IN THE LOOP EVERY x MS
+    last_sending_time = picoquic_current_time();
 
     /* Wait for packets */
     while (ret == 0 && picoquic_get_cnx_state(cnx_client) != picoquic_state_disconnected) {
-        
-        if(F_log != NULL) {
-            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-WAIT_FOR_PACKETS \n");
-        }
 
         unsigned char received_ecn;
 
@@ -876,19 +882,7 @@ int quic_client(const char* ip_address_text, int server_port,
              * the number of packets that can be received before sending responses. */
 
             if (bytes_recv == 0 || (ret == 0 && client_receive_loop > PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH)) {
-                
-                if (F_log != NULL) {
-                    if (bytes_recv == 0) {
-                        if(client_receive_loop == 0) {
-                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-NO_BYTES_RECEIVED\n");
-                        } else {
-                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-NO_MORE_BYTES_RECEIVED\n");
-                        }    
-                    } else {
-                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-RECEIVE_LOOP_INTERRUPTED \n");
-                    }
-                }
-                
+
                 client_receive_loop = 0;
 
                 if (ret == 0 && (picoquic_get_cnx_state(cnx_client) == picoquic_state_ready || 
@@ -911,17 +905,11 @@ int quic_client(const char* ip_address_text, int server_port,
                                 fprintf(F_log, "#######################################################\n############# START APPLICATION SCENARIO ##############\n#######################################################\n\n");
                             }
 
-                            //TODO: Segmentation Fault here, although one stream is provided
-                            //TK: EITHER insert into callback_ctx "picoquic_demo_stream_desc_t const * demo_stream" files
-                            //TK: OR change the picoquic_demo_client_start_streams()-function so that there is no problem with it
                             picoquic_demo_client_start_streams(cnx_client, &callback_ctx, PICOQUIC_DEMO_STREAM_ID_INITIAL);
                         }
                     }
 
                     client_ready_loop++;
-                    if(F_log != NULL) {
-                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CLI_READY_LOOP= %d\n", client_ready_loop);
-                    }
 
                     if (force_migration && migration_started == 0 && 
                         (cnx_client->cnxid_stash_first != NULL || force_migration == 1)
@@ -978,9 +966,15 @@ int quic_client(const char* ip_address_text, int server_port,
                                         duration_usec/1000000.0, receive_rate_mbps);
                                     if (F_log != stdout && F_log != stderr && F_log != NULL)
                                     {
-                                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Received %llu bytes in %f seconds, %f Mbps.\n",
+                                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Received %llu bytes in %f seconds\n",
                                             (unsigned long long)picoquic_get_data_received(cnx_client),
-                                            duration_usec / 1000000.0, receive_rate_mbps);
+                                            duration_usec / 1000000.0);
+                                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Sent %llu bytes in %f seconds.\n",
+                                            (unsigned long long)picoquic_get_data_sent(cnx_client), duration_usec / 1000000.0);
+                                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Retrans= %d, spurious= %d, max sp gap = %d, max sp delay = %d\n",
+                                                                (int)cnx_client->nb_retransmission_total, (int)cnx_client->nb_spurious,
+                                                                (int)cnx_client->path[0]->max_reorder_gap, (int)cnx_client->path[0]->max_spurious_rtt);
+                                        fflush(F_log);
                                     }
                                 }
                             }
@@ -1002,7 +996,17 @@ int quic_client(const char* ip_address_text, int server_port,
                     }
                 }
 
-                if (ret == 0) {
+                //TK: Sending only when timer is reaching the set difference between two msgs: last_sending_timer + time_between_msgs > picoquic_current_time()
+                difference_in_time = picoquic_current_time() - last_sending_time;
+                if (ret == 0 && (last_sending_time + time_between_msgs) < picoquic_current_time()) {
+                    
+                    if(F_log != NULL)
+                    {
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-TIMING::last_sending_time= %lu time_between_msgs= %lu picoquic_current_time()= %lu difference_in_time= %lu\n",
+                                                                                    last_sending_time, time_between_msgs, picoquic_current_time(),
+                                                                                    difference_in_time);
+                    }
+
                     struct sockaddr_storage x_to;
                     int  x_to_length;
                     struct sockaddr_storage x_from;
@@ -1027,6 +1031,9 @@ int quic_client(const char* ip_address_text, int server_port,
                     if (ret == 0 && send_length > 0) {
                         bytes_sent = sendto(fd, send_buffer, (int)send_length, 0,
                             (struct sockaddr*)&x_to, x_to_length);
+                                                    
+                        //TK: update time after msg was sent
+                        last_sending_time = picoquic_current_time();
 
                         if (bytes_sent <= 0)
                         {
@@ -1039,6 +1046,7 @@ int quic_client(const char* ip_address_text, int server_port,
                         } else {
                             if(F_log != NULL) {
                                 fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= %d\n", bytes_sent);
+                                picoquic_log_congestion_state(F_log, cnx_client, current_time);
                             }
                         }
                     }
