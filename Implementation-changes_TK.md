@@ -36,15 +36,40 @@ gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
 		&& (indication of stream type) with the second least significant bit=0 it is bidirectional and with =1 it is unidirectional
 		https://quicwg.org/base-drafts/draft-ietf-quic-transport.html#rfc.section.2.1
 		
-	3.3 TODO: timing of streams
-		3.3.1 Step 1: Where does it switch from one stream to the next stream? 
-				-> delay this for 100 ms? 
-				https://www.geeksforgeeks.org/time-delay-c/
-				https://c-for-dummies.com/blog/?p=69
-				
-		3.3.2 current_time is in usec:
+	3.3 timing of streams
+		3.3.1 current_time is in usec:
 				double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_client)); (divided by 1000000.0 for seconds)
-		3.3.3 EXPLAIN TIMING HERE
+		3.3.2 timing_between_msgs as parameter
+				before sending the next msg in the Event Loop:
+				check if (last_sending_time + time_between_msgs) < picoquic_current_time()
+						+ update last_sending_time after "sendto()" was performed (= the msg went out through the socket)
+						
+4. Implement the number of max retransmission as a macro definition "#define PICOQUIC_MAX_RETRANSMISSIONS 20" in picoquic.h
+	[in sender.c: if (cnx->pkt_ctx[pc].nb_retransmit > 4)]
+
+TODO: Server should only provide ACKs and no other packets! (server answers with 260 bytes packet instead of simple acks?!)
+		-> demoserver.c [if (stream_ctx->method == 1)] -> comment out the response to a POST
+		
+		
+TODO: ACKs should not be sent by the client?! 
+		-> There should only be a 100ms wait when the application scenario is started!
+		
+TODO: Stream should start after 100ms, even if the last one is not finished
+		-> e.g. additional parameter in demo_stream (named "finished")? 
+				+ skip those who are finished until reaching an unfinished one
+				
+TODO: retransmissions should also not be waiting for 100 ms!
 
 
-TODO: The Server should only provide ACKs and no other packets!
+
+
+
+
+
+
+from one-hour run on maki server in logfiles -> log_server/client_20190829-2219
+TODO: ----------------:PICOQUICDEMO::quic_server()::54c858b5579b3946: 3606.593701 : Closed. Retrans= 145820, spurious= 20873, max sp gap = 13, max sp delay = 350459
+	=> what are they saying?
+	=> these stats are not there in client (everything =0)
+TODO: ----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 10588 us (wait for 10506 us)
+	=> what does this mean?

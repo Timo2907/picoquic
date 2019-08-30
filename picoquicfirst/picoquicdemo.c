@@ -280,9 +280,9 @@ int quic_server(const char* server_name, int server_port,
                     fprintf(F_log, "******** Initial processing: CNX_SERVER is NULL. ********\n");
                }
             } else {
-                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= %d, after %d us (wait for %d us)\n", bytes_recv,
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-NOTHING_RECIEVED::bytes= %d, after %d us (wait for %d us)\n", bytes_recv,
                     (int)(current_time - time_before), (int)delta_t);
-                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO\t");
+                fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-NOTHING_RECEIVED\t");
                 picoquic_log_processing(F_log, cnx_server, bytes_recv, ret);
             }
         }
@@ -997,14 +997,15 @@ int quic_client(const char* ip_address_text, int server_port,
                 }
 
                 //TK: Sending only when timer is reaching the set difference between two msgs: last_sending_timer + time_between_msgs > picoquic_current_time()
+                //              OR the application scenario is not yet running (established = 0)
+                //TODO:         OR it is a retransmission (how to know?) -> do not update "last_time_send" then!
+                //TODO:         demo_stream[i+1] should not wait until demo_stream[i] is finished, but start right after the 100ms are passed
                 difference_in_time = picoquic_current_time() - last_sending_time;
-                if (ret == 0 && (last_sending_time + time_between_msgs) < picoquic_current_time()) {
+                if (ret == 0 && (established == 0 || (established == 1 && (last_sending_time + time_between_msgs) < picoquic_current_time()))) {
                     
-                    if(F_log != NULL)
-                    {
-                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-TIMING::last_sending_time= %lu time_between_msgs= %lu picoquic_current_time()= %lu difference_in_time= %lu\n",
-                                                                                    last_sending_time, time_between_msgs, picoquic_current_time(),
-                                                                                    difference_in_time);
+                    if(F_log != NULL) {
+                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-TIMING::established=%d time_between_msgs_parameter= %lu actual_difference_in_time= %lu\n",
+                                                                                    established, time_between_msgs, difference_in_time);
                     }
 
                     struct sockaddr_storage x_to;
@@ -1032,9 +1033,6 @@ int quic_client(const char* ip_address_text, int server_port,
                         bytes_sent = sendto(fd, send_buffer, (int)send_length, 0,
                             (struct sockaddr*)&x_to, x_to_length);
                                                     
-                        //TK: update time after msg was sent
-                        last_sending_time = picoquic_current_time();
-
                         if (bytes_sent <= 0)
                         {
                             fprintf(stdout, "Cannot send packet to server, returns %d\n", bytes_sent);
@@ -1044,6 +1042,9 @@ int quic_client(const char* ip_address_text, int server_port,
                                 fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::Cannot send packet to server, returns %d\n", bytes_sent);
                             }
                         } else {
+                            //TK: update time after new msg was sent //TODO: NO TIMING RESET WHEN RETRANSMISSION! (NO ACK!-> make the server send no msgs but acks)
+                            last_sending_time = picoquic_current_time();
+
                             if(F_log != NULL) {
                                 fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= %d\n", bytes_sent);
                                 picoquic_log_congestion_state(F_log, cnx_client, current_time);

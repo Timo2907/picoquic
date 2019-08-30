@@ -772,20 +772,24 @@ int picoquic_h09_server_process_data(picoquic_cnx_t* cnx,
             }
             else if (stream_ctx->method == 1) {
                 /* TODO: Process the response to a POST */
+
+                //TK: do not send post_response - only header?! (comment this out: Do ACKs still get send by the server?)
+
                 char post_response[512];
 
                 (void)picoquic_sprintf(post_response, sizeof(post_response), &stream_ctx->response_length, demo_server_post_response_page, (int)stream_ctx->post_received);
 
                 picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)demo_server_post_response_header,
-                    strlen(demo_server_post_response_header), 0, (void *)stream_ctx);
-                picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)post_response,
-                    stream_ctx->response_length, 1, (void *)stream_ctx);
+                    strlen(demo_server_post_response_header), 1, (void *)stream_ctx);
+                //picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)post_response,
+                //    stream_ctx->response_length, 1, (void *)stream_ctx);
 
                 if (cnx->quic->F_log != NULL) {
                     fprintf(cnx->quic->F_log, "%" PRIx64 ": ", picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
-                    fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 ", %s, %d data received\n",
+                    fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 ", %s, %d data received\n\n",
                         stream_id, strip_endofline(buf, sizeof(buf), (char*)&stream_ctx->command), (int)stream_ctx->post_received);
                 }
+                
             }
             else {
                 /* Send the canned index.html response */

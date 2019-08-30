@@ -11,11 +11,11 @@ import os.path
 
 def createNetwork():
 	#send rate at each link in Mbps
-	bwg = 1#000 #1000 #in Mbps
-	bwbn = 1#000 #1000 #25 #in Mbps
-	loss = 10 #1 #2.5 #10 #1 #in %
-	mqs = 10 #0 #1000 #max queue size of interfaces
-	dly = '2.5ms' #'2.5ms 0.5ms'#'1ms 0.5ms' #can take all tc qdisc delay distribution formulations
+	bwg = 1 #in Mbps
+	bwbn = 1 #in Mbps
+	loss = 10 #in %
+	mqs = 100 #max queue size of interfaces
+	dly = '2.5ms'
 
 	#create empty network
 	net = Mininet(intf=TCIntf)
@@ -107,7 +107,7 @@ def createNetwork():
 	time.sleep(1)
 
 	# Enable the mininet> prompt if uncommented
-	info('\n*** Running CLI\n')
+ 	info('\n*** Running CLI\n')
 	CLI(net)
 
 	# stops the simulation
@@ -124,16 +124,15 @@ def start_nodes(delay_router, loss_router, server, client, mqs):
 
  info( '\n*** Start Server...\n' )
  server.cmd('tshark -i iu-eth0 -w server.pcap &')
- server.cmd('sudo ./start_server_mininet.sh &')
+ server.cmd('sudo ./start_server_mininet.sh > stdoutput_server.txt &')
  info( '\n*** Server started.\n' )
 
  info( '\n*** Start Client...\n' )
  client.cmd('tshark -i hu-eth0 -w client.pcap &')
- client.cmd('sleep 5; sudo ./start_client_mininet.sh &')
+ client.cmd('sleep 5; sudo ./start_client_mininet.sh > stdoutput_client.txt &')
  info( '\n*** Client started.\n' )
 
 
 if __name__ == '__main__':
 	setLogLevel( 'info' )
-	#setLogLevel( 'output' )
 	createNetwork()

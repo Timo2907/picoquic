@@ -61,6 +61,8 @@ extern "C" {
 #define PICOQUIC_TOKEN_DELAY_LONG (24*60*60*1000000ull) /* 24 hours */
 #define PICOQUIC_TOKEN_DELAY_SHORT (2*60*1000000ull) /* 2 minutes */
 
+#define PICOQUIC_MAX_RETRANSMISSIONS 100 //TK: used in Sender for knowing after how many retransmits the packet is given up
+
 #define PICOQUIC_SPURIOUS_RETRANSMIT_DELAY_MAX 1000000ull /* one second */
 
 #define PICOQUIC_MICROSEC_SILENCE_MAX 120000000ull /* 120 seconds for now */

@@ -1196,7 +1196,7 @@ int picoquic_retransmit_needed(picoquic_cnx_t* cnx,
                     length = 0;
                 } else {
                     if (timer_based_retransmit != 0) {
-                        if (cnx->pkt_ctx[pc].nb_retransmit > 4) {
+                        if (cnx->pkt_ctx[pc].nb_retransmit > PICOQUIC_MAX_RETRANSMISSIONS) { //TK: defined a max retransmission number in picoquic_internal.h
                             /*
                              * Max retransmission count was exceeded. Disconnect.
                              */

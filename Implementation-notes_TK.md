@@ -144,12 +144,7 @@ calls picoquicdemo::quic_client() with [server_name, server_port, sni, esni_rr_f
 
 
 
-/* THE GENERATION OF MESSAGES
-* static const int kMessageLength = 100;
-* static const char kPaddingCharacter = '*';
-* static const int kNumberOfEphemeralMessages = 36000;
-* static const int kCycleInMicroseconds = 100000; //TK: set parameters for application scenario
-(...)
+
 * static std::string GenerateEphemeralMessage(int round) { //TK: build the message
 *  //JS: Include the current timestamp in the body of the client request (to log one-way delay)
 *  long long current_timestamp = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
@@ -160,22 +155,6 @@ calls picoquicdemo::quic_client() with [server_name, server_port, sni, esni_rr_f
 *  return message;
 *}
 (...)
-*for (int i = 0; i < kNumberOfEphemeralMessages; i++) { //TK: sending the application msgs
-*    std::string message = GenerateEphemeralMessage(i);
-*    client.SendEphemeralMessage(message);
-*	// Calls QuicSpdyClientBase::SendRequest(header, body, fin)
-*    // Wait for 100 ms
-*    long start = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-*    while(true){
-*      client.WaitForEvents();
-*      long current_timestamp = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-*      if (current_timestamp - start >= kCycleInMicroseconds){
-*        break;
-*      }
-*    }
-*    std::cout << "num_active_requests: " << client.session()->num_active_requests() << std::endl;
-*  }
-*/
 
 
 
