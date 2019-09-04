@@ -1901,6 +1901,18 @@ void picoquic_cc_dump(picoquic_cnx_t * cnx, uint64_t current_time)
     }
 }
 
+//TK: Logging retransmission information
+void picoquic_log_retransmission(FILE* F, uint64_t log_cnxid64, int seq_nb, int delta_seq, int timer_based, int current_time, 
+                                    int send_time, int latest_ack, int smoothed_rtt, int retransmit_time)
+{
+    picoquic_log_prefix_initial_cid64(F, log_cnxid64);
+    int send_diff = send_time - current_time;
+    int ack_diff = latest_ack - current_time;
+    int retrans_diff = retransmit_time - current_time;
+    fprintf(F, "Retransmit Seq#%d, delta_seq=%d, timer-based=%d, current_time(ct)=%d, diff:sent-ct= %d, diff:ack_time-ct= %d, s_rtt: %d, diff:retrans_time-ct: %d\n", 
+                        seq_nb, delta_seq, timer_based, current_time, send_diff, ack_diff, smoothed_rtt, retrans_diff);
+}
+
 #define PICOQUIC_BYTE_SWAP_32(x) ((((uint32_t)x)>>24)|((((uint32_t)x)>>8)&0x0000FF00)|((((uint32_t)x)<<8)&0x00FF0000)|(((uint32_t)x)<<24))
 
 /* Open the bin file for reading */

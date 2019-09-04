@@ -50,19 +50,14 @@ gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
 						
 4. Implement the number of max retransmission as a macro definition "#define PICOQUIC_MAX_RETRANSMISSIONS 20" in picoquic.h
 	[in sender.c: if (cnx->pkt_ctx[pc].nb_retransmit > 4)]
+	
+5. Implemented a logging mechanism for retransmissions in logger.c 
+	-> executed in sender.c when there is a need for a retransmission
 
 
 
-#NEXT STEPS:
-
-TODO: look for frames::picoquic_update_rtt function (where is it called from?)
-TODO: look where to output something like:
-				"DBG_PRINTF("Retransmit #%d, delta=%d, timer=%d, time=%d, sent: %d, ack_t: %d, s_rtt: %d, rt: %d",
-							(int)p->sequence_number, (int)delta_seq, is_timer_based, (int)current_time, (int)p->send_time, 
-							(int)cnx->pkt_ctx[pc].latest_time_acknowledged, (int)cnx->path[0]->smoothed_rtt, (int)
-+ TODO: change retransmission values in picoquic_internal.h (especially INITIAL_RETRANSMIT_TIMER and MIN_RETRANSMIT_TIMER)
-
-
+#NEXT STEPS:			
+			
 TODO: Server should only provide ACKs and no other packets! (server answers with 260 bytes packet instead of simple acks?!)
 		-> demoserver.c [if (stream_ctx->method == 1)] -> comment out the response to a POST	
 		

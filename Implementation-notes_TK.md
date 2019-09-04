@@ -144,67 +144,7 @@ calls picoquicdemo::quic_client() with [server_name, server_port, sni, esni_rr_f
 
 
 
-# Detailed function flow for retransmissions
-12. (see above) sender::picoquic_prepare_packet(-)
-				-> sender::picoquic_prepare_segment(-)
-					1. check that connection is still alive
-					2. prepare header depending on the connection state (client/server init, closing, or ready)
-						picoquic_state_ready: sender::picoquic_prepare_packet_ready(-)
-							2.1 stream = stream head = NULL
-								packet_type = 1rtt_protected
-								pc = packet context = application
-								is_pure_ack = 1
-							2.2 check if handshake finished 
-										-> sender::picoquic_prepare_packet_old_context(-) if not finished
-							2.3 stream = frames::picoquic_find_ready_stream(cnx)
-									2.3.1 check for high priority stream 
-													-> hi_pri_stream = quicctx::picoquic_find_stream [cnx, cnx->high_priority_stream_id]
-														(finds stream in the splaytree, see 6.8 )
-									2.3.2 skip to first non-visited stream 
-									2.3.3 look for a ready stream
-												-> with data to send (= not finished) and not blocked
-			(!!!)			2.4 RETRANSMIT: calls sender::picoquic_retransmit_needed [cnx, pc, path_x, current_time, next_wake_time (= next retransmit time), packet, send_buffer_min_max, &is_cleartext_mode, &header_length]
-									2.4.1 should_retransmit = 0 / timer_based_retransmit = 0 / 
-											old_p = cnx->pkt_cnx[pc].retransmit_oldest (= oldest packet that has to be retransmitted) 
-											p_next = old_p->previous_packet
-									2.4.2 calls should_retransmit = sender::picoquic_retransmit_needed_by_packet [cnx, old_p, current_time, next_retransmit_time, &timer_based_retransmit]
-													2.4.2.1 (later packets are acked -> timer-based, although stated as timer-based=0 !)
-															by default: timer-based RACK logic (to absorb out-of-order deliveries) and delta_seq should be smaller than 3 (RACK works best with small reordering window) when 3 or more later packets are acked, choose always first computations
-																	retransmit_time = MINIMUM of 
-																						p->send_time + cnx->path[0]->retransmit_timer 	(=> equals "cnx->path[0]->smoothed_rtt + (cnx->path[0]->smoothed_rtt >> 3)")
-																						cnx->pkt_ctx[pc].latest_time_acknowledged + cnx->remote_parameters.max_ack_delay + (cnx->path[0]->smoothed_rtt >> 2)
-															(later packets are not acked -> timer-based)
-															rto = 	cnx->path[0]->retransmit_timer (when first retransmit)
-																	OR 1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)
-															retransmit_time = p->sendtime + rto
-													2.4.2.2 decide based on the retransmit_timer and the current_time if a retransmit is needed right now
-									2.4.3 calls sender::picoquic_copy_before_retransmit(-)
-									2.4.4 calls old_p = picoquic_dequeue_retransmit_packet(-) 
-													(=> update number of bytes "in-flight" and remove old packet from queue + placed in retransmitted queue for detecting spurious retransmissions)
-											=> look into this!! (is it doing what is described?)
-											
-											
-									
-								NO RETRANSMIT: calls frame::picoquic_prepare_ack_frame(-) (if frame::picoquic_is_ack_needed(-) is true)
-											   calls several specific functions if they are needed like 
-																picoquic_prepare_crypto_hs_frame(-)
-																picoquic_prepare_first_misc_frame(-) 
-																picoquic_prepare_new_path_and_id(-)
-																picoquic_prepare_max_streams_frame_if_needed(-)
-																picoquic_prepare_max_data_frame(-)
-																picoquic_prepare_required_max_stream_data_frames(-)
-										(interesting?)			picoquic_prepare_stream_frame(-) => encode the stream frame/frames
-																picoquic_prepare_blocked_frames(-)
-																"The case where many acks are not acknowledged"
-																	= picoquic_pad_to_policy(-)
-																	else = picoquic_prepare_mtu_probe(-)
-																"maybe send keep alive packets"
-																	= picoquic_predict_packet_header_length(-)
-							2.5 sender::picoquic_finalize_and_protect_packet(-)
-							(TODO -> look into above function)
-									+	log information => logger::picoquic_cc_dump(-)
-																
-								
+
 ## Server
 picoquicdemo::main()
 calls picoquicdemo::quic_server()
@@ -232,3 +172,104 @@ calls picoquicdemo::quic_server()
 		*CLEAN UP*
 		13. quicctx::picoquic_free[qserver]
 		14. picosocks::picoquic_close_server_sockets [&server_sockets] -> SOCKET_CLOSE
+
+
+
+
+
+
+# Detailed function flow for retransmissions
+(see Client 12. )  sender::picoquic_prepare_packet(-)
+				-> sender::picoquic_prepare_segment(-)
+					1. check that connection is still alive
+					2. prepare header depending on the connection state (client/server init, closing, or ready)
+						picoquic_state_ready: sender::picoquic_prepare_packet_ready(-)
+							2.1 stream = stream head = NULL
+								packet_type = 1rtt_protected
+								pc = packet context = application
+								is_pure_ack = 1
+							2.2 check if handshake finished 
+										-> sender::picoquic_prepare_packet_old_context(-) if not finished
+							2.3 stream = frames::picoquic_find_ready_stream(cnx)
+									2.3.1 check for high priority stream 
+													-> hi_pri_stream = quicctx::picoquic_find_stream [cnx, cnx->high_priority_stream_id]
+														(finds stream in the splaytree, see 6.8 )
+									2.3.2 skip to first non-visited stream 
+									2.3.3 look for a ready stream
+												-> with data to send (= not finished) and not blocked
+							2.4 (RETRANSMIT) calls sender::picoquic_retransmit_needed [cnx, pc, path_x, current_time, next_wake_time (= next retransmit time), packet, send_buffer_min_max, &is_cleartext_mode, &header_length]
+									2.4.1 should_retransmit = 0 / timer_based_retransmit = 0 / 
+											old_p = cnx->pkt_cnx[pc].retransmit_oldest (= oldest packet that has to be retransmitted) 
+											p_next = old_p->previous_packet
+									2.4.2 calls should_retransmit = sender::picoquic_retransmit_needed_by_packet [cnx, old_p, current_time, next_retransmit_time, &timer_based_retransmit]
+													2.4.2.1 (later packets are acked -> timer-based, although stated as timer-based=0 !)
+															by default: timer-based RACK logic (to absorb out-of-order deliveries) and delta_seq should be smaller than 3 (RACK works best with small reordering window) when 3 or more later packets are acked, choose always first computations
+																	retransmit_time = MINIMUM of 
+																						p->send_time + cnx->path[0]->retransmit_timer 	(=> equals "cnx->path[0]->smoothed_rtt + (cnx->path[0]->smoothed_rtt >> 3)")
+																						cnx->pkt_ctx[pc].latest_time_acknowledged + cnx->remote_parameters.max_ack_delay + (cnx->path[0]->smoothed_rtt >> 2)
+															(later packets are not acked -> timer-based)
+															rto = 	cnx->path[0]->retransmit_timer (when first retransmit)
+																	OR 1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)
+															retransmit_time = p->sendtime + rto
+													2.4.2.2 decide based on the retransmit_timer and the current_time if a retransmit is needed right now
+									2.4.3 calls sender::picoquic_copy_before_retransmit(-)
+									2.4.4 calls old_p = picoquic_dequeue_retransmit_packet(-) 
+															=> update number of bytes "in-flight" and remove old packet from queue + placed in retransmitted queue for detecting spurious retransmissions
+									2.4.6 check for MAX_RETRANSMISSIONS (if already exceeded)
+									2.4.7 return length of packets (= bytes)
+											
+									
+								(NO RETRANSMIT) calls frame::picoquic_prepare_ack_frame(-) (if frame::picoquic_is_ack_needed(-) is true)
+											   calls several specific functions if they are needed like 
+																picoquic_prepare_crypto_hs_frame(-)
+																picoquic_prepare_first_misc_frame(-) 
+																picoquic_prepare_new_path_and_id(-)
+																picoquic_prepare_max_streams_frame_if_needed(-)
+																picoquic_prepare_max_data_frame(-)
+																picoquic_prepare_required_max_stream_data_frames(-)
+(interesting?)													picoquic_prepare_stream_frame(-) => encode the stream frame/frames
+																picoquic_prepare_blocked_frames(-)
+																"The case where many acks are not acknowledged"
+																	= picoquic_pad_to_policy(-)
+																	else = picoquic_prepare_mtu_probe(-)
+																"maybe send keep alive packets"
+																	= picoquic_predict_packet_header_length(-)
+							2.5 sender::picoquic_finalize_and_protect_packet(-)
+									(encodes the packet if encryption is used)
+									-> calls picoquic_protect_packet(-)
+										+ calls picoquic_queue_for_retransmit(-) (if it is not ack'ed, we have it in queue)
+							2.6 log information => logger::picoquic_cc_dump(-)
+
+
+
+
+
+# Update of RTT values / Retransmit Timer Update:
+packet::picoquic_incoming_(0rtt/client_handshake/server_cleartext/initial/encrypted) 	=> encrypted = normal received answer -> if ack -> update RTT
+		-> calls frames::picoquic_decode_frames(-)
+			-> calls frames::picoquic_decode_ack_(ecn_)frame(-)
+				-> calls frames::picoquic_decode_ack_frame_maybe_ecn(-)
+					-> calls frames::picoquic_update_rtt(-)
+							(checks for up-to-date ack)
+							-> calls frames::picoquic_update_path_rtt(-)
+
+								1. set new max_ack_delay (if ack_delay is bigger now)
+								2. (initial)
+									2.1 smoothed_rtt = rtt_estimate
+									2.2 rtt_variant = rtt_estimate/2
+									2.3 rtt_min = rtt_estimate
+									2.4 retransmit_timer = 3 x rtt_estimate + max_ack_delay
+									2.5 ack_delay_local = rtt_min/4
+									2.6 ack_delay_local = max(ack_delay_local, PICOQUIC_ACK_DELAY_MIN)
+								
+									(not initial) *BASED ON RFC 6298* (TCP Retransmission Timer)
+									2.1	delta_rtt = rtt_estimate - smoothed_rtt
+									2.2 smoothed_rtt = smoothed_rtt + delta_rtt/8
+									2.3 delta_rtt_average = delta_rtt - rtt_variant (-> delta_rtt can be sub-zero!)
+									2.4 rtt_variant = rtt_variant + delta_rtt_average / 4
+									2.5 rtt_estimate = max(rtt_estimate, rtt_min)
+									2.6 ack_delay_local = max(ack_delay_local, PICOQUIC_ACK_DELAY_MIN)
+									2.7 ack_delay_local = min(ack_delay_local, PICOQUIC_ACK_DELAY_MAX)
+									2.8 if [4 x rtt_variant < rtt_min] -> rtt_variant = rtt_min / 4
+									2.9 retransmit_timer = smoothed_rtt + 4 x rtt_variant + max_ack_delay (MaxAckDelay is set in cnx->remote_parameters)
+									2.10 retransmit_timer = max(retransmit_timer, PICOQUIC_MIN_RETRANSMIT_TIMER)

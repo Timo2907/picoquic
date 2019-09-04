@@ -51,8 +51,8 @@ extern "C" {
 
 #define PICOQUIC_INITIAL_RTT 250000ull /* 250 ms */
 #define PICOQUIC_TARGET_RENO_RTT 100000ull /* 100 ms */
-#define PICOQUIC_INITIAL_RETRANSMIT_TIMER 1000000ull /* one second */ //TK: TODO change the values here?!
-#define PICOQUIC_MIN_RETRANSMIT_TIMER 50000ull /* 50 ms */
+#define PICOQUIC_INITIAL_RETRANSMIT_TIMER 0 /* TK: changed from one second (1000000ull) to zero */
+#define PICOQUIC_MIN_RETRANSMIT_TIMER 50000ull /* TK: changed from 50 ms (50000ull) to zero */
 #define PICOQUIC_ACK_DELAY_MAX 10000ull /* 10 ms */
 #define PICOQUIC_ACK_DELAY_MAX_DEFAULT 25000ull /* 25 ms, per protocol spec */
 #define PICOQUIC_ACK_DELAY_MIN 1000ull /* 10 ms */
@@ -1009,6 +1009,10 @@ void picoquic_log_picotls_ticket(FILE* F, picoquic_connection_id_t cnx_id,
 const char * picoquic_log_fin_or_event_name(picoquic_call_back_event_t ev);
 void picoquic_log_time(FILE* F, picoquic_cnx_t* cnx, uint64_t current_time,
     const char* label1, const char* label2);
+
+/* TK: Retransmission logging */
+void picoquic_log_retransmission(FILE* F, uint64_t log_cnxid, int seq_nb, int delta_seq, int timer_based, int current_time, int send_time, 
+                                int latest_ack, int smoothed_rtt, int retransmit_time);
 
 #define PICOQUIC_SET_LOG(quic, F) (quic)->F_log = (void*)(F)
 

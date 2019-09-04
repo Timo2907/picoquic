@@ -966,6 +966,11 @@ static int picoquic_retransmit_needed_by_packet(picoquic_cnx_t* cnx,
     if (current_time >= retransmit_time || (p->is_ack_trap && delta_seq > 0)) {
         should_retransmit = 1;
         *timer_based = is_timer_based;
+
+        //TK: Log retransmission values if retransmission is needed
+        picoquic_log_retransmission(cnx->quic->F_log, picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)), (int)p->sequence_number, (int)delta_seq, is_timer_based, (int)current_time, (int)p->send_time, 
+                (int)cnx->pkt_ctx[pc].latest_time_acknowledged, (int)cnx->path[0]->smoothed_rtt, (int) retransmit_time);
+
         if (cnx->quic->sequence_hole_pseudo_period != 0 && pc == picoquic_packet_context_application && !p->is_ack_trap) {
             DBG_PRINTF("Retransmit #%d, delta=%d, timer=%d, time=%d, sent: %d, ack_t: %d, s_rtt: %d, rt: %d",
                 (int)p->sequence_number, (int)delta_seq, is_timer_based, (int)current_time, (int)p->send_time, 

@@ -355,20 +355,26 @@ int quic_server(const char* server_name, int server_port,
 
                 if (ret == PICOQUIC_ERROR_DISCONNECTED) {
                     ret = 0;
+                    double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_next));
 
-                    if (F_log != NULL) {
-                        double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_next));
-                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Received %llu bytes in %f seconds\n",
-                                            (unsigned long long)picoquic_get_data_received(cnx_next),
-                                            duration_usec / 1000000.0);
-                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-STATISTICS::Sent %llu bytes in %f seconds.\n",
-                                            (unsigned long long)picoquic_get_data_sent(cnx_next), duration_usec / 1000000.0);
-                        fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_next)));
-                        picoquic_log_time(F_log, cnx_server, picoquic_current_time(), "", " : ");
-                        fprintf(F_log, "Closed. Retrans= %d, spurious= %d, max sp gap = %d, max sp delay = %d\n",
-                            (int)cnx_next->nb_retransmission_total, (int)cnx_next->nb_spurious,
-                            (int)cnx_next->path[0]->max_reorder_gap, (int)cnx_next->path[0]->max_spurious_rtt);
-                        fflush(F_log);
+                    if (duration_usec > 0) {
+                        double receive_rate_mbps = 8.0*((double)picoquic_get_data_received(cnx_next)) / duration_usec;
+                                    fprintf(stdout, "C-ID:%llx: Received %llu bytes in %f seconds, %f Mbps.\n",
+                                        (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_next)),
+                                        (unsigned long long)picoquic_get_data_received(cnx_next), duration_usec/1000000.0, receive_rate_mbps);
+
+                        if (F_log != NULL) {
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-STATISTICS::Received %llu bytes in %f seconds\n",
+                                                (unsigned long long)picoquic_get_data_received(cnx_next), duration_usec / 1000000.0);
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-STATISTICS::Sent %llu bytes in %f seconds.\n",
+                                                (unsigned long long)picoquic_get_data_sent(cnx_next), duration_usec / 1000000.0);
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()::%llx: ", (unsigned long long)picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx_next)));
+                            picoquic_log_time(F_log, cnx_server, picoquic_current_time(), "", " : ");
+                            fprintf(F_log, "Closed. Retrans= %d, spurious= %d, max sp gap = %d, max sp delay = %d\n",
+                                (int)cnx_next->nb_retransmission_total, (int)cnx_next->nb_spurious,
+                                (int)cnx_next->path[0]->max_reorder_gap, (int)cnx_next->path[0]->max_spurious_rtt);
+                            fflush(F_log);
+                        }
                     }
 
                     if (cnx_next == cnx_server) {
@@ -778,8 +784,6 @@ int quic_client(const char* ip_address_text, int server_port,
         }
     }
 
-    //TODO GENERATE EPHEMERAL MSGs
-    //TODO FEED THE MSGS IN THE LOOP EVERY x MS
     last_sending_time = picoquic_current_time();
 
     /* Wait for packets */
@@ -1015,7 +1019,7 @@ int quic_client(const char* ip_address_text, int server_port,
 
                     send_length = PICOQUIC_MAX_PACKET_SIZE;
                     
-                    //TODO: Starting here looking into retransmission program flow
+                    //TK: Need for retransmission detected here
                     ret = picoquic_prepare_packet(cnx_client, current_time,
                         send_buffer, sizeof(send_buffer), &send_length, &x_to, &x_to_length, &x_from, &x_from_length);
 
