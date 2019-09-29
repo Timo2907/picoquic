@@ -1609,7 +1609,7 @@ void picoquic_log_congestion_state(FILE* F, picoquic_cnx_t* cnx, uint64_t curren
     fprintf(F, "rtt: %d, ", (int)path_x->smoothed_rtt);
     fprintf(F, "rtt_var: %d, ", (int)path_x->rtt_variant);
     fprintf(F, "max_ack_delay: %d, ", (int)path_x->max_ack_delay);
-    fprintf(F, "state: %d\n", (int)cnx->cnx_state);
+    fprintf(F, "state: %d\n\n", (int)cnx->cnx_state);
 }
 
 /*
@@ -1909,7 +1909,7 @@ void picoquic_log_retransmission(FILE* F, uint64_t log_cnxid64, int seq_nb, int 
     int send_diff = send_time - current_time;
     int ack_diff = latest_ack - current_time;
     int retrans_diff = retransmit_time - current_time;
-    fprintf(F, "Retransmit Seq#%d, delta_seq=%d, timer-based=%d, current_time(ct)=%d, diff:sent-ct= %d, diff:ack_time-ct= %d, s_rtt: %d, diff:retrans_time-ct: %d\n", 
+    fprintf(F, "Retransmit Seq#%d, delta_seq=%d, timer-based(RTO)=%d, current_time(ct)=%d, diff:sent-ct= %d, diff:ack_time-ct= %d, s_rtt: %d, diff:retrans_time-ct: %d\n", 
                         seq_nb, delta_seq, timer_based, current_time, send_diff, ack_diff, smoothed_rtt, retrans_diff);
 }
 

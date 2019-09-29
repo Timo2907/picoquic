@@ -945,8 +945,15 @@ static int picoquic_retransmit_needed_by_packet(picoquic_cnx_t* cnx,
     else
     {
         /* There has not been any higher packet acknowledged, thus we fall back on timer logic. */
-        uint64_t rto = (cnx->pkt_ctx[pc].nb_retransmit == 0) ?
-            cnx->path[0]->retransmit_timer : (1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1));
+        //uint64_t rto = (cnx->pkt_ctx[pc].nb_retransmit == 0) ?
+        //    cnx->path[0]->retransmit_timer : (1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1));
+        
+        //(NOT WORKING) uint64_t rto = cnx->path[0]->retransmit_timer;
+        
+        //Try this:
+        uint64_t rto = (cnx->pkt_ctx[pc].nb_retransmit == 1) ?
+            (1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)) : cnx->path[0]->retransmit_timer;
+
         retransmit_time = p->send_time + rto;
         is_timer_based = 1;
     }

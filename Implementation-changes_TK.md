@@ -53,11 +53,34 @@ gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
 	
 5. Implemented a logging mechanism for retransmissions in logger.c 
 	-> executed in sender.c when there is a need for a retransmission
+	
+6. Changed the RTO retransmission timer: 
+				It was only normal RTO for the first retransmission.
+				For 2nd retransmissions and following, it was set to be 1 second times the number of retransmissions minus 1 [= 1 sec * (nb_retransmit - 1)]
+				6.1 just using the retransmit_timer does not work because the very first transmission does not have anything usable (handshake)
+				6.2 try a workaroung [if nb_retransmit = 1 (use the 1sec*nb_retransmit-1), else (use retransmit_timer as set)]
+				
+			(rto = 	cnx->path[0]->retransmit_timer (when first retransmit)
+					OR 1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)
+				=> BAD with 1000000ull, since it is 1 sec for every retransmit try! (4 retransmits = 3 seconds waiting time!))
 
 
 
-#NEXT STEPS:			
-			
+
+#NEXT STEPS:	
+
+TODO: retransmissions should not be waiting for 100 ms!
+TODO: Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> why? Should not do it!
+e.g. 
+28386300d599a8f9: Sending packet type: 6 (1rtt protected), S0,
+28386300d599a8f9:     <c697584edabc064b>, Seq: 52 (52), Phi: 0,
+28386300d599a8f9:     Prepared 1411 bytes
+28386300d599a8f9:     ping, 1 bytes
+28386300d599a8f9:     padding, 1410 bytes
+=> look for "picoquic_frame_type_ping" in sender.c!!
+ => "picoquic_prepare_mtu_probe() 1. when triggered?  2. What does it do?"
+
+
 TODO: Server should only provide ACKs and no other packets! (server answers with 260 bytes packet instead of simple acks?!)
 		-> demoserver.c [if (stream_ctx->method == 1)] -> comment out the response to a POST	
 		
@@ -67,8 +90,6 @@ TODO: ACKs should not be sent by the client?!
 TODO: Stream should start after 100ms, even if the last one is not finished
 		-> e.g. additional parameter in demo_stream (named "finished")? 
 				+ skip those who are finished until reaching an unfinished one
-				
-TODO: retransmissions should also not be waiting for 100 ms!
 
 
 

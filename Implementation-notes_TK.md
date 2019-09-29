@@ -198,14 +198,14 @@ calls picoquicdemo::quic_server()
 									2.3.3 look for a ready stream
 												-> with data to send (= not finished) and not blocked
 							2.4 (RETRANSMIT) calls sender::picoquic_retransmit_needed [cnx, pc, path_x, current_time, next_wake_time (= next retransmit time), packet, send_buffer_min_max, &is_cleartext_mode, &header_length]
-									2.4.1 should_retransmit = 0 / timer_based_retransmit = 0 / 
+									2.4.1 should_retransmit = 0 / timer_based_retransmit = 0 
 											old_p = cnx->pkt_cnx[pc].retransmit_oldest (= oldest packet that has to be retransmitted) 
 											p_next = old_p->previous_packet
 									2.4.2 calls should_retransmit = sender::picoquic_retransmit_needed_by_packet [cnx, old_p, current_time, next_retransmit_time, &timer_based_retransmit]
-													2.4.2.1 (later packets are acked -> timer-based, although stated as timer-based=0 !)
+													2.4.2.1 (later packets are acked -> RACK timer-based, although stated as timer-based=0 !)
 															by default: timer-based RACK logic (to absorb out-of-order deliveries) and delta_seq should be smaller than 3 (RACK works best with small reordering window) when 3 or more later packets are acked, choose always first computations
 																	retransmit_time = MINIMUM of 
-																						p->send_time + cnx->path[0]->retransmit_timer 	(=> equals "cnx->path[0]->smoothed_rtt + (cnx->path[0]->smoothed_rtt >> 3)")
+																						p->send_time + cnx->path[0]->retransmit_timer 	("retransmit_timer" equals "cnx->path[0]->smoothed_rtt + (cnx->path[0]->smoothed_rtt >> 3)")
 																						cnx->pkt_ctx[pc].latest_time_acknowledged + cnx->remote_parameters.max_ack_delay + (cnx->path[0]->smoothed_rtt >> 2)
 															(later packets are not acked -> timer-based)
 															rto = 	cnx->path[0]->retransmit_timer (when first retransmit)
