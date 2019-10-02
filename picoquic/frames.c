@@ -1944,6 +1944,8 @@ void picoquic_update_path_rtt(picoquic_cnx_t* cnx, picoquic_path_t * old_path, i
         if (ack_delay > old_path->max_ack_delay) {
             old_path->max_ack_delay = ack_delay;
         }
+        
+        old_path->current_rtt = rtt_estimate;
 
         if (old_path->smoothed_rtt == PICOQUIC_INITIAL_RTT && old_path->rtt_variant == 0) {
             old_path->smoothed_rtt = rtt_estimate;

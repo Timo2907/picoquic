@@ -52,7 +52,8 @@ gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
 	[in sender.c: if (cnx->pkt_ctx[pc].nb_retransmit > 4)]
 	
 5. Implemented a logging mechanism for retransmissions in logger.c 
-	-> executed in sender.c when there is a need for a retransmission
+	5.1 new logging function executed in sender.c when there is a need for a retransmission
+	5.2 Updated the congestion logging: Now it provides the current_rtt value, not only the smoothed rtt, rtt_min and rttvar
 	
 6. Changed the RTO retransmission timer: 
 				It was only normal RTO for the first retransmission.
@@ -70,7 +71,7 @@ gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
 #NEXT STEPS:	
 
 TODO: retransmissions should not be waiting for 100 ms!
-TODO: Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> why? Should not do it!
+TODO: Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
 e.g. 
 28386300d599a8f9: Sending packet type: 6 (1rtt protected), S0,
 28386300d599a8f9:     <c697584edabc064b>, Seq: 52 (52), Phi: 0,
@@ -78,11 +79,14 @@ e.g.
 28386300d599a8f9:     ping, 1 bytes
 28386300d599a8f9:     padding, 1410 bytes
 => look for "picoquic_frame_type_ping" in sender.c!!
+MTU = Maximum Transmission Unit
  => "picoquic_prepare_mtu_probe() 1. when triggered?  2. What does it do?"
 
 
 TODO: Server should only provide ACKs and no other packets! (server answers with 260 bytes packet instead of simple acks?!)
 		-> demoserver.c [if (stream_ctx->method == 1)] -> comment out the response to a POST	
+		
+		
 		
 TODO: ACKs should not be sent by the client?! 
 		-> There should only be a 100ms wait when the application scenario is started!

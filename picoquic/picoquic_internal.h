@@ -549,6 +549,7 @@ typedef struct st_picoquic_path_t {
     uint64_t rtt_variant;
     uint64_t retransmit_timer;
     uint64_t rtt_min;
+    uint64_t current_rtt; //TK: added this for logging purposes
     uint64_t max_spurious_rtt;
     uint64_t max_reorder_delay;
     uint64_t max_reorder_gap;
