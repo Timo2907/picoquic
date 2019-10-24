@@ -23,3 +23,6 @@ Release
 /experiments/wifi-experiments/Notes4machine@amr.txt
 */results/*
 !*.ipynb*
+/experiments/wifi-experiments/results/*/*
+*/logfiles
+/logfiles/application_building
