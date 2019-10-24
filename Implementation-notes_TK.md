@@ -9,13 +9,16 @@ picoquic.h explains the QUIC API => important points marked with (API)
 
 Interesting parts marked with "TK:"
 
-- picoquic_demo_client_initialize_context (2.1) sets boarders to the application scenario (e.g. number of streams)
-DONE: set alpn to picoquic_alpn_http_0_9 when invoking the client (default: hq-22 instead of h3-22 in picoquicdemo::quic_client())
-DONE: look up PICOQUIC_MIN_SEGMENT_SIZE (is set to 256 in picoquic_internal.h)
--> maybe: PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH has to be small (is 4 by default = max 5 receive loops)
--> try to run an application scenario with POST
-- (11.2.3) H09: Use this simple POST to send data to the Server???
-	OR skip the format specific request e.g. by using picoquic_add_to_stream() without "_with_ctx" (maybe the server has to be changed as well then)
+#GDB DEBUG
+SERVER DEBUG:
+gdb --args ./picoquicdemo -L -l log_server.txt -p 6121 -1
+(+ run)
+
+CLIENT DEBUG:
+gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
+(+ run)
+
+
 
 
 ## Client
@@ -273,3 +276,64 @@ packet::picoquic_incoming_(0rtt/client_handshake/server_cleartext/initial/encryp
 									2.8 if [4 x rtt_variant < rtt_min] -> rtt_variant = rtt_min / 4
 									2.9 retransmit_timer = smoothed_rtt + 4 x rtt_variant + max_ack_delay (MaxAckDelay is set in cnx->remote_parameters)
 									2.10 retransmit_timer = max(retransmit_timer, PICOQUIC_MIN_RETRANSMIT_TIMER)
+									
+									
+									
+									
+									
+# Send Time & Acknowledged time: How does "rtt_estimate" gets computed?
+
+*Official Description*
+"Time management. Internally, picoquic works in "virtual time", updated via the "current time" parameter
+ passed through picoquic_create(), picoquic_create_cnx(), picoquic_incoming_packet(), and picoquic_prepare_packet().
+ The function "picoquic_current_time()" reads the wall time in microseconds, accessed through system API. 
+ The default socket code in "picosock" uses that time function, and returns the time
+ at which messages arrived.
+ The function "picoquic_get_quic_time()" returns the "virtual time"."
+ 
+ 
+ACK received = update RTT with "current_time" as a parameter
+	
+	*HOW? Current Time updated*
+	- function "picoquic_get_quic_time(quic)"
+	**Code snipped**
+    uint64_t now;
+    struct timeval tv;
+    (void)gettimeofday(&tv, NULL);
+    now = (tv.tv_sec * 1000000ull) + tv.tv_usec;
+	return now;
+	
+	*WHEN? Current Time update
+	- Set up of Client / Server context [picoquicdemo::quic_client(-) + picoquicdemo::quic_server]
+	- Set up the TL tokens [quicctx::picoquic_load_token_file(-)]
+	- Receiving bytes over a socket [picosocks::picoquic_select(-)]
+	- Every loop when waiting for a packet [picoquicdemo::quic_client(-)]
+    
+	*HOW? Send time*
+	- set in "sender::prepate_packet_(...)"-functions	
+		=> "packet->send_time = current_time;"
+	
+	*HOW? Acknowledged time*
+	**Code snipped**
+	uint64_t acknowledged_time = current_time - ack_delay;
+    int64_t rtt_estimate = acknowledged_time - packet->send_time;
+	
+	if (pkt_ctx->latest_time_acknowledged < packet->send_time) {
+        pkt_ctx->latest_time_acknowledged = packet->send_time;
+    }
+    cnx->latest_progress_time = current_time;
+
+	*! rtt_estimate = current RTT which is used in computation of retransmission timer !*
+
+
+
+
+# Usage of TCP dump at MAKI:
+sudo tcpdump -i enp4s0f0 src 185.104.141.28
+
+
+
+
+
+
+

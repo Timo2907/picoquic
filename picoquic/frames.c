@@ -2041,6 +2041,9 @@ static picoquic_packet_t* picoquic_update_rtt(picoquic_cnx_t* cnx, uint64_t larg
                     picoquic_path_t * old_path = packet->send_path;
 
                     if (old_path != NULL) {
+                        old_path->current_send_time = packet->send_time;
+                        old_path->current_reception_time = current_time;
+                        old_path->current_ack_delay = ack_delay;
 #if 0
                         if (ack_delay > old_path->max_ack_delay) {
                             old_path->max_ack_delay = ack_delay;

@@ -14,4 +14,4 @@ mv queue.txt $dirname
 mv log_client.txt $dirname
 mv log_server.txt $dirname
 # Client: Time t, cwin, bytes-in-flight , nb_ret, rtt_min, current_rtt, srtt, rtt_var
-grep bytes-in-flight $dirname/log_client.txt | awk '{print $3, $5, $7, $9, $11, $13, $15, $17}' > $dirname/firstKPIs
+grep bytes-in-flight $dirname/log_client.txt | awk '{print $3, $5, $7, $9, $11, $13, $15, $17, $21}' > $dirname/firstKPIs

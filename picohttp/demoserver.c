@@ -119,10 +119,14 @@ Picoquic HTTP 3 service\
 <h1>Enjoy!</h1>\r\n\
 </BODY></HTML>\r\n";
 
-static char const * demo_server_post_response_header = "\
+//TK: this is the header response
+static char const * demo_server_post_response_header = "";
+/*
+"\
 200 OK\r\n\
 Content-Type: text/html\r\n\
 \r\n";
+*/
 
 static char const * demo_server_post_response_page = "\
 <!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\r\n<HTML>\r\n<HEAD>\r\n<TITLE>\
@@ -773,7 +777,7 @@ int picoquic_h09_server_process_data(picoquic_cnx_t* cnx,
             else if (stream_ctx->method == 1) {
                 /* TODO: Process the response to a POST */
 
-                //TK: do not send post_response - only header?! (comment this out: Do ACKs still get send by the server?)
+                //TK: do not send post_response - only header
 
                 char post_response[512];
 
@@ -781,7 +785,7 @@ int picoquic_h09_server_process_data(picoquic_cnx_t* cnx,
 
                 picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)demo_server_post_response_header,
                     strlen(demo_server_post_response_header), 1, (void *)stream_ctx);
-                //picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)post_response,
+                //TK: picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)post_response,
                 //    stream_ctx->response_length, 1, (void *)stream_ctx);
 
                 if (cnx->quic->F_log != NULL) {

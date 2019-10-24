@@ -1,0 +1,1 @@
+../../picoquicdemo -c ../../certs/cert.pem -k ../../certs/key.pem -L -l log_server.txt -p 6121 -1 > stdoutput_server.txt

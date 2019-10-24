@@ -1602,11 +1602,14 @@ void picoquic_log_congestion_state(FILE* F, picoquic_cnx_t* cnx, uint64_t curren
 
     fprintf(F, "%" PRIx64 ": ", picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
     picoquic_log_time(F, cnx, current_time, "T= ", " ");
-    fprintf(F, "cwin= %d ", (int)path_x->cwin);
+    fprintf(F, "cwin= %lu ", path_x->cwin); //TK: changed from (int) to (uint)!
     fprintf(F, "bytes-in-flight= %d ", (int)path_x->bytes_in_transit);
     fprintf(F, "nb_ret= %d ", (int)cnx->nb_retransmission_total);
     fprintf(F, "rtt_min= %d ", (int)path_x->rtt_min);
-    fprintf(F, "current_rtt= %d ", (int)path_x->current_rtt);
+    fprintf(F, "current_rtt= %lu ", path_x->current_rtt);
+    fprintf(F, "current_send_time= %lu ", path_x->current_send_time);
+    fprintf(F, "current_reception_time_withoutAckDelay= %lu ", path_x->current_reception_time);
+    fprintf(F, "current_ack_delay= %lu ", path_x->current_ack_delay);
     fprintf(F, "srtt= %d ", (int)path_x->smoothed_rtt);
     fprintf(F, "rtt_var= %d ", (int)path_x->rtt_variant);
     fprintf(F, "max_ack_delay= %d ", (int)path_x->max_ack_delay);

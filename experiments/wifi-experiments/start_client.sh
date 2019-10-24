@@ -1,0 +1,1 @@
+../../picoquicdemo -c ../../certs/cert.pem -k ../../certs/key.pem -L -l log_client.txt 185.104.141.28 6121 > stdoutput_client.txt

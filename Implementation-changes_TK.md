@@ -1,10 +1,14 @@
-SERVER DEBUG:
-gdb --args ./picoquicdemo -L -l log_server.txt -p 6121 -1
-(+ run)
 
-CLIENT DEBUG:
-gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
-(+ run)
+# first steps
+- picoquic_demo_client_initialize_context (2.1) sets boarders to the application scenario (e.g. number of streams)
+DONE: set alpn to picoquic_alpn_http_0_9 when invoking the client (default: hq-22 instead of h3-22 in picoquicdemo::quic_client())
+DONE: look up PICOQUIC_MIN_SEGMENT_SIZE (is set to 256 in picoquic_internal.h)
+-> maybe: PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH has to be small (is 4 by default = max 5 receive loops)
+DONE: try to run an application scenario with POST
+DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
+	OR skip the format specific request e.g. by using picoquic_add_to_stream() without "_with_ctx" (maybe the server has to be changed as well then)
+
+
 
 # Implementation steps
 0. Set up scripts for starting client/server and moving the log files
@@ -66,12 +70,24 @@ gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
 				=> BAD with 1000000ull, since it is 1 sec for every retransmit try! (4 retransmits = 3 seconds waiting time!))
 
 
-
+7. Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
+e.g. 
+28386300d599a8f9: Sending packet type: 6 (1rtt protected), S0,
+28386300d599a8f9:     <c697584edabc064b>, Seq: 52 (52), Phi: 0,
+28386300d599a8f9:     Prepared 1411 bytes
+28386300d599a8f9:     ping, 1 bytes
+28386300d599a8f9:     padding, 1410 bytes
+=> look for "picoquic_frame_type_ping" in sender.c!!
+MTU = Maximum Transmission Unit
+ => "picoquic_prepare_mtu_probe() 1. when triggered? => after a loss is detected  
+								  2. What does it do? => sending a probe packet over the path where the lost was detected (Congestion control things from standard?!)
+								 
 
 #NEXT STEPS:	
 
 TODO: retransmissions should not be waiting for 100 ms!
-TODO: Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
+
+DONE: Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
 e.g. 
 28386300d599a8f9: Sending packet type: 6 (1rtt protected), S0,
 28386300d599a8f9:     <c697584edabc064b>, Seq: 52 (52), Phi: 0,
@@ -81,15 +97,15 @@ e.g.
 => look for "picoquic_frame_type_ping" in sender.c!!
 MTU = Maximum Transmission Unit
  => "picoquic_prepare_mtu_probe() 1. when triggered?  2. What does it do?"
+TODO: Comment the MTU usage out?
 
-
-TODO: Server should only provide ACKs and no other packets! (server answers with 260 bytes packet instead of simple acks?!)
+DONE: Server should only provide ACKs and no other packets! (server answers with 260 bytes packet instead of simple acks?!)
 		-> demoserver.c [if (stream_ctx->method == 1)] -> comment out the response to a POST	
-		
+		-> it is used as ACK?!
 		
 		
 TODO: ACKs should not be sent by the client?! 
-		-> There should only be a 100ms wait when the application scenario is started!
+		-> DONE: There should only be a 100ms wait when the application scenario is started!
 		
 TODO: Stream should start after 100ms, even if the last one is not finished
 		-> e.g. additional parameter in demo_stream (named "finished")? 

@@ -276,7 +276,6 @@ int quic_server(const char* server_name, int server_port,
                     fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION\t");
                     picoquic_log_processing(F_log, cnx_server, bytes_recv, ret);
                } else {
-                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-RECEPTION\t");
                     fprintf(F_log, "******** Initial processing: CNX_SERVER is NULL. ********\n");
                }
             } else {
@@ -608,7 +607,7 @@ int quic_client(const char* ip_address_text, int server_port,
     
 
     fprintf(stdout, "Testing scenario: <%s>\n", client_scenario_text);
-    ret = demo_client_parse_scenario_desc(client_scenario_text, &client_sc_nb, &client_sc); //TK: parse scenario
+    ret = demo_client_parse_scenario_desc(client_scenario_text, &client_sc_nb, &client_sc);
     
 
     if (ret != 0) {
@@ -624,9 +623,9 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-    client_sc_nb = 150; //TK: number of streams = number of msgs -> 150 msgs à 100ms per msg = 15 sec
-    time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms)
-    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk); //TODO maybe with timing parameter between messages?
+    client_sc_nb = 36000; //36000=100ms, 18000=200ms, 7200=500ms, 4800=750ms, 4500=800ms, 4000=900ms, 3600=1s //TK: number of streams = number of msgs -> 150 msgs à 100ms per msg = 15 sec / 36000 = 1 hr / 864000 = 24 hr
+    time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms) // 200000=200ms, 500000=500ms, 1000000=1s
+    ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk);
     if(ret == 0) {
         if(F_log != NULL) {
             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED with client_sc_nb= %zu\n", client_sc_nb);
@@ -1000,10 +999,10 @@ int quic_client(const char* ip_address_text, int server_port,
                     }
                 }
 
-                //TK: Sending only when timer is reaching the set difference between two msgs: last_sending_timer + time_between_msgs > picoquic_current_time()
+                //TK: Sending only when timer is reaching the previously set difference between two msgs: last_sending_timer + time_between_msgs > picoquic_current_time()
                 //              OR the application scenario is not yet running (established = 0)
                 //TODO:         OR it is a retransmission (how to know?) -> do not update "last_time_send" then!
-                //TODO:         demo_stream[i+1] should not wait until demo_stream[i] is finished, but start right after the 100ms are passed
+                //TODO:         demo_stream[i+1] should not wait until demo_stream[i] is finished, but start right after the 100ms have passed
                 difference_in_time = picoquic_current_time() - last_sending_time;
                 if (ret == 0 && (established == 0 || (established == 1 && (last_sending_time + time_between_msgs) < picoquic_current_time()))) {
                     
@@ -1034,6 +1033,8 @@ int quic_client(const char* ip_address_text, int server_port,
                         }
                     }
 
+
+                    //TK: The waiting mechanism should be implemented here, so that we know after "picoquic_prepare_packet" if we wait 100ms (no retrans, new stream)
                     if (ret == 0 && send_length > 0) {
                         bytes_sent = sendto(fd, send_buffer, (int)send_length, 0,
                             (struct sockaddr*)&x_to, x_to_length);
@@ -1047,8 +1048,12 @@ int quic_client(const char* ip_address_text, int server_port,
                                 fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::Cannot send packet to server, returns %d\n", bytes_sent);
                             }
                         } else {
-                            //TK: update time after new msg was sent //TODO: NO TIMING RESET WHEN RETRANSMISSION! (NO ACK!-> make the server send no msgs but acks)
-                            last_sending_time = picoquic_current_time();
+                            //TK: update time after new msg was sent 
+                            //TODO: NO TIMING RESET WHEN RETRANSMITTING!
+                            //if(!retransmission)
+                            //{
+                                last_sending_time = picoquic_current_time();
+                            //}
 
                             if(F_log != NULL) {
                                 fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SENDTO::bytes_sent= %d\n", bytes_sent);
