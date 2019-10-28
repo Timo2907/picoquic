@@ -623,8 +623,8 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-    client_sc_nb = 150; //36000=100ms, 18000=200ms, 7200=500ms, 4800=750ms, 4500=800ms, 4000=900ms, 3600=1s //TK: number of streams = number of msgs -> 150 msgs à 100ms per msg = 15 sec / 36000 = 1 hr / 864000 = 24 hr
-    time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms) // 200000=200ms, 500000=500ms, 1000000=1s
+    client_sc_nb = 600; //36000=100ms, 18000=200ms, 7200=500ms, 4800=750ms, 4500=800ms, 4000=900ms, 3600=1s //TK: number of streams = number of msgs -> 150 msgs à 100ms per msg = 15 sec / 36000 = 1 hr / 864000 = 24 hr
+    time_between_msgs = 500000; //TK: time between two msgs in usec (100000us = 100ms) // 200000=200ms, 500000=500ms, 1000000=1s
     ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk);
     if(ret == 0) {
         if(F_log != NULL) {
