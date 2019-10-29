@@ -1,0 +1,50 @@
+
+-n: disable network object name resolution ?
+-r <infile>: Name of pcap file
+-Y <read filter>: apply specified filter on analysis
+-T fields: format of the output e.g. by fields
+-e <field>: specifiying the to-be-extracted fields
+
+
+tshark -n -r client_*.pcap -Y "udp && 17 < frame.number < 1826" -T fields -e frame.time_epoch -e frame.number -e data.len > client_filter_pcap
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Examples by Amr
+tshark -n -r tr1.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr1.txt
+tshark -n -r tr2.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr2.txt
+tshark -n -r tr3.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr3.txt
+tshark -n -r tr4.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr4.txt
+tshark -n -r tr5.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr5.txt
+tshark -n -r tr6.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr6.txt
+tshark -n -r tr7.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr7.txt
+tshark -n -r tr8.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr8.txt
+tshark -n -r tr9.pcap -R "tcp && ip.dst == 10.1.2.3" -T fields -e frame.time_epoch -e frame.len  > tr9.txt
+
+
+tshark -n -r trtest1.pcap -R "tcp && frame.len >=1200 && frame.time_epoch >= 4" -T fields -e frame.time_epoch -e frame.len  > trtest1.txt
+
+tshark -n -r tr1.pcap -R "tcp && frame.len >=1200" -T fields -e frame.time_epoch -e frame.len  > tr1.txt
+
+
+ sudo tcpdump -i rename3 -n tcp -w test.pcap
+
+iperf -c nodee -t 2
+
+
+
+
+
+
+

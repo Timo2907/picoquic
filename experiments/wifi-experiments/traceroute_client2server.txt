@@ -1,0 +1,33 @@
+UDP:
+traceroute to 185.104.141.28 (185.104.141.28), 30 hops max, 60 byte packets
+ 1  10.0.254.254 (10.0.254.254)  0.131 ms  0.111 ms  0.091 ms
+ 2  130.83.245.126 (130.83.245.126)  0.696 ms  0.672 ms  0.644 ms
+ 3  130.83.0.29 (130.83.0.29)  0.582 ms 130.83.0.27 (130.83.0.27)  0.642 ms 130.83.0.29 (130.83.0.29)  0.662 ms
+ 4  te-0-1-0.br-tud1.karo.tu.da.man-da.net (82.195.78.50)  0.450 ms  0.439 ms  0.438 ms
+ 5  te-0-2-2-400.core1.karo.tu.da.man-da.net (82.195.78.41)  0.639 ms  0.655 ms  0.631 ms
+ 6  te-0-0-3-0.core1.rz.hda.da.man-da.net (82.195.67.245)  0.966 ms  1.123 ms te-0-0-5-0.core1.rz.hda.da.man-da.net (82.195.67.221)  1.081 ms
+ 7  te-2-0-0-0.core1.fra1.ix.f.man-da.net (82.195.67.77)  1.249 ms te-1-2-0-0.core1.fra1.ix.f.man-da.net (82.195.67.177)  1.451 ms  1.412 ms
+ 8  te-0-1-0-0.peer1.fra4.ix.f.man-da.net (82.195.67.250)  1.421 ms  1.405 ms  1.386 ms
+ 9  ae3-1.fra20.core-backbone.com (80.81.192.187)  1.452 ms  1.440 ms  1.410 ms
+10  ae14-2021.fra10.core-backbone.com (80.255.14.5)  20.217 ms  20.202 ms  1.487 ms
+11  core-backbone.nynex.de (80.255.14.162)  1.794 ms  1.804 ms  1.585 ms
+12  eqixfr5-bb1.nynex.de (109.236.144.33)  1.661 ms  1.700 ms  3.811 ms
+13  host-109-236-144-20.nynex.de (109.236.144.20)  2.170 ms  2.232 ms  2.380 ms
+14  host-185-104-141-28.fiberone.de (185.104.141.28)  2.155 ms !X  2.203 ms !X  2.649 ms !X
+
+TCP:
+traceroute to 185.104.141.28 (185.104.141.28), 30 hops max, 60 byte packets
+ 1  10.0.254.254 (10.0.254.254)  0.280 ms  0.232 ms  0.164 ms
+ 2  130.83.245.126 (130.83.245.126)  0.704 ms  0.663 ms  0.667 ms
+ 3  130.83.0.29 (130.83.0.29)  0.711 ms  0.765 ms  0.928 ms
+ 4  te-0-1-0.br-tud1.karo.tu.da.man-da.net (82.195.78.50)  0.396 ms  0.389 ms  0.374 ms
+ 5  te-0-2-2-400.core1.karo.tu.da.man-da.net (82.195.78.41)  0.621 ms  0.593 ms  0.586 ms
+ 6  te-0-0-5-0.core1.rz.hda.da.man-da.net (82.195.67.221)  1.006 ms  0.982 ms  1.032 ms
+ 7  te-1-2-0-0.core1.fra1.ix.f.man-da.net (82.195.67.177)  1.187 ms te-2-0-0-0.core1.fra1.ix.f.man-da.net (82.195.67.77)  1.263 ms  1.243 ms
+ 8  te-0-1-0-0.peer1.fra4.ix.f.man-da.net (82.195.67.250)  1.193 ms  1.206 ms  1.486 ms
+ 9  ae3-1.fra20.core-backbone.com (80.81.192.187)  1.449 ms  1.639 ms  1.590 ms
+10  ae14-2021.fra10.core-backbone.com (80.255.14.5)  5.256 ms  2.835 ms  5.220 ms
+11  core-backbone.nynex.de (80.255.14.162)  2.915 ms  2.037 ms  1.804 ms
+12  eqixfr5-bb1.nynex.de (109.236.144.33)  1.659 ms  1.610 ms  1.689 ms
+13  host-109-236-144-20.nynex.de (109.236.144.20)  2.428 ms  2.208 ms  2.151 ms
+14  host-185-104-141-28.fiberone.de (185.104.141.28)  2.173 ms !X  2.180 ms !X  2.192 ms !X
