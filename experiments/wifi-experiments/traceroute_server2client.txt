@@ -1,0 +1,32 @@
+UDP: (not directly to server because no open IP)
+traceroute to 130.83.245.115 (130.83.245.115), 30 hops max, 60 byte packets
+ 1  _gateway (192.168.178.1)  1.436 ms  1.632 ms  1.869 ms
+ 2  host-185-104-140-1.fiberone.de (185.104.140.1)  8.237 ms  8.363 ms  8.506 ms
+ 3  host-109-236-144-22.nynex.de (109.236.144.22)  13.886 ms  14.136 ms  14.822 ms
+ 4  212.119.27.201 (212.119.27.201)  9.003 ms  8.988 ms  8.971 ms
+ 5  ae-1.r00.frnkge07.de.bb.gin.ntt.net (129.250.4.238)  8.954 ms ae-1.r01.frnkge07.de.bb.gin.ntt.net (129.250.4.250) 9.174 ms  9.141 ms
+ 6  ae-11.r25.frnkge08.de.bb.gin.ntt.net (129.250.4.184)  9.135 ms ae-7.r24.frnkge08.de.bb.gin.ntt.net (129.250.4.76) 4.373 ms ae-8.r24.frnkge08.de.bb.gin.ntt.net (129.250.4.78)  8.055 ms
+ 7  ae-2.r01.frnkge13.de.bb.gin.ntt.net (129.250.2.101)  7.981 ms ae-5.r00.frnkge13.de.bb.gin.ntt.net (129.250.4.17)  7.804 ms  8.158 ms
+ 8  ae-2.a01.frnkge13.de.bb.gin.ntt.net (129.250.4.99)  7.737 ms ae-0.a01.frnkge13.de.bb.gin.ntt.net (129.250.2.61) 8.110 ms  8.082 ms
+ 9  te-2-0-7-0.core1.fra1.ix.f.man-da.net (213.198.77.166)  8.053 ms  8.023 ms  7.994 ms
+10  te-0-0-0-0.core1.rz.hda.da.man-da.net (82.195.67.78)  7.965 ms te-0-0-4-0.core1.rz.hda.da.man-da.net (82.195.67.178)  7.935 ms  12.567 ms
+11  te-0-2-6-0.core1.karo.tu.da.man-da.net (82.195.67.246)  12.561 ms te-0-2-4-0.core1.karo.tu.da.man-da.net (82.195.67.222)  12.535 ms te-0-2-6-0.core1.karo.tu.da.man-da.net (82.195.67.246)  3.248 ms
+12  te-0-2-0-400.br-tud1.karo.tu.da.man-da.net (82.195.78.42)  8.635 ms  9.169 ms  9.617 ms
+13  cores101-fw.net.hrz.tu-darmstadt.de (130.83.193.29)  9.594 ms  9.567 ms  9.540 ms
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
