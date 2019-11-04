@@ -6,16 +6,14 @@
 -e <field>: specifiying the to-be-extracted fields
 
 
-tshark -n -r client_*.pcap -Y "udp && 17 < frame.number < 1826" -T fields -e frame.time_epoch -e frame.number -e data.len > client_filter_pcap
+#UDP traffic:
+tshark -n -r client.pcap -T fields -e frame.time_epoch -e frame.number -e data.len > client_filter_pcap
 
+#TCP traffic:
+tshark -n -r client.pcap -T fields -e frame.time_epoch -e frame.number -e tcp.len -e tcp.seq -e tcp.nxtseq -e tcp.ack -e tcp.analysis.acks_frame -e tcp.analysis.ack_rtt > client_filter_pcap
 
-
-
-
-
-
-
-
+only acks with rtt:
+tshark -n -r client.pcap -Y 'tcp.analysis.ack_rtt > 0' -T fields -e frame.time_epoch -e frame.number -e tcp.analysis.ack_rtt > client_filter_pcap_acks
 
 
 

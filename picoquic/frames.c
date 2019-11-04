@@ -3602,6 +3602,9 @@ int picoquic_decode_frames(picoquic_cnx_t* cnx, picoquic_path_t * path_x, uint8_
     int ack_needed = 0;
     picoquic_packet_context_enum pc = picoquic_context_from_epoch(epoch);
     picoquic_packet_context_t * pkt_ctx = &cnx->pkt_ctx[pc];
+    
+    fprintf(cnx->quic->F_log, "DEBUG:FRAMES::picoquic_decode_frames()::START\n");
+
 
     while (bytes != NULL && bytes < bytes_max) {
         uint8_t first_byte = bytes[0];
@@ -3733,12 +3736,17 @@ int picoquic_decode_frames(picoquic_cnx_t* cnx, picoquic_path_t * path_x, uint8_
             }
             }
         }
+
+        fprintf(cnx->quic->F_log, "DEBUG:FRAMES::picoquic_decode_frames()::bytes(decoded frame)= %" PRIu8 " ack_needed= %d\n", *bytes, ack_needed);
+
     }
 
     if (bytes != NULL && ack_needed != 0) {
         cnx->latest_progress_time = current_time;
         pkt_ctx->ack_needed = 1;
     }
+
+    fprintf(cnx->quic->F_log, "DEBUG:FRAMES::picoquic_decode_frames()::END::pkt_ctx->ack_needed= %u\n", pkt_ctx->ack_needed);
 
     return bytes != NULL ? 0 : PICOQUIC_ERROR_DETECTED;
 }

@@ -831,6 +831,9 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
             stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
     }
 
+    fprintf(cnx->quic->F_log, "DEBUG:DEMOSERVER::h09_server_callback (stream_id= %lu)\n", stream_id);
+
+
     switch (fin_or_event) {
     case picoquic_callback_almost_ready:
     case picoquic_callback_ready:
@@ -920,6 +923,7 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
                 return 0;
             }
             else {
+                fprintf(cnx->quic->F_log, "DEBUG:DEMOSERVER::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
                 return demo_client_prepare_to_send((void*)bytes, length, stream_ctx->echo_length, &stream_ctx->echo_sent);
             }
     default:

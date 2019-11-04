@@ -47,10 +47,8 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 				before sending the next msg in the Event Loop:
 				check if (last_sending_time + time_between_msgs) < picoquic_current_time()
 						+ update last_sending_time after "sendto()" was performed (= the msg went out through the socket)
-		3.3.3 TODO: Different cases for when we do not have to wait for the timer
-						1. retransmission!
-						2. ack?
-						3. ... ?
+		3.3.3 TRY 1, 2
+		3.3.4 Callback function triggered every x ms
 						
 4. Implement the number of max retransmission as a macro definition "#define PICOQUIC_MAX_RETRANSMISSIONS 20" in picoquic.h
 	[in sender.c: if (cnx->pkt_ctx[pc].nb_retransmit > 4)]

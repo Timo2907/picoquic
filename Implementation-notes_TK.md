@@ -73,7 +73,7 @@ calls picoquicdemo::quic_client() with [server_name, server_port, sni, esni_rr_f
 						-> prepare the initial message when starting a connection (PICOTLS!) tls_api::picoquic_tls_set_extensions(-) // ptls_buffer_init(-) // 10.1.3 pltls_handle_message(-) // 10.1.4 tls_api::picoquic_add_to_tls_stream(-) // 10.1.5 ptls_buffer_dispose(-)
 
 (API)	11. if quicctx::picoquic_is_0rtt_available(cnx_client)
-			calls democlient::picoquic_demo_client_start_streams with [cnx, ctx, fin_stream_id (= last stream)] (How to know what the last stream ID is when starting the sendind?)
+			calls democlient::picoquic_demo_client_start_streams with [cnx, ctx, fin_stream_id (= last stream)]
 					11.1 starts with ALPN initialization: 
 							if alpn=picoquic_alpn_http_3, 
 (HTTP)						calls democlient::h3zero_client_init [cnx] -> use HTTP0.9 to evade this
@@ -327,10 +327,17 @@ ACK received = update RTT with "current_time" as a parameter
 
 
 
+# NEW TIMING:
 
-# Usage of TCP dump at MAKI:
-sudo tcpdump -i enp4s0f0 src 185.104.141.28
+[picoquic_demo_client_start_streams]: opens all streams and calls [picoquic_demo_client_open_stream]
+(see 11.2) [picoquic_demo_client_open_stream]: nb_open_streams++, calls [picoquic_add_to_stream_with_ctx], calls [picoquic_mark_active_stream]
+[picoquic_add_to_stream_with_ctx]: SENDER fills the stream with the data
+[picoquic_mark_active_stream]: Mark stream as active, or not. If a stream is active, it will be polled for data when the transport is ready to send. The polling will only start after all currently queued data has been sent.
+	=> if is_active = 0, then data is never sent/POSTed
+	=> use this for delaying streams
 
+[picoquic_demo_client_callback] in case "picoquic_callback_stream_fin" calls [picoquic_demo_client_close_stream]
+[picoquic_demo_client_close_stream]: nb_open_streams--, stream_ctx->is_open = 0
 
 
 

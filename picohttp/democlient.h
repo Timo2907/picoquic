@@ -112,7 +112,8 @@ int picoquic_application_scenario_client_initialize_context(
     picoquic_demo_stream_desc_t ** desc,
 	size_t nb_demo_streams,
 	char const * alpn,
-    int no_disk);
+    int no_disk,
+    uint64_t application_payload);
 
 int demo_client_parse_scenario_desc(char const * text, size_t * nb_streams, picoquic_demo_stream_desc_t ** desc);
 void demo_client_delete_scenario_desc(size_t nb_streams, picoquic_demo_stream_desc_t * desc);

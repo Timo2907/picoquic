@@ -264,6 +264,14 @@ static int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
         stream_ctx->stream_id = stream_id + nb_repeat*4u;
         stream_ctx->post_size = post_size;
 
+        fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->stream_id= %lu\n", stream_ctx->stream_id);
+        fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream= %s\n", (stream_ctx->next_stream == NULL) ? "NULL" : "NOT NULL");
+        if(stream_ctx->next_stream != NULL)
+        {
+            fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream->stream_id= %lu\n", stream_ctx->next_stream->stream_id);
+        }
+
+
         if (ctx->no_disk) {
             stream_ctx->F = NULL;
         }
@@ -324,7 +332,6 @@ static int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
         }
 
 		/* Send the request */
-
         if (ret == 0) {
             ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
                 (post_size > 0)?0:1, stream_ctx);
@@ -378,8 +385,10 @@ int picoquic_demo_client_start_streams(picoquic_cnx_t* cnx,
 	 * just finished */
     for (size_t i = 0; ret == 0 && i < ctx->nb_demo_streams; i++) {
 
-        if (ctx->demo_stream[i].previous_stream_id == fin_stream_id) {
-
+        //TK: Here, the next stream is only opened after the last is finished
+        //TK: Is it really only starting after finish or just concatenating the streams?
+        if (ctx->demo_stream[i].previous_stream_id == fin_stream_id)
+        {
             uint64_t repeat_nb = 0;
             do {
                 ret = picoquic_demo_client_open_stream(cnx, ctx, ctx->demo_stream[i].stream_id,
@@ -412,6 +421,9 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
 
     ctx->last_interaction_time = picoquic_get_quic_time(cnx->quic);
     ctx->progress_observed = 1;
+
+    fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_callback (stream_id= %lu) fin_or_event=%d (%s)\n",
+            stream_id, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
 
     switch (fin_or_event) {
     case picoquic_callback_stream_data:
@@ -517,6 +529,7 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
             return 0;
         }
         else {
+            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
             return demo_client_prepare_to_send((void*)bytes, length, stream_ctx->post_size, &stream_ctx->post_sent);
         }
     case picoquic_callback_almost_ready:
@@ -529,7 +542,8 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
 
     if (ret == 0 && fin_stream_id != PICOQUIC_DEMO_STREAM_ID_INITIAL) {
          /* start next batch of streams! */
-		 ret = picoquic_demo_client_start_streams(cnx, ctx, fin_stream_id);
+         //TK: This is not needed anymore when the Streams are only triggered with timing instead of finish callbacks
+		 //ret = picoquic_demo_client_start_streams(cnx, ctx, fin_stream_id);
     }
 
     /* that's it */
@@ -635,12 +649,12 @@ int picoquic_application_scenario_client_initialize_context(
     picoquic_demo_stream_desc_t ** stream_desc,
 	size_t nb_demo_streams,
 	char const * alpn,
-    int no_disk)
+    int no_disk,    
+    uint64_t application_payload)
 {
     *stream_desc = (picoquic_demo_stream_desc_t*)malloc(nb_demo_streams*sizeof(picoquic_demo_stream_desc_t));
     uint64_t previous_stream_id = PICOQUIC_DEMO_STREAM_ID_INITIAL;
     uint64_t stream_id = 0;
-    uint64_t payload = 100; //100 bytes payload = 136 bytes post
     size_t i;
 
     for(i=0; i < nb_demo_streams; i++)
@@ -650,7 +664,7 @@ int picoquic_application_scenario_client_initialize_context(
         new_stream_desc->is_binary = 0;
         new_stream_desc->doc_name = "/";
         new_stream_desc->f_name = "test.txt";
-        new_stream_desc->post_size = payload;
+        new_stream_desc->post_size = application_payload;
         new_stream_desc->stream_id = stream_id;
         new_stream_desc->previous_stream_id = previous_stream_id;
 
@@ -659,7 +673,8 @@ int picoquic_application_scenario_client_initialize_context(
     } 
 
     /*  
-        TODO: timing of streams
+        TODO TK: timing of streams
+        "time_between_msgs" provides the time in usec between the beginning/opening of two consecutive streams
     */
 
     memset(ctx, 0, sizeof(picoquic_demo_callback_ctx_t));
