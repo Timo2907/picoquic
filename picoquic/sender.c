@@ -947,9 +947,6 @@ static int picoquic_retransmit_needed_by_packet(picoquic_cnx_t* cnx,
         /* There has not been any higher packet acknowledged, thus we fall back on timer logic. */
         //uint64_t rto = (cnx->pkt_ctx[pc].nb_retransmit == 0) ?
         //    cnx->path[0]->retransmit_timer : (1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1));
-        
-        //(NOT WORKING) uint64_t rto = cnx->path[0]->retransmit_timer;
-        
         //Try this:
         uint64_t rto = (cnx->pkt_ctx[pc].nb_retransmit == 1) ?
             (1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)) : cnx->path[0]->retransmit_timer;
@@ -973,10 +970,12 @@ static int picoquic_retransmit_needed_by_packet(picoquic_cnx_t* cnx,
     if (current_time >= retransmit_time || (p->is_ack_trap && delta_seq > 0)) {
         should_retransmit = 1;
         *timer_based = is_timer_based;
+        
+        //TK: Set retransmission values if retransmission should be done (don't know if actually needed yet!)
+        picoquic_set_retransmission_values(cnx->quic->F_log, cnx, picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)), 
+                                    (int)p->sequence_number, delta_seq, is_timer_based, current_time, p->send_time, 
+                                    cnx->pkt_ctx[pc].latest_time_acknowledged, cnx->path[0]->smoothed_rtt, retransmit_time);
 
-        //TK: Log retransmission values if retransmission is needed
-        picoquic_log_retransmission(cnx->quic->F_log, picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)), (int)p->sequence_number, (int)delta_seq, is_timer_based, (int)current_time, (int)p->send_time, 
-                (int)cnx->pkt_ctx[pc].latest_time_acknowledged, (int)cnx->path[0]->smoothed_rtt, (int) retransmit_time);
 
         if (cnx->quic->sequence_hole_pseudo_period != 0 && pc == picoquic_packet_context_application && !p->is_ack_trap) {
             DBG_PRINTF("Retransmit #%d, delta=%d, timer=%d, time=%d, sent: %d, ack_t: %d, s_rtt: %d, rt: %d",
@@ -2458,6 +2457,11 @@ int picoquic_prepare_packet_ready(picoquic_cnx_t* cnx, picoquic_path_t * path_x,
         packet->pc = pc;
 
         if ((length = picoquic_retransmit_needed(cnx, pc, path_x, current_time, next_wake_time, packet, send_buffer_min_max, &is_cleartext_mode, &header_length)) > 0) {
+            
+            if(cnx->quic->F_log != NULL)    {
+                picoquic_log_retransmission(cnx->quic->F_log, cnx, picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
+            }
+
             /* Set the new checksum length */
             checksum_overhead = picoquic_get_checksum_length(cnx, is_cleartext_mode);
             /* Check whether it makes sense to add an ACK at the end of the retransmission */

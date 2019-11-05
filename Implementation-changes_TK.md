@@ -49,6 +49,7 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 						+ update last_sending_time after "sendto()" was performed (= the msg went out through the socket)
 		3.3.3 TRY 1, 2
 		3.3.4 Callback function triggered every x ms
+		3.3.5 PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH value changed from 4 (= 5 packets in a row receiving) to 1 (= 2 packets in a row receiving)
 						
 4. Implement the number of max retransmission as a macro definition "#define PICOQUIC_MAX_RETRANSMISSIONS 20" in picoquic.h
 	[in sender.c: if (cnx->pkt_ctx[pc].nb_retransmit > 4)]
@@ -56,6 +57,13 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 5. Implemented a logging mechanism for retransmissions in logger.c 
 	5.1 new logging function executed in sender.c when there is a need for a retransmission
 	5.2 Updated the congestion logging: Now it provides the current_rtt value, not only the smoothed rtt, rtt_min and rttvar
+	5.3 changed again: more values!
+	5.4 set values in "should retransmit state" + log only if in actual retransmit case (only noticable afterwards)
+		Divide the methods in the logger:
+			1. method sets the values in connection context
+			2. method logs the values in the logfile
+					=> method 1 called whenever a "should retransmit" case is present
+					=> method 2 called only when a retransmit is actually happening
 	
 6. Changed the RTO retransmission timer: 
 				It was only normal RTO for the first retransmission.
@@ -66,6 +74,9 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 			(rto = 	cnx->path[0]->retransmit_timer (when first retransmit)
 					OR 1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)
 				=> BAD with 1000000ull, since it is 1 sec for every retransmit try! (4 retransmits = 3 seconds waiting time!))
+
+
+
 
 
 7. Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
@@ -82,8 +93,6 @@ MTU = Maximum Transmission Unit
 								 
 
 #NEXT STEPS:	
-
-TODO: retransmissions should not be waiting for 100 ms!
 
 DONE: Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
 e.g. 
@@ -104,10 +113,6 @@ DONE: Server should only provide ACKs and no other packets! (server answers with
 		
 TODO: ACKs should not be sent by the client?! 
 		-> DONE: There should only be a 100ms wait when the application scenario is started!
-		
-TODO: Stream should start after 100ms, even if the last one is not finished
-		-> e.g. additional parameter in demo_stream (named "finished")? 
-				+ skip those who are finished until reaching an unfinished one
 
 
 

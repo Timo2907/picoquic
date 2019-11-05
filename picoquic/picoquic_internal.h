@@ -766,6 +766,16 @@ typedef struct st_picoquic_cnx_t {
     unsigned int stream_blocked : 1;
     FILE * cc_log; /* File where congestion control data is logged */
 
+    /* Latest Retransmission Information */
+    int last_seq_nb;
+    uint64_t last_delta_seq;
+    int last_timer_based;
+    uint64_t last_current_time;
+    int64_t last_send_diff;
+    int64_t last_ack_diff;
+    uint64_t last_smoothed_rtt;
+    int64_t last_retrans_diff;
+
     /* ECN Counters */
     uint64_t ecn_ect0_total_local;
     uint64_t ecn_ect1_total_local;
@@ -1015,8 +1025,10 @@ void picoquic_log_time(FILE* F, picoquic_cnx_t* cnx, uint64_t current_time,
     const char* label1, const char* label2);
 
 /* TK: Retransmission logging */
-void picoquic_log_retransmission(FILE* F, uint64_t log_cnxid, int seq_nb, int delta_seq, int timer_based, int current_time, int send_time, 
-                                int latest_ack, int smoothed_rtt, int retransmit_time);
+void picoquic_set_retransmission_values(FILE* F, picoquic_cnx_t* cnx, uint64_t log_cnxid, int seq_nb, int64_t delta_seq, int timer_based, uint64_t current_time, uint64_t send_time, 
+                                uint64_t latest_ack, uint64_t smoothed_rtt, uint64_t retransmit_time);
+void picoquic_log_retransmission(FILE* F, picoquic_cnx_t* cnx, uint64_t log_cnxid);
+
 
 #define PICOQUIC_SET_LOG(quic, F) (quic)->F_log = (void*)(F)
 

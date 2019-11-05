@@ -252,10 +252,11 @@ int quic_server(const char* server_name, int server_port,
         from_length = to_length = sizeof(struct sockaddr_storage);
         if_index_to = 0;
 
+        /* TK: Congestion Logging moved to a later position
         if (just_once != 0 && F_log != NULL &&  delta_t > 10000 && cnx_server != NULL && 
             (cnx_server->pkt_ctx[picoquic_packet_context_application].send_sequence < PICOQUIC_LOG_PACKET_MAX_SEQUENCE || qserver->use_long_log)) {
             picoquic_log_congestion_state(F_log, cnx_server, current_time);
-        }
+        } */
 
         /* Receiving packets */
 
@@ -407,6 +408,7 @@ int quic_server(const char* server_name, int server_port,
 
                             if (F_log != NULL) {                    
                                 fprintf(F_log, "----------------:PICOQUICDEMO::quic_server()-SENT_MSG-SEND_LENGTH=%d bytes\n", (int)send_length);
+                                picoquic_log_congestion_state(F_log, cnx_server, current_time);
                             }
                     }
                 }
@@ -440,7 +442,7 @@ int quic_server(const char* server_name, int server_port,
 //TK: not used
 //static const char * test_scenario_default = "0:index.html;4:test.html;8:/1234567;12:main.jpg;16:war-and-peace.txt;20:en/latest/;24:/file-123K";
 
-#define PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH 4    //TK: receive max 5 packets in a row
+#define PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH 1    //TK: receive max 5 packets in a row -> changed to 1 = 2 packets in a row
 
 /* Client client migration to a new port number: 
  *  - close the current socket.
@@ -800,7 +802,7 @@ int quic_client(const char* ip_address_text, int server_port,
         //TK: Check if new streams should be opened - only when timer fires AND connection is established!
         //TODO TK: Timing not "on point" yet
         //current_time instead of picoquic_current_time() -> does not matter
-        if(established == 1 && (picoquic_current_time() - last_stream_timer) > time_between_msgs)
+        if(established == 1 && (picoquic_current_time() - last_stream_timer) >= time_between_msgs)
         {
             fprintf(F_log, "DEBUG:Timer fired: %lu (variable) %lu (method)\n", current_time - last_stream_timer, picoquic_current_time() - last_stream_timer);
             picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4);

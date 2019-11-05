@@ -1908,16 +1908,31 @@ void picoquic_cc_dump(picoquic_cnx_t * cnx, uint64_t current_time)
     }
 }
 
-//TK: Logging retransmission information
-void picoquic_log_retransmission(FILE* F, uint64_t log_cnxid64, int seq_nb, int delta_seq, int timer_based, int current_time, 
-                                    int send_time, int latest_ack, int smoothed_rtt, int retransmit_time)
+//TK: Set retransmission information in the connection context
+void picoquic_set_retransmission_values(FILE* F, picoquic_cnx_t* cnx, uint64_t log_cnxid, int seq_nb, int64_t delta_seq, int timer_based, uint64_t current_time, uint64_t send_time, 
+                                uint64_t latest_ack, uint64_t smoothed_rtt, uint64_t retransmit_time)
 {
-    picoquic_log_prefix_initial_cid64(F, log_cnxid64);
-    int send_diff = send_time - current_time;
-    int ack_diff = latest_ack - current_time;
-    int retrans_diff = retransmit_time - current_time;
-    fprintf(F, "Retransmit Seq#%d, delta_seq=%d, timer-based(RTO)=%d, current_time(ct)=%d, diff:sent-ct= %d, diff:ack_time-ct= %d, s_rtt: %d, diff:retrans_time-ct: %d\n", 
-                        seq_nb, delta_seq, timer_based, current_time, send_diff, ack_diff, smoothed_rtt, retrans_diff);
+    cnx->last_seq_nb = seq_nb; 
+    cnx->last_delta_seq = delta_seq; 
+    cnx->last_timer_based = timer_based; 
+    cnx->last_current_time = current_time; 
+    cnx->last_smoothed_rtt = smoothed_rtt;
+    cnx->last_send_diff = current_time - send_time;
+    cnx->last_ack_diff = current_time - latest_ack;
+    cnx->last_retrans_diff = current_time - retransmit_time;
+
+    /* Commented out to not log "should retransmit"-packets that actually are not retransmitted
+    fprintf(F, "Should Retransmit Seq#%d, delta_seq=%ld, timer-based(RTO)=%d, current_time(ct)=%lu, diff:ct-sent= %ld, diff:ct-ack_time= %ld, s_rtt: %lu, diff:ct-retrans_time: %ld\n", 
+                        seq_nb, delta_seq, timer_based, current_time, cnx->last_send_diff, cnx->last_ack_diff, smoothed_rtt, cnx->last_retrans_diff);
+    */
+}
+//TK: Log the information in the last retransmission case since the retransmission is happening now
+void picoquic_log_retransmission(FILE* F, picoquic_cnx_t* cnx, uint64_t log_cnxid)
+{
+    picoquic_log_prefix_initial_cid64(F, log_cnxid);
+    fprintf(F, "Retransmit Seq#%d, delta_seq=%ld, timer-based(RTO)=%d, current_time(ct)=%lu, diff:ct-sent= %ld, diff:ct-ack_time= %ld, s_rtt: %lu, diff:ct-retrans_time: %ld\n", 
+                    cnx->last_seq_nb, cnx->last_delta_seq, cnx->last_timer_based, cnx->last_current_time, 
+                    cnx->last_send_diff, cnx->last_ack_diff, cnx->last_smoothed_rtt, cnx->last_retrans_diff);
 }
 
 #define PICOQUIC_BYTE_SWAP_32(x) ((((uint32_t)x)>>24)|((((uint32_t)x)>>8)&0x0000FF00)|((((uint32_t)x)<<8)&0x00FF0000)|(((uint32_t)x)<<24))
