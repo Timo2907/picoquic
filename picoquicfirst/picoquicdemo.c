@@ -582,7 +582,7 @@ int quic_client(const char* ip_address_text, int server_port,
     int is_name = 0;
     int migration_started = 0;
     int address_updated = 0;
-    int64_t delay_max = 10000000;
+    int64_t delay_max = 1; //TK: changed from 10000000 (10s) to 1 (0.001 ms)
     int64_t delta_t = 0;
     int notified_ready = 0;
     int zero_rtt_available = 0;
@@ -800,16 +800,12 @@ int quic_client(const char* ip_address_text, int server_port,
     while (ret == 0 && picoquic_get_cnx_state(cnx_client) != picoquic_state_disconnected) {
 
         //TK: Check if new streams should be opened - only when timer fires AND connection is established!
-        //TODO TK: Timing not "on point" yet
-        //current_time instead of picoquic_current_time() -> does not matter
         if(established == 1 && (picoquic_current_time() - last_stream_timer) >= time_between_msgs)
         {
-            fprintf(F_log, "DEBUG:Timer fired: %lu (variable) %lu (method)\n", current_time - last_stream_timer, picoquic_current_time() - last_stream_timer);
+            //fprintf(F_log, "DEBUG:Timer fired: %lu (variable) %lu (method)\n", current_time - last_stream_timer, picoquic_current_time() - last_stream_timer);
             picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4);
             client_sc_nb_counter++;
             last_stream_timer = picoquic_current_time();
-        } else {
-            fprintf(F_log, "DEBUG:Timer not fired: %lu %s\n", picoquic_current_time() - last_stream_timer, established == 0? "(not established)" : "()");
         }
 
         unsigned char received_ecn;
@@ -1078,12 +1074,15 @@ int quic_client(const char* ip_address_text, int server_port,
                     }
                 }
 
+                // TK: This delta describes the timeout that the client listens for new data over the sockets 
+                //      ->  changed delay_max to 1us (= 0.001ms granularity)
                 delta_t = picoquic_get_next_wake_delay(qclient, current_time, delay_max);
 
                 if (delta_t > 10000 && callback_ctx.nb_open_streams == 0 &&
                     picoquic_is_cnx_backlog_empty(cnx_client)) {
                     delta_t = 10000;
-                }
+                } 
+                
             }
         }
     }

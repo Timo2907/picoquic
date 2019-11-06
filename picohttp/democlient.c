@@ -431,6 +431,9 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
         /* Data arrival on stream #x, maybe with fin mark */
         /* TODO: parse the frames. */
         /* TODO: check settings frame */
+
+        //TODO TK: Change the callback, so that the client DOES NOT reply with an ACK to the stream_fin flag
+        //              => does the server waits for an ACK after his ACK with stream_fin flag?
         if (stream_ctx == NULL) {
             stream_ctx = picoquic_demo_client_find_stream(ctx, stream_id);
         }

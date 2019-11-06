@@ -48,8 +48,10 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 				check if (last_sending_time + time_between_msgs) < picoquic_current_time()
 						+ update last_sending_time after "sendto()" was performed (= the msg went out through the socket)
 		3.3.3 TRY 1, 2
-		3.3.4 Callback function triggered every x ms
+		3.3.4 Callback function triggered every x ms (tryout 3)
 		3.3.5 PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH value changed from 4 (= 5 packets in a row receiving) to 1 (= 2 packets in a row receiving)
+		3.3.6 socket listening time has to be changed: delay_max value provides a upper bound on listening time when the client checks for new receptions over the sockets 
+				(framework is not based on real-time scenarios like our use case)
 						
 4. Implement the number of max retransmission as a macro definition "#define PICOQUIC_MAX_RETRANSMISSIONS 20" in picoquic.h
 	[in sender.c: if (cnx->pkt_ctx[pc].nb_retransmit > 4)]
@@ -74,7 +76,6 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 			(rto = 	cnx->path[0]->retransmit_timer (when first retransmit)
 					OR 1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)
 				=> BAD with 1000000ull, since it is 1 sec for every retransmit try! (4 retransmits = 3 seconds waiting time!))
-
 
 
 
