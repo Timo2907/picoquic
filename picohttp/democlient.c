@@ -265,11 +265,14 @@ static int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
         stream_ctx->post_size = post_size;
 
         fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->stream_id= %lu\n", stream_ctx->stream_id);
-        fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream= %s\n", (stream_ctx->next_stream == NULL) ? "NULL" : "NOT NULL");
         if(stream_ctx->next_stream != NULL)
         {
             fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream->stream_id= %lu\n", stream_ctx->next_stream->stream_id);
+        } else
+        {
+            fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream= %s\n", (stream_ctx->next_stream == NULL) ? "NULL" : "NOT NULL");
         }
+        
 
 
         if (ctx->no_disk) {
@@ -386,7 +389,7 @@ int picoquic_demo_client_start_streams(picoquic_cnx_t* cnx,
     for (size_t i = 0; ret == 0 && i < ctx->nb_demo_streams; i++) {
 
         //TK: Here, the next stream is only opened after the last is finished
-        //TK: Is it really only starting after finish or just concatenating the streams?
+        //TK: NOW its just concatenating the streams -> no waiting for finished previous streams
         if (ctx->demo_stream[i].previous_stream_id == fin_stream_id)
         {
             uint64_t repeat_nb = 0;
@@ -422,8 +425,8 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
     ctx->last_interaction_time = picoquic_get_quic_time(cnx->quic);
     ctx->progress_observed = 1;
 
-    fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_callback (stream_id= %lu) fin_or_event=%d (%s)\n",
-            stream_id, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
+    //fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_callback (stream_id= %lu) fin_or_event=%d (%s)\n",
+    //        stream_id, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
 
     switch (fin_or_event) {
     case picoquic_callback_stream_data:
@@ -432,8 +435,11 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
         /* TODO: parse the frames. */
         /* TODO: check settings frame */
 
-        //TODO TK: Change the callback, so that the client DOES NOT reply with an ACK to the stream_fin flag
-        //              => does the server waits for an ACK after his ACK with stream_fin flag?
+        //TK: Change the callback, so that the client DOES NOT reply with an ACK to the stream_fin flag
+        //              => does the server waits for an ACK after his ACK with stream_fin flag 
+        //              -> YES, the server sends another ACK afterwards to force a reply
+        //fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_callback::case=stream_fin\n");
+
         if (stream_ctx == NULL) {
             stream_ctx = picoquic_demo_client_find_stream(ctx, stream_id);
         }
@@ -532,7 +538,7 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
             return 0;
         }
         else {
-            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
+            //fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
             return demo_client_prepare_to_send((void*)bytes, length, stream_ctx->post_size, &stream_ctx->post_sent);
         }
     case picoquic_callback_almost_ready:

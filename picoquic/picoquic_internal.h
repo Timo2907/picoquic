@@ -766,7 +766,7 @@ typedef struct st_picoquic_cnx_t {
     unsigned int stream_blocked : 1;
     FILE * cc_log; /* File where congestion control data is logged */
 
-    /* Latest Retransmission Information */
+    /* TK: Latest Retransmission Information */
     int last_seq_nb;
     uint64_t last_delta_seq;
     int last_timer_based;

@@ -77,10 +77,16 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 					OR 1000000ull << (cnx->pkt_ctx[pc].nb_retransmit - 1)
 				=> BAD with 1000000ull, since it is 1 sec for every retransmit try! (4 retransmits = 3 seconds waiting time!))
 
+7. Changed the frame behavior: No ACK of ACK -> Server ACKs the client's packet, the client does not need to ACK the finished stream
+						-> still, every 9th segment, there is an ACK from the Client?!
+						BUT when there is no ACK of ACK, the stream limit will be reached (=Stream 2052) -> frame_type_streams_blocked_bidir packet for every stream after that
 
 
 
-7. Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
+
+
+[--------------------------------------]
+????. Sender sends a 1440 byte packet (1 ping, 1410 padding) after a retransmit -> probe packet after retransmit
 e.g. 
 28386300d599a8f9: Sending packet type: 6 (1rtt protected), S0,
 28386300d599a8f9:     <c697584edabc064b>, Seq: 52 (52), Phi: 0,
@@ -104,15 +110,15 @@ e.g.
 28386300d599a8f9:     padding, 1410 bytes
 => look for "picoquic_frame_type_ping" in sender.c!!
 MTU = Maximum Transmission Unit
- => "picoquic_prepare_mtu_probe() 1. when triggered?  2. What does it do?"
+ => "picoquic_prepare_mtu_probe() 1. when triggered? -> after retransmission (NOT ANYMORE!)
+								  2. What does it do? -> testing the path with a max sized packet
 TODO: Comment the MTU usage out?
 
 DONE: Server should only provide ACKs and no other packets! (server answers with 260 bytes packet instead of simple acks?!)
 		-> demoserver.c [if (stream_ctx->method == 1)] -> comment out the response to a POST	
-		-> it is used as ACK?!
+		-> it is used as ACK?!		
 		
-		
-TODO: ACKs should not be sent by the client?! 
+DONE: ACKs should not be sent by the client?! 
 		-> DONE: There should only be a 100ms wait when the application scenario is started!
 
 
@@ -123,8 +129,8 @@ TODO: ACKs should not be sent by the client?!
 
 
 from one-hour run on maki server in logfiles -> log_server/client_20190829-2219
-TODO: ----------------:PICOQUICDEMO::quic_server()::54c858b5579b3946: 3606.593701 : Closed. Retrans= 145820, spurious= 20873, max sp gap = 13, max sp delay = 350459
-	=> what are they saying?
+ ----------------:PICOQUICDEMO::quic_server()::54c858b5579b3946: 3606.593701 : Closed. Retrans= 145820, spurious= 20873, max sp gap = 13, max sp delay = 350459
+	=> what are they saying? -> stats for spurios (unnecessary) retransmissions -> OUTDATED
 	=> these stats are not there in client (everything =0)
-TODO: ----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 10588 us (wait for 10506 us)
-	=> what does this mean?
+ ----------------:PICOQUICDEMO::quic_server()-RECEPTION_ZERO::bytes= 0, after 10588 us (wait for 10506 us)
+	=> what does this mean? -> waiting time at the socket (specified by "delta_t" variable)
