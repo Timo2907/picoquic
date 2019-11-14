@@ -776,6 +776,10 @@ typedef struct st_picoquic_cnx_t {
     uint64_t last_smoothed_rtt;
     int64_t last_retrans_diff;
 
+    /* TK: TLP with Redundancy Extension */
+    unsigned int tlp_activated : 1;
+    int64_t tlp_threshold;
+
     /* ECN Counters */
     uint64_t ecn_ect0_total_local;
     uint64_t ecn_ect1_total_local;

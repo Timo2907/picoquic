@@ -30,8 +30,7 @@
  * Code common to H3 and H09 clients
  */
 
-static picoquic_demo_client_stream_ctx_t* picoquic_demo_client_find_stream(
-    picoquic_demo_callback_ctx_t* ctx, uint64_t stream_id)
+picoquic_demo_client_stream_ctx_t* picoquic_demo_client_find_stream(picoquic_demo_callback_ctx_t* ctx, uint64_t stream_id)
 {
     picoquic_demo_client_stream_ctx_t * stream_ctx = ctx->first_stream;
 
@@ -242,7 +241,7 @@ int h09_demo_client_prepare_stream_open_command(
  * Unified procedures used for H3 and H09 clients
  */
 
-static int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
+int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
     picoquic_demo_callback_ctx_t* ctx,
     uint64_t stream_id, char const* doc_name, char const* fname, int is_binary, size_t post_size, uint64_t nb_repeat)
 {
@@ -354,8 +353,7 @@ static int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
     return ret;
 }
 
-static int picoquic_demo_client_close_stream(
-    picoquic_demo_callback_ctx_t* ctx, picoquic_demo_client_stream_ctx_t* stream_ctx)
+int picoquic_demo_client_close_stream(picoquic_demo_callback_ctx_t* ctx, picoquic_demo_client_stream_ctx_t* stream_ctx)
 {
     int ret = 0;
     if (stream_ctx != NULL && stream_ctx->is_open) {
@@ -425,8 +423,8 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
     ctx->last_interaction_time = picoquic_get_quic_time(cnx->quic);
     ctx->progress_observed = 1;
 
-    //fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_callback (stream_id= %lu) fin_or_event=%d (%s)\n",
-    //        stream_id, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
+    fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_callback (stream_id= %lu) fin_or_event=%d (%s)\n",
+            stream_id, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
 
     switch (fin_or_event) {
     case picoquic_callback_stream_data:
@@ -680,11 +678,6 @@ int picoquic_application_scenario_client_initialize_context(
         stream_id = new_stream_desc->stream_id + 4;
         previous_stream_id = new_stream_desc->stream_id;
     } 
-
-    /*  
-        TODO TK: timing of streams
-        "time_between_msgs" provides the time in usec between the beginning/opening of two consecutive streams
-    */
 
     memset(ctx, 0, sizeof(picoquic_demo_callback_ctx_t));
     ctx->demo_stream = *stream_desc;

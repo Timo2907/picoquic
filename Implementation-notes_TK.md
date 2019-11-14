@@ -12,10 +12,12 @@ Interesting parts marked with "TK:"
 #GDB DEBUG
 SERVER DEBUG:
 gdb --args ./picoquicdemo -L -l log_server.txt -p 6121 -1
+gdb --args ./picoquicdemo -L -l log_server.txt -p 6122 -1
 (+ run)
 
 CLIENT DEBUG:
 gdb --args ./picoquicdemo -L -l log_client.txt 127.0.0.1 6121
+gdb --args ./picoquicdemo -L -l log_client.txt 185.104.141.28 6122
 (+ run)
 
 

@@ -80,7 +80,16 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 7. Changed the frame behavior: No ACK of ACK -> Server ACKs the client's packet, the client does not need to ACK the finished stream
 						-> still, every 9th segment, there is an ACK from the Client?!
 						BUT when there is no ACK of ACK, the stream limit will be reached (=Stream 2052) -> frame_type_streams_blocked_bidir packet for every stream after that
-
+						
+8. Method for standard application streams: Streams started one after another, concatenated -> normal streaming behavior (picoquic_demo_client_start_streams)
+   Method for additional streams: An additional stream is started, independently from every other stream (picoquic_demo_client_open_stream)
+   
+	8.1 streams are closed when a new msg is available, since the data on the last stream is outdated now
+		-> check for last stream context, if it is still open
+		OR
+		streams are closed when the stream is finished in time, so there is the ACK from the server and the stream is already finished and can be closed before a new msg is generated
+   
+9. Changed the flow control variables (blocked streams by client or max streams bidir from server) -> application can handle more, therefore the flow control is set higher
 
 
 

@@ -93,8 +93,14 @@ int h3zero_client_create_stream_request(
 int h09_demo_client_prepare_stream_open_command(
     uint8_t * command, size_t max_size, uint8_t const* path, size_t path_len, size_t post_size, const char * host, size_t * consumed);
 
-int picoquic_demo_client_start_streams(picoquic_cnx_t* cnx,
-    picoquic_demo_callback_ctx_t* ctx, uint64_t fin_stream_id);
+int picoquic_demo_client_start_streams(picoquic_cnx_t* cnx, picoquic_demo_callback_ctx_t* ctx, uint64_t fin_stream_id);
+
+    //TK: Enable some methods for API 
+int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx, picoquic_demo_callback_ctx_t* ctx,
+    uint64_t stream_id, char const* doc_name, char const* fname, int is_binary, size_t post_size, uint64_t nb_repeat);
+picoquic_demo_client_stream_ctx_t* picoquic_demo_client_find_stream(picoquic_demo_callback_ctx_t* ctx, uint64_t stream_id);
+int picoquic_demo_client_close_stream(picoquic_demo_callback_ctx_t* ctx, picoquic_demo_client_stream_ctx_t* stream_ctx);
+
 int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
     uint64_t stream_id, uint8_t* bytes, size_t length,
     picoquic_call_back_event_t fin_or_event, void* callback_ctx, void* v_stream_ctx);

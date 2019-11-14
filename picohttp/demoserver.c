@@ -778,9 +778,11 @@ int picoquic_h09_server_process_data(picoquic_cnx_t* cnx,
 
                 (void)picoquic_sprintf(post_response, sizeof(post_response), &stream_ctx->response_length, demo_server_post_response_page, (int)stream_ctx->post_received);
 
-                /* TK: do not send post response header? */
+                /* TK: do not send post response header */
+                /*
                 picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)demo_server_post_response_header,
                     strlen(demo_server_post_response_header), 1, (void *)stream_ctx);
+                */
 
                 /* TK: do not send post_response
                 picoquic_add_to_stream_with_ctx(cnx, stream_id, (uint8_t *)post_response,
@@ -940,6 +942,7 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
         return 0;
     }
     else if (fin_or_event == picoquic_callback_stream_data || fin_or_event == picoquic_callback_stream_fin) {
+
         //fprintf(cnx->quic->F_log, "DEBUG:DEMOSERVER::before:h09_server_process_data (%s)\n", picoquic_log_fin_or_event_name(fin_or_event));
         
         if (picoquic_h09_server_process_data(cnx, stream_id, bytes, length, fin_or_event, stream_ctx)) {

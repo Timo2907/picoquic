@@ -955,6 +955,20 @@ static int picoquic_retransmit_needed_by_packet(picoquic_cnx_t* cnx,
         is_timer_based = 1;
     }
 
+    //TK: Check if the RTO/RACK threshold is exceeded
+    int64_t timeout = retransmit_time - p->send_time;
+    if(timeout > cnx->tlp_threshold && cnx->cnx_state == picoquic_state_ready) //only set TLP in ready_state 
+    {
+        //fprintf(cnx->quic->F_log, "DEBUG:SENDER::tlp_activated=1::timeout= %ld tlp_threshold= %ld delta_seq= %ld RTO or RACK: %s\n", 
+        //                            timeout, tlp_threshold, delta_seq, is_timer_based == 1? "RTO" : "RACK");
+        cnx->tlp_activated = 1;
+    } else
+    {
+        //fprintf(cnx->quic->F_log, "DEBUG:SENDER::tlp_activated=0::timeout= %ld tlp_threshold= %ld delta_seq= %ld RTO or RACK: %s\n", 
+        //                            timeout, tlp_threshold, delta_seq, is_timer_based == 1? "RTO" : "RACK");
+    }
+    
+
     if (p->ptype == picoquic_packet_0rtt_protected) {
         /* Special case for 0RTT packets */
         if (cnx->cnx_state != picoquic_state_ready &&

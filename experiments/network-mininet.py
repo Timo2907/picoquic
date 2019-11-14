@@ -123,12 +123,12 @@ def start_nodes(delay_router, loss_router, server, client, mqs):
  info( '\n*** Set up of in-network routers completed.\n' )
 
  info( '\n*** Start Server...\n' )
- server.cmd('tshark -i iu-eth0 -w server.pcap &')
+ server.cmd('tshark -i any -w server.pcap &')
  server.cmd('sudo ./start_server_mininet.sh > stdoutput_server.txt &')
  info( '\n*** Server started.\n' )
 
  info( '\n*** Start Client...\n' )
- client.cmd('tshark -i hu-eth0 -w client.pcap &')
+ client.cmd('tshark -i any -w client.pcap &')
  client.cmd('sleep 5; sudo ./start_client_mininet.sh > stdoutput_client.txt &')
  info( '\n*** Client started.\n' )
 

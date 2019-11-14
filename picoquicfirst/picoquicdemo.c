@@ -591,9 +591,11 @@ int quic_client(const char* ip_address_text, int server_port,
     picoquic_demo_stream_desc_t * client_sc = NULL;
     uint64_t application_payload = 0;
     uint64_t time_between_msgs = 0;
+    int64_t set_tlp_threshold = 0;
     uint64_t start_time = 0;
     uint64_t start_time_app = 0;
     uint64_t last_stream_timer = 0;
+    int ephemeral = 0;
 
     if (alpn == NULL) {
         //alpn = "h3-22"; //TK: Set default to other alpn -> h3 not used by our application
@@ -628,17 +630,20 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-    client_sc_nb = 600; //TK: number of streams = number of msgs = ~ experiment duration -> 150 msgs à 100ms per msg = 15 sec / 36000 = 1 hr / 864000 = 24 hr
+    //TODO TK: Change from in-client description to GLOBAL DEFINED parameters (especially because of ephemeral = 1 for server's POST reply to close streams naturally)
+    client_sc_nb = 6000; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
     time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms, 200000=200ms, 500000=500ms)
     application_payload = 100; //TK: 100 bytes payload per msg
+    ephemeral = 1; //TK: Close outdated streams (either after deadline or when the data was ACK'ed)
+    set_tlp_threshold = 100000; //TK: parameter for tlp_threshold in usec?
     start_time = picoquic_current_time();
 
     ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk, application_payload);
 
     if(ret == 0) {
         if(F_log != NULL) {
-            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED with #msgs= %zu, time_between_msgs= %lu ms, application_payload= %lu bytes\n", 
-                                                                                                client_sc_nb, time_between_msgs / 1000, application_payload);
+            fprintf(F_log, "PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED with #msgs= %zu, time_between_msgs= %lu ms, application_payload= %lu bytes, tlp_threshold= %ld \n", 
+                                                                                            client_sc_nb, time_between_msgs / 1000, application_payload, set_tlp_threshold);
         }
     } else {
         fprintf(stdout, "Initializing of the clients' context failed.\n");
@@ -652,7 +657,7 @@ int quic_client(const char* ip_address_text, int server_port,
             sni = ip_address_text;
         }
         if(F_log != NULL) {
-            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= %s IP_ADDR_TXT= %s\n", sni, ip_address_text);
+            fprintf(F_log, "PICOQUICDEMO::quic_client()-GOT_SERVER_ADDRESS. SNI= %s IP_ADDR_TXT= %s\n", sni, ip_address_text);
         }
     }
 
@@ -664,7 +669,7 @@ int quic_client(const char* ip_address_text, int server_port,
             ret = -1;
         } else {
             if(F_log != NULL) {
-                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-SOCKET_OPENED\n");
+                fprintf(F_log, "PICOQUICDEMO::quic_client()-SOCKET_OPENED\n");
             }
         }
         
@@ -710,7 +715,7 @@ int quic_client(const char* ip_address_text, int server_port,
                 fprintf(stdout, "No server name specified, certificate will not be verified.\n");
                 if (F_log != stdout && F_log != stderr && F_log != NULL)
                 {
-                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.\n");
+                    fprintf(F_log, "PICOQUICDEMO::quic_client()::No server name specified, certificate will not be verified.\n");
                 }
                 picoquic_set_null_verifier(qclient);
             }
@@ -719,13 +724,13 @@ int quic_client(const char* ip_address_text, int server_port,
                 fprintf(stdout, "No root crt list specified, certificate will not be verified.\n");
                 if (F_log != stdout && F_log != stderr && F_log != NULL)
                 {
-                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::No root crt list specified, certificate will not be verified.\n");
+                    fprintf(F_log, "PICOQUICDEMO::quic_client()::No root crt list specified, certificate will not be verified.\n");
                 }
                 picoquic_set_null_verifier(qclient);
             }
 
             if(F_log != NULL) {
-                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-QCLIENT_CREATED\n");
+                fprintf(F_log, "PICOQUICDEMO::quic_client()-QCLIENT_CREATED\n");
             }
         }
     }
@@ -741,8 +746,10 @@ int quic_client(const char* ip_address_text, int server_port,
             ret = -1;
         }
         else {
-            //TODO Everything fine here?
             picoquic_set_callback(cnx_client, picoquic_demo_client_callback, &callback_ctx);
+            //TK: set default tlp value
+            cnx_client->tlp_activated = 0;
+            cnx_client->tlp_threshold = set_tlp_threshold;
 
 
             if (callback_ctx.tp != NULL) {
@@ -799,14 +806,90 @@ int quic_client(const char* ip_address_text, int server_port,
     /* Wait for packets */
     while (ret == 0 && picoquic_get_cnx_state(cnx_client) != picoquic_state_disconnected) {
 
+        // STREAM LIMIT TESTING
+        /*
+        if(established == 1 && client_sc_nb_counter==0)
+        {
+            //Single Stream ID (blocked_streams_bidir from client)
+            
+            fprintf(F_log, "DEBUG:START STREAM 3000 (3004)\n");
+            picoquic_demo_client_start_streams(cnx_client, &callback_ctx, 3000);
+
+            fprintf(F_log, "DEBUG:OPEN STREAM 20000 (20004)\n");
+            picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 20000, 
+                                                callback_ctx.demo_stream[0].doc_name,
+                                                callback_ctx.demo_stream[0].f_name,
+                                                callback_ctx.demo_stream[0].is_binary,
+                                                (size_t)callback_ctx.demo_stream[0].post_size, 0);
+            
+
+            //Multiple Number of Streams (max_stream_bidir from server)
+            
+            for(int i=0; i<2501; i++)
+            {
+                fprintf(F_log, "DEBUG:OPEN STREAM %d\n", i*4);
+                picoquic_demo_client_open_stream(cnx_client, &callback_ctx, i*4, 
+                                                callback_ctx.demo_stream[0].doc_name,
+                                                callback_ctx.demo_stream[0].f_name,
+                                                callback_ctx.demo_stream[0].is_binary,
+                                                (size_t)callback_ctx.demo_stream[0].post_size, 0);
+            }
+            
+
+            client_sc_nb_counter++;
+        }*/
+        
+
         //TK: Check if new streams should be opened - only when timer fires AND connection is established!
+        
         if(established == 1 && (picoquic_current_time() - last_stream_timer) >= time_between_msgs)
         {
-            //fprintf(F_log, "DEBUG:Timer fired: %lu (variable) %lu (method)\n", current_time - last_stream_timer, picoquic_current_time() - last_stream_timer);
-            picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4);
-            client_sc_nb_counter++;
-            last_stream_timer = picoquic_current_time();
+            //TK: Check if TLP is activated and redundant packets should be send
+            if(1==1) //cnx_client->tlp_activated == 0)
+            {
+                /* Check if the last stream (client_sc_nb_counter*4) is still open: If yes, close!
+                    TODO TK: Set this outside of the TLP ? Has to be done in TLP */
+                if(ephemeral == 1)
+                {
+                    picoquic_demo_client_stream_ctx_t* last_stream = picoquic_demo_client_find_stream(&callback_ctx, client_sc_nb_counter*4);
+                    if(last_stream != NULL && last_stream->is_open == 1)
+                    {
+                        fprintf(F_log, "DEBUG:Stream %lu closed after timeout.\n", last_stream->stream_id); 
+                        /* TK: if the stream has to be closed here, the Data was not ack'ed in time. */
+                        picoquic_demo_client_close_stream(&callback_ctx, last_stream);
+                    }
+                }
+
+
+                fprintf(F_log, "DEBUG:Timer fired: %lu tlp_activated= %u client_sc_nb_counter= %d nb_open_streams= %d (should be 0)\n", 
+                                picoquic_current_time() - last_stream_timer, cnx_client->tlp_activated, client_sc_nb_counter, callback_ctx.nb_open_streams);
+
+                picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
+                fprintf(F_log, "DEBUG:Stream %d opened.\n", (client_sc_nb_counter+1)*4);
+                client_sc_nb_counter++;
+                last_stream_timer = picoquic_current_time();
+            } else
+            {
+                fprintf(F_log, "DEBUG:Timer fired: %lu tlp_activated= %u\n", picoquic_current_time() - last_stream_timer, cnx_client->tlp_activated);
+                picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //maybe with (client_sc_nb_counter*4)+client_sc_nb ?
+                client_sc_nb_counter++;
+                last_stream_timer = picoquic_current_time();
+
+                //TK: Open the redundant stream
+                //TODO TK: Is client_sc_nb_counter*4+4 the right demo_stream? -> set to 0 for now, SEGFAULT (strlen() when counter*4+4 is used)
+                //TODO TK: Redundant Stream should get into another packet
+                int redundant_stream_id = (client_sc_nb_counter*4) + 4 + (client_sc_nb*4);
+                picoquic_demo_client_open_stream(cnx_client, &callback_ctx, redundant_stream_id,
+                                                    callback_ctx.demo_stream[0].doc_name,
+                                                    callback_ctx.demo_stream[0].f_name,
+                                                    callback_ctx.demo_stream[0].is_binary,
+                                                    (size_t)callback_ctx.demo_stream[0].post_size, 0);
+
+                fprintf(F_log, "DEBUG:tlp_activated= %u StreamID= %d redundant_stream_id= %d\n", cnx_client->tlp_activated, client_sc_nb_counter*4+4, redundant_stream_id);
+            }
+            
         }
+        
 
         unsigned char received_ecn;
 
@@ -868,6 +951,21 @@ int quic_client(const char* ip_address_text, int server_port,
                     (struct sockaddr*)&packet_to, if_index_to, received_ecn,
                     current_time);
                 client_receive_loop++;
+
+
+                /* TK: Check if the last stream (client_sc_nb_counter*4) is still open: If yes, close!
+                    TODO TK: It could be an ACK for data from a stream before?
+                    TODO TK: TLP's redundant streams have to be closed as well when one is ack'ed */
+                if(established == 1 && ephemeral == 1)
+                {
+                    picoquic_demo_client_stream_ctx_t* last_stream = picoquic_demo_client_find_stream(&callback_ctx, client_sc_nb_counter*4);
+                    if(last_stream != NULL && last_stream->is_open == 1)
+                    {
+                        fprintf(F_log, "DEBUG:Stream %lu closed after REPLY (ACK).\n", last_stream->stream_id); 
+                        /* TK: if the stream has to be closed here, the Data was not ack'ed in time. */
+                        picoquic_demo_client_close_stream(&callback_ctx, last_stream);
+                    }
+                }
 
                 if (F_log != NULL) {
                     fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= %d\t", client_receive_loop);
@@ -1018,7 +1116,7 @@ int quic_client(const char* ip_address_text, int server_port,
                             fprintf(stdout, "No progress for 10 seconds. Closing. \n");
                             if (F_log != stdout && F_log != stderr && F_log != NULL)
                             {
-                                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::No progress for 10 seconds. Closing. \n ############### CLOSING THE CONNECTION (idle) ###############\n");
+                                fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()::No progress for 10 seconds. Closing. (nb_open_streams=%d client_sc_nb_counter=%d) \n ############### CLOSING THE CONNECTION (idle) ###############\n", callback_ctx.nb_open_streams, client_sc_nb_counter);
                             }
                             ret = picoquic_close(cnx_client, 0);
                         }
@@ -1050,7 +1148,8 @@ int quic_client(const char* ip_address_text, int server_port,
                     if (ret == 0 && send_length > 0) {
                         
                         if(F_log != NULL) {
-                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-TIMING: %lu ms after application start.\n", (current_time - start_time_app)/1000);
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-TIMING: %lu ms after application start (at msg no. %d @ ~ %lu ms)\n", 
+                                        (current_time - start_time_app)/1000, client_sc_nb_counter, client_sc_nb_counter*time_between_msgs/1000);
                         }
 
                         bytes_sent = sendto(fd, send_buffer, (int)send_length, 0,
