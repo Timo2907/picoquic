@@ -365,7 +365,7 @@ int h3zero_server_callback_prepare_to_send(picoquic_cnx_t* cnx,
         ret = picoquic_reset_stream(cnx, stream_id, H3ZERO_INTERNAL_ERROR);
     }
     else {
-        ret = demo_client_prepare_to_send(context, space, stream_ctx->echo_length, &stream_ctx->echo_sent);
+        ret = demo_client_prepare_to_send(cnx, context, space, stream_ctx->echo_length, &stream_ctx->echo_sent);
     }
 
     return ret;
@@ -925,7 +925,7 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
             }
             else {
                 //fprintf(cnx->quic->F_log, "DEBUG:DEMOSERVER::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
-                return demo_client_prepare_to_send((void*)bytes, length, stream_ctx->echo_length, &stream_ctx->echo_sent);
+                return demo_client_prepare_to_send(cnx, (void*)bytes, length, stream_ctx->echo_length, &stream_ctx->echo_sent);
             }
     default:
         break;

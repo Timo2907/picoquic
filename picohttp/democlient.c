@@ -42,7 +42,7 @@ picoquic_demo_client_stream_ctx_t* picoquic_demo_client_find_stream(picoquic_dem
 }
 
 
-int demo_client_prepare_to_send(void * context, size_t space, size_t echo_length, size_t * echo_sent)
+int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t space, size_t echo_length, size_t * echo_sent)
 {
     int ret = 0;
 
@@ -56,12 +56,19 @@ int demo_client_prepare_to_send(void * context, size_t space, size_t echo_length
             is_fin = 0;
         }
 
-        buffer = picoquic_provide_stream_data_buffer(context, available, is_fin, !is_fin);
+        //TK: When non-ephemeral application, stream is not finished when no data is polled BUT the stream is also NOT active anymore -> waiting for new generated data
+        if(cnx->is_ephemeral == 0) {
+            buffer = picoquic_provide_stream_data_buffer(context, available, 0, 0);
+        } else {
+            buffer = picoquic_provide_stream_data_buffer(context, available, is_fin, !is_fin);
+        }
+
         if (buffer != NULL) {
             int r = (74 - (*echo_sent % 74)) - 2;
 
-            /* TODO: fill buffer with some text */
-            memset(buffer, 0x5A, available);
+            int msg = cnx->msg_number;
+            memset(buffer, msg, available);
+            //memset(buffer, 0x5A, available);
 
             while (r < (int)available) {
                 if (r >= 0) {
@@ -255,15 +262,23 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
         ret = -1;
     }
     else {
-        ctx->nb_open_streams++;
-        ctx->nb_client_streams++;
-        memset(stream_ctx, 0, sizeof(picoquic_demo_client_stream_ctx_t));
-        stream_ctx->next_stream = ctx->first_stream;
-        ctx->first_stream = stream_ctx;
-        stream_ctx->stream_id = stream_id + nb_repeat*4u;
-        stream_ctx->post_size = post_size;
+        picoquic_demo_client_stream_ctx_t* old_stream_context = picoquic_demo_client_find_stream(ctx, stream_id);
+        if(old_stream_context == NULL) //(cnx->is_ephemeral == 1)
+        {
+            ctx->nb_open_streams++;
+            ctx->nb_client_streams++;
 
-        fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->stream_id= %lu\n", stream_ctx->stream_id);
+            memset(stream_ctx, 0, sizeof(picoquic_demo_client_stream_ctx_t));
+            stream_ctx->next_stream = ctx->first_stream;
+            ctx->first_stream = stream_ctx;
+            stream_ctx->stream_id = stream_id + nb_repeat*4u;
+            stream_ctx->post_size = post_size;
+        } else {
+            stream_ctx = old_stream_context;
+            stream_ctx->post_sent = 0; //reset the post_sent param
+        }
+
+        fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->stream_id= %lu nb_open_streams=%d\n", stream_ctx->stream_id, ctx->nb_open_streams);
         if(stream_ctx->next_stream != NULL)
         {
             fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream->stream_id= %lu\n", stream_ctx->next_stream->stream_id);
@@ -334,10 +349,25 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
 
 		/* Send the request */
         if (ret == 0) {
-            ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
-                (post_size > 0)?0:1, stream_ctx);
-            if (post_size > 0) {
+            if(cnx->is_ephemeral == 1)
+            { 
+                //TK: When ephemeral application is running, streams are finished after one message
+                ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
+                    (post_size > 0)?0:1, stream_ctx);
+                fprintf(stdout, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=1) \n", ret);
+
+                if (post_size > 0) {
+                    ret = picoquic_mark_active_stream(cnx, stream_id, 1, stream_ctx);
+                    fprintf(stdout, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=1)\n", ret);
+                }
+            } else {
+                //TK: When non-ephemeral application is running, stream should not be fin'ed and stream stays active
+                ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
+                    0, stream_ctx);
+                fprintf(stdout, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=0)\n", ret);
+
                 ret = picoquic_mark_active_stream(cnx, stream_id, 1, stream_ctx);
+                fprintf(stdout, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=0)\n", ret);
             }
         }
 
@@ -536,7 +566,7 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
         }
         else {
             //fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
-            return demo_client_prepare_to_send((void*)bytes, length, stream_ctx->post_size, &stream_ctx->post_sent);
+            return demo_client_prepare_to_send(cnx, (void*)bytes, length, stream_ctx->post_size, &stream_ctx->post_sent);
         }
     case picoquic_callback_almost_ready:
     case picoquic_callback_ready:

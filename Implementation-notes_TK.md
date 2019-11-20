@@ -343,6 +343,42 @@ ACK received = update RTT with "current_time" as a parameter
 
 
 
+# STREAM LIMIT TESTING:
+
+        // STREAM LIMIT TESTING
+        /*
+        if(established == 1 && client_sc_nb_counter==0)
+        {
+            //Single Stream ID (blocked_streams_bidir from client)
+            
+            fprintf(F_log, "DEBUG:START STREAM 3000 (3004)\n");
+            picoquic_demo_client_start_streams(cnx_client, &callback_ctx, 3000);
+
+            fprintf(F_log, "DEBUG:OPEN STREAM 20000 (20004)\n");
+            picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 20000, 
+                                                callback_ctx.demo_stream[0].doc_name,
+                                                callback_ctx.demo_stream[0].f_name,
+                                                callback_ctx.demo_stream[0].is_binary,
+                                                (size_t)callback_ctx.demo_stream[0].post_size, 0);
+            
+
+            //Multiple Number of Streams (max_stream_bidir from server)
+            
+            for(int i=0; i<2501; i++)
+            {
+                fprintf(F_log, "DEBUG:OPEN STREAM %d\n", i*4);
+                picoquic_demo_client_open_stream(cnx_client, &callback_ctx, i*4, 
+                                                callback_ctx.demo_stream[0].doc_name,
+                                                callback_ctx.demo_stream[0].f_name,
+                                                callback_ctx.demo_stream[0].is_binary,
+                                                (size_t)callback_ctx.demo_stream[0].post_size, 0);
+            }
+            
+
+            client_sc_nb_counter++;
+        }*/
+
+
 
 
 
