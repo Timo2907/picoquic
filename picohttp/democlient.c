@@ -56,18 +56,19 @@ int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t spac
             is_fin = 0;
         }
 
-        //TK: When non-ephemeral application, stream is not finished when no data is polled -> waiting for new generated data
+        //TK: When non-ephemeral application, stream is not finished when no data is polled BUT the stream is also NOT active anymore -> waiting for new generated data
         if(cnx->is_ephemeral == 0) {
-            is_fin = 0;
+            buffer = picoquic_provide_stream_data_buffer(context, available, 0, 0);
+        } else {
+            buffer = picoquic_provide_stream_data_buffer(context, available, is_fin, !is_fin);
         }
-
-        buffer = picoquic_provide_stream_data_buffer(context, available, is_fin, !is_fin);
 
         if (buffer != NULL) {
             int r = (74 - (*echo_sent % 74)) - 2;
 
-            /* TODO: fill buffer with some text */
-            memset(buffer, 0x5A, available);
+            int msg = cnx->msg_number;
+            memset(buffer, msg, available);
+            //memset(buffer, 0x5A, available);
 
             while (r < (int)available) {
                 if (r >= 0) {

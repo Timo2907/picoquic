@@ -98,6 +98,9 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 													and parameter "is_ephemeral" in cnx set to know when non-ephemeral application has started
 	10.1 send only a fin at the end of a POST when is is the very last generated msg (client_sc_nb_counter >= client_sc_nb), else there should not be a stream fin at all
 	10.2 opem the same stream for pushing Data, without counting the stream number up + reset the post_sent parameter (since a new post is started)
+	10.3 set fin=0 and is_active for stream also as 0 (instead of naturally (!fin) for instant data sending)
+	
+11. inserted the msg number into the data stream frame (as a 2 bytes/0x00-0xff)
 
 
 
