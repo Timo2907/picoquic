@@ -80,6 +80,8 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 7. Changed the frame behavior: No ACK of ACK -> Server ACKs the client's packet, the client does not need to ACK the finished stream
 						-> still, every 9th segment, there is an ACK from the Client?!
 						BUT when there is no ACK of ACK, the stream limit will be reached (=Stream 2052) -> frame_type_streams_blocked_bidir packet for every stream after that
+						[Methods: sender::prepare_packet_ready()->frame::prepare_one_blocked_frame()->prepare_stream_blocked_frame()->frame_type_streams_blocked_bidir]
+						=> see 9. (too many open streams?!)
 						
 8. Method for standard application streams: Streams started one after another, concatenated -> normal streaming behavior (picoquic_demo_client_start_streams)
    Method for additional streams: An additional stream is started, independently from every other stream (picoquic_demo_client_open_stream)
@@ -88,9 +90,14 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 		-> check for last stream context, if it is still open
 		OR
 		streams are closed when the stream is finished in time, so there is the ACK from the server and the stream is already finished and can be closed before a new msg is generated
+		=> only RESET_STREAM when stream is cancelled, no STOP_SENDING since only a receiver can send that
    
 9. Changed the flow control variables (blocked streams by client or max streams bidir from server) -> application can handle more, therefore the flow control is set higher
 
+10. Non-ephemeral application: All over one stream -> parameter "ephemeral" set in client for local knowledge what application is used 
+													and parameter "is_ephemeral" in cnx set to know when non-ephemeral application has started
+	10.1 send only a fin at the end of a POST when is is the very last generated msg (client_sc_nb_counter >= client_sc_nb), else there should not be a stream fin at all
+	10.2 opem the same stream for pushing Data, without counting the stream number up + reset the post_sent parameter (since a new post is started)
 
 
 
