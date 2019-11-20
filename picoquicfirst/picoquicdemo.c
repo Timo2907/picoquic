@@ -631,7 +631,7 @@ int quic_client(const char* ip_address_text, int server_port,
 
     //TK: Set the application's context parameters
     //TODO TK: Change from in-client description to GLOBAL DEFINED parameters (especially because of ephemeral = 1 for server's POST reply to close streams naturally)
-    client_sc_nb = 6000; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
+    client_sc_nb = 600; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
     time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms, 200000=200ms, 500000=500ms)
     application_payload = 100; //TK: 100 bytes payload per msg
     ephemeral = 1; //TK: Close outdated streams (either after deadline or when the data was ACK'ed)

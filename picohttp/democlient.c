@@ -271,7 +271,6 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
         {
             fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream= %s\n", (stream_ctx->next_stream == NULL) ? "NULL" : "NOT NULL");
         }
-        
 
 
         if (ctx->no_disk) {

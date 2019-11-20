@@ -23,6 +23,7 @@
 #include "picoquic_internal.h"
 #include "tls_api.h"
 #include <stdlib.h>
+#include <limits.h>
 #include <string.h>
 #ifndef _WINDOWS
 #include <sys/time.h>
@@ -537,12 +538,13 @@ void picoquic_init_transport_parameters(picoquic_tp_t* tp, int client_mode)
 
     //TK: Set the flow control parameter
     if (client_mode) {
-        tp->initial_max_stream_id_bidir = 144049; //2049
-        tp->initial_max_stream_id_unidir = 144051; //2051
+        tp->initial_max_stream_id_bidir = ULONG_MAX-2; //2049
+        tp->initial_max_stream_id_unidir = ULONG_MAX; //2051
     } else {
-        tp->initial_max_stream_id_bidir = 144048; //2048
-        tp->initial_max_stream_id_unidir = 144050; //2050
+        tp->initial_max_stream_id_bidir = ULONG_MAX-3; //2048
+        tp->initial_max_stream_id_unidir = ULONG_MAX-1; //2050
     }
+
     tp->idle_timeout = PICOQUIC_MICROSEC_HANDSHAKE_MAX/1000;
     tp->max_packet_size = PICOQUIC_PRACTICAL_MAX_MTU;
     tp->max_datagram_size = 0;
