@@ -15,3 +15,7 @@ mv log_client.txt $dirname
 mv log_server.txt $dirname
 # Client: Time t, cwin, bytes-in-flight , nb_ret, rtt_min, current_rtt, send_time, reception_time, current_ackdelay, srtt, rtt_var, max_ackdelay, state
 grep bytes-in-flight $dirname/log_client.txt | awk '{print $3, $5, $7, $9, $11, $13, $15, $17, $19, $21, $23, $25, $27}' > $dirname/firstKPIs
+# Server: 
+grep -E "(Stream.*length 100|Server CB.*100 bytes)" $dirname/log_server.txt > $dirname/serverCallbackInfo
+# Reception Time in sec, Stream ID, payload in bytes 
+grep -E "(Server CB.*100 bytes)" $dirname/log_server.txt | awk '{print $2, $7, $9}' > $dirname/serverAppOutput
