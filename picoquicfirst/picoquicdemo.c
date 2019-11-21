@@ -596,6 +596,7 @@ int quic_client(const char* ip_address_text, int server_port,
     uint64_t start_time_app = 0;
     uint64_t last_stream_timer = 0;
     unsigned int ephemeral = 0;
+    unsigned int light_ephemeral = 0;
     unsigned int tlp_used = 0;
 
     if (alpn == NULL) {
@@ -631,15 +632,12 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-<<<<<<< HEAD
-    //TODO TK: Change from in-client description to GLOBAL DEFINED parameters (especially because of ephemeral = 1 for server's POST reply to close streams naturally)
-=======
->>>>>>> _non-ephemeral-app
     client_sc_nb = 600; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
     time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms, 200000=200ms, 500000=500ms)
     application_payload = 100; //TK: 100 bytes payload per msg
-    ephemeral = 0; //TK: Close outdated streams (either after deadline or when the data was ACK'ed)
-    tlp_used = 0;
+    ephemeral = 1; //TK: Reset outdated streams when deadline is exceeded (new stream data + reset of old stream)
+    light_ephemeral = 0; //TK: DO NOT reset outdated streams, use the FIN-bit instead
+    tlp_used = 0; //TK: Start redundant streams and trigger redundant packets
     set_tlp_threshold = 100000; //TK: parameter for tlp_threshold in usec?
     start_time = picoquic_current_time();
 
@@ -647,8 +645,9 @@ int quic_client(const char* ip_address_text, int server_port,
 
     if(ret == 0) {
         if(F_log != NULL) {
-            fprintf(F_log, "PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED with #msgs= %zu, time_between_msgs= %lu ms, application_payload= %lu bytes, tlp_threshold= %ld \n", 
-                                                                                            client_sc_nb, time_between_msgs / 1000, application_payload, set_tlp_threshold);
+            fprintf(F_log, "PICOQUICDEMO::quic_client()-CONTEXT_INITIALIZED with #msgs= %zu, time_between_msgs= %lu ms, application_payload= %lu bytes, ephemeral-app: %s, tlp_used: %s with tlp_threshold= %ld \n", 
+                                                            client_sc_nb, time_between_msgs / 1000, application_payload, ephemeral==1? (light_ephemeral==1? "YES (LIGHT)" : "YES (FULL)") : "NO", 
+                                                            (tlp_used==1 && ephemeral==1)? "YES" : "NO", set_tlp_threshold);
         }
     } else {
         fprintf(stdout, "Initializing of the clients' context failed.\n");
@@ -780,11 +779,6 @@ int quic_client(const char* ip_address_text, int server_port,
                     if(F_log != NULL) {
                         fprintf(F_log, "############### START APPLICATION SCENARIO (0-rtt) ###############\n");
                     }
-
-                    if(ephemeral==1) //Only using start stream in ephemeral application
-                    {
-                        ret = picoquic_demo_client_start_streams(cnx_client, &callback_ctx, PICOQUIC_DEMO_STREAM_ID_INITIAL);
-                    }
                     //TK: set first timer after application is started
                     last_stream_timer = picoquic_current_time();
                 }
@@ -819,11 +813,12 @@ int quic_client(const char* ip_address_text, int server_port,
         /* TK: Check if new msg should be sent - only when timer fires AND connection is established! */
         if(established == 1 && (picoquic_current_time() - last_stream_timer) >= time_between_msgs)
         {
-            cnx_client->msg_number = client_sc_nb_counter; //set the msg_number in cnx to write it into the stream
+            cnx_client->msg_number = client_sc_nb_counter+1; //set the msg_number in cnx to write it into the stream (client_sc_nb_counter starts at 0)
 
             /* TK: Run either the ephemeral or the non-ephemeral (all over one stream) application scenario! */
             if(ephemeral == 1)
             {
+
                 /* TK: Check if TLP should be used and if it is activated right know in the cnx */
                 if(tlp_used == 0 || cnx_client->tlp_activated == 0)
                 {
@@ -831,15 +826,21 @@ int quic_client(const char* ip_address_text, int server_port,
                     picoquic_demo_client_stream_ctx_t* last_stream = picoquic_demo_client_find_stream(&callback_ctx, client_sc_nb_counter*4);
                     if(last_stream != NULL && last_stream->is_open == 1)
                     {
-                        // TK: if the stream has to be closed here, the Data was not ack'ed in time.
-                        int rst = picoquic_reset_stream(cnx_client, last_stream->stream_id, 0); //rst stream together with local closing @ client
+                        if(light_ephemeral==0) {
+                            // TK: if the stream has to be reset here, the data was not ack'ed in time.
+                            // NO FIN-bit set in stream to enable the reset of a stream!
+                            int rst = picoquic_reset_stream(cnx_client, last_stream->stream_id, (uint64_t)cnx_client->msg_number); //rst stream together with local closing @ client
+                            fprintf(F_log, "DEBUG:Stream %lu closed after timeout with reset = %s\n", last_stream->stream_id, rst == 1039 ? "Fin already sent!" : "Reset sent!");
+                        } else {
+                            cnx_client->fin_used=1; //used to set the fin-bit
+                        }
                         picoquic_demo_client_close_stream(&callback_ctx, last_stream);
 
-                        fprintf(F_log, "DEBUG:Stream %lu closed after timeout with reset = %s\n", last_stream->stream_id, rst == 1039 ? "Fin already sent!" : "Reset sent!");
+                        fprintf(F_log, "DEBUG:Stream %lu closed.\n", last_stream->stream_id);
                     }
 
                     fprintf(F_log, "DEBUG:Timer fired: %lu (tlp_used=%u|tlp_activated=%u) msg_number= %d nb_open_streams= %d (should be 0)\n", 
-                                    picoquic_current_time() - last_stream_timer, tlp_used, cnx_client->tlp_activated, cnx_client->msg_number, callback_ctx.nb_open_streams);
+                                    picoquic_current_time() - last_stream_timer, tlp_used, cnx_client->tlp_activated, cnx_client->msg_number-1, callback_ctx.nb_open_streams);
 
                     picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
                     fprintf(F_log, "DEBUG:Stream %d opened.\n", (client_sc_nb_counter+1)*4);
@@ -868,10 +869,11 @@ int quic_client(const char* ip_address_text, int server_port,
                 }
             } else {
                 /* TK: Non-ephemeral application (all msgs over one stream => stream 4) */
+
                 if(client_sc_nb_counter == client_sc_nb-1) { //the last msg is a normal one that should have a stream fin
-                    cnx_client->is_ephemeral = 1;
-                    fprintf(F_log, "DEBUG:Timer fired: %lu client_sc_nb_counter=msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->is_ephemeral=%d)\n", 
-                                    picoquic_current_time() - last_stream_timer,client_sc_nb_counter, callback_ctx.nb_open_streams, ephemeral, cnx_client->is_ephemeral);
+                    cnx_client->fin_used = 1;
+                    fprintf(F_log, "DEBUG:Timer fired: %lu client_sc_nb_counter=msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
+                                    picoquic_current_time() - last_stream_timer,client_sc_nb_counter, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
 
                     picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
                                                 callback_ctx.demo_stream[0].doc_name,
@@ -882,9 +884,9 @@ int quic_client(const char* ip_address_text, int server_port,
                     picoquic_demo_client_close_stream(&callback_ctx, picoquic_demo_client_find_stream(&callback_ctx, 4));
                 } else {
                     if (client_sc_nb_counter < client_sc_nb-1) { //Set non-fin streams only when connection is established & not last msg
-                        cnx_client->is_ephemeral = 0;
-                        fprintf(F_log, "DEBUG:Timer fired: %lu client_sc_nb_counter=msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->is_ephemeral=%d)\n", 
-                                    picoquic_current_time() - last_stream_timer, client_sc_nb_counter, callback_ctx.nb_open_streams, ephemeral, cnx_client->is_ephemeral);
+                        cnx_client->fin_used = 0;
+                        fprintf(F_log, "DEBUG:Timer fired: %lu client_sc_nb_counter=msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
+                                    picoquic_current_time() - last_stream_timer, client_sc_nb_counter, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
 
                         picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
                                                     callback_ctx.demo_stream[0].doc_name,
@@ -964,17 +966,17 @@ int quic_client(const char* ip_address_text, int server_port,
                 /* TK: Check if the last stream (client_sc_nb_counter*4) is still open: If yes, close!
                     TODO TK: It could be an ACK for data from a stream before?
                     TODO TK: TLP's redundant streams have to be closed as well when one is ack'ed */
-                if(established == 1 && ephemeral == 1)
+                /*if(established == 1 && ephemeral == 1)
                 {
                     picoquic_demo_client_stream_ctx_t* last_stream = picoquic_demo_client_find_stream(&callback_ctx, client_sc_nb_counter*4);
                     if(last_stream != NULL && last_stream->is_open == 1)
                     {
-                        /* TK: if the stream has to be closed here, the Data was not ack'ed in time. */
+                        // TK: if the stream has to be closed here, the Data was not ack'ed in time.
                         int rst = picoquic_reset_stream(cnx_client, last_stream->stream_id, 0); //rst stream together with local closing @ client
                         picoquic_demo_client_close_stream(&callback_ctx, last_stream);
                         fprintf(F_log, "DEBUG:Stream %lu closed after REPLY (ACK) with reset = %s\n", last_stream->stream_id, rst == 1039 ? "Fin already sent!" : "Reset sent!");
                     }
-                }
+                }*/
 
                 if (F_log != NULL) {
                     fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= %d\t", client_receive_loop);
@@ -1037,11 +1039,7 @@ int quic_client(const char* ip_address_text, int server_port,
                                 fprintf(F_log, "#######################################################\n############# START APPLICATION SCENARIO ##############\n#######################################################\n after %lu ms\n", 
                                 (start_time_app - start_time)/1000);
                             }
-                            
-                            if(ephemeral==1) //Only using start stream in ephemeral application
-                            {
-                                ret = picoquic_demo_client_start_streams(cnx_client, &callback_ctx, PICOQUIC_DEMO_STREAM_ID_INITIAL);
-                            }
+
                             //TK: set first timer after application is started
                             last_stream_timer = picoquic_current_time();
                         }

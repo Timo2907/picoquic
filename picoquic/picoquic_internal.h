@@ -778,8 +778,8 @@ typedef struct st_picoquic_cnx_t {
 
     /* TK: Message number for writing it as stream data */
     int msg_number;
-    /* TK: Ephemeral Flag */
-    unsigned int is_ephemeral : 1;
+    /* TK: Flag to set fin-bit at the end of a msg */
+    unsigned int fin_used : 1;
     /* TK: TLP with Redundancy Extension */
     unsigned int tlp_activated : 1;
     int64_t tlp_threshold;

@@ -85,7 +85,7 @@ int picoquic_mark_active_stream(picoquic_cnx_t* cnx,
                 picoquic_reinsert_by_wake_time(cnx->quic, cnx, picoquic_get_quic_time(cnx->quic));
             }
             else {
-                fprintf(stdout, "DEBUG::picoquic_mark_active_stream() with fin_requested=%u reset_requested=%u\n", stream->fin_requested, stream->reset_requested);
+                fprintf(stdout, "DEBUG:SENDER::picoquic_mark_active_stream() with fin_requested=%u reset_requested=%u\n", stream->fin_requested, stream->reset_requested);
 
                 ret = PICOQUIC_ERROR_CANNOT_SET_ACTIVE_STREAM;
             }
@@ -193,6 +193,8 @@ int picoquic_reset_stream(picoquic_cnx_t* cnx,
     }
     else if (stream->fin_sent) {
         ret = PICOQUIC_ERROR_STREAM_ALREADY_CLOSED;
+
+        fprintf(cnx->quic->F_log, "DEBUG:SENDER::picoquic_reset_stream() with fin_sent=%u \n", stream->fin_sent);
     }
     else if (!stream->reset_requested) {
         stream->local_error = local_stream_error;

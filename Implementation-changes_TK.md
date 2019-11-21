@@ -91,11 +91,12 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 		OR
 		streams are closed when the stream is finished in time, so there is the ACK from the server and the stream is already finished and can be closed before a new msg is generated
 		=> only RESET_STREAM when stream is cancelled, no STOP_SENDING since only a receiver can send that
+		=> only RESET_STREAM after deadline, not when its ACKed! This reduces the overhead, since the reset_stream frame is send together with the next data stream in one packet!!
    
 9. Changed the flow control variables (blocked streams by client or max streams bidir from server) -> application can handle more, therefore the flow control is set higher
 
 10. Non-ephemeral application: All over one stream -> parameter "ephemeral" set in client for local knowledge what application is used 
-													and parameter "is_ephemeral" in cnx set to know when non-ephemeral application has started
+													and parameter "fin_used" in cnx set to know when non-ephemeral application has started
 	10.1 send only a fin at the end of a POST when is is the very last generated msg (client_sc_nb_counter >= client_sc_nb), else there should not be a stream fin at all
 	10.2 opem the same stream for pushing Data, without counting the stream number up + reset the post_sent parameter (since a new post is started)
 	10.3 set fin=0 and is_active for stream also as 0 (instead of naturally (!fin) for instant data sending)

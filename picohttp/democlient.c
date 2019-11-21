@@ -57,7 +57,8 @@ int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t spac
         }
 
         //TK: When non-ephemeral application, stream is not finished when no data is polled BUT the stream is also NOT active anymore -> waiting for new generated data
-        if(cnx->is_ephemeral == 0) {
+        //      OR in full-ephemeral application, where not FIN-bit but the "reset stream"-frame is used.
+        if(cnx->fin_used == 0) {
             buffer = picoquic_provide_stream_data_buffer(context, available, 0, 0);
         } else {
             buffer = picoquic_provide_stream_data_buffer(context, available, is_fin, !is_fin);
@@ -263,7 +264,7 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
     }
     else {
         picoquic_demo_client_stream_ctx_t* old_stream_context = picoquic_demo_client_find_stream(ctx, stream_id);
-        if(old_stream_context == NULL) //(cnx->is_ephemeral == 1)
+        if(old_stream_context == NULL)
         {
             ctx->nb_open_streams++;
             ctx->nb_client_streams++;
@@ -349,7 +350,7 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
 
 		/* Send the request */
         if (ret == 0) {
-            if(cnx->is_ephemeral == 1)
+            if(cnx->fin_used == 1)
             { 
                 //TK: When ephemeral application is running, streams are finished after one message
                 ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,

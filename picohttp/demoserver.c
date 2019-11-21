@@ -828,7 +828,7 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
     if (cnx->quic->F_log != NULL) {
         fprintf(cnx->quic->F_log, "%" PRIx64 ": ", picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
         picoquic_log_time(cnx->quic->F_log, cnx, picoquic_current_time(), "", " : ");
-        fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 ", %" PRIst " bytes, fin=%d (%s)\n",
+        fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s)\n",
             stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
     }
 
@@ -909,7 +909,8 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
         return 0;
     case picoquic_callback_stream_reset:
         stream_ctx->status = picoquic_h09_server_stream_status_finished;
-        picoquic_reset_stream(cnx, stream_id, 0);
+        //TK: Do not call reset_stream() again when reset_stream is received from client (to disable the ping-pong behavior)
+        //picoquic_reset_stream(cnx, stream_id, 0);
         if (cnx->quic->F_log != NULL) {
             fprintf(cnx->quic->F_log, "%" PRIx64 ": ", picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
             fprintf(cnx->quic->F_log, "Server CB, Reset Stream: %" PRIu64 ", resetting the local stream.\n",

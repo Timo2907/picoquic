@@ -741,7 +741,7 @@ size_t picoquic_log_reset_stream_frame(picoquic_cnx_t * cnx, FILE* F, uint8_t* b
             (int)bytes_max);
         byte_index = bytes_max;
     } else {
-        fprintf(F, "    RESET STREAM %llu, Error 0x%08x, Offset 0x%llx.\n",
+        fprintf(F, "    RESET STREAM %llu, Error 0x%08x (= msg_number), Offset 0x%llx. [log_frames:log_stream_frame]\n",
             (unsigned long long)stream_id, (uint32_t)error_code, (unsigned long long)offset);
     }
 
