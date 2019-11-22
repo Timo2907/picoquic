@@ -350,25 +350,14 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
 
 		/* Send the request */
         if (ret == 0) {
-            if(cnx->fin_used == 1)
-            { 
-                //TK: When ephemeral application is running, streams are finished after one message
-                ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
+            //TK: When ephemeral application is running, streams are finished after one message
+            ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
                     (post_size > 0)?0:1, stream_ctx);
-                fprintf(stdout, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=1) \n", ret);
+            fprintf(stdout, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=1) \n", ret);
 
-                if (post_size > 0) {
-                    ret = picoquic_mark_active_stream(cnx, stream_id, 1, stream_ctx);
-                    fprintf(stdout, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=1)\n", ret);
-                }
-            } else {
-                //TK: When non-ephemeral application is running, stream should not be fin'ed and stream stays active
-                ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
-                    0, stream_ctx);
-                fprintf(stdout, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=0)\n", ret);
-
+            if (post_size > 0) {
                 ret = picoquic_mark_active_stream(cnx, stream_id, 1, stream_ctx);
-                fprintf(stdout, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=0)\n", ret);
+                fprintf(stdout, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=1)\n", ret);
             }
         }
 

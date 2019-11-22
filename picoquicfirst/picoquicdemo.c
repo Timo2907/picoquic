@@ -635,10 +635,12 @@ int quic_client(const char* ip_address_text, int server_port,
     client_sc_nb = 600; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
     time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms, 200000=200ms, 500000=500ms)
     application_payload = 100; //TK: 100 bytes payload per msg
+
     ephemeral = 1; //TK: Reset outdated streams when deadline is exceeded (new stream data + reset of old stream)
     light_ephemeral = 0; //TK: DO NOT reset outdated streams, use the FIN-bit instead
     tlp_used = 0; //TK: Start redundant streams and trigger redundant packets
     set_tlp_threshold = 100000; //TK: parameter for tlp_threshold in usec?
+    
     start_time = picoquic_current_time();
 
     ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk, application_payload);
