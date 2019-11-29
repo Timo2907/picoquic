@@ -67,9 +67,30 @@ int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t spac
         if (buffer != NULL) {
             int r = (74 - (*echo_sent % 74)) - 2;
 
-            int msg = cnx->msg_number;
-            memset(buffer, msg, available);
+            unsigned int msg = cnx->msg_number;
+
+            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::buffer=%"PRIu8" msg=%d available=%zu sizeof(msg)=%lu \n", *buffer, msg, available, sizeof(msg));
+            
+            // Simple memset:
+            //memset(buffer, msg, available);
+            // Dummy memset:
             //memset(buffer, 0x5A, available);
+
+            //memset by hand:
+            if(available > 3)
+            {
+                buffer[0] = (msg >> 24);
+                buffer[1] = (msg >> 16);
+                buffer[2] = (msg >> 8);
+                buffer[3] = msg;
+                memset(buffer+sizeof(msg), 0x00, available-sizeof(msg));
+            } else {
+                memset(buffer, 0x00, available);
+            }
+            
+            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::buffer[0]=%"PRIu8" buffer[1]=%"PRIu8" buffer[2]=%"PRIu8" buffer[3]=%"PRIu8" buffer[4]=%"PRIu8"\n", 
+                                        buffer[0], buffer[1], buffer[2], buffer[3], buffer[4]);
+
 
             while (r < (int)available) {
                 if (r >= 0) {
@@ -353,11 +374,11 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
             //TK: When ephemeral application is running, streams are finished after one message
             ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
                     (post_size > 0)?0:1, stream_ctx);
-            fprintf(stdout, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=1) \n", ret);
+            fprintf(cnx->quic->F_log, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=1) \n", ret);
 
             if (post_size > 0) {
                 ret = picoquic_mark_active_stream(cnx, stream_id, 1, stream_ctx);
-                fprintf(stdout, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=1)\n", ret);
+                fprintf(cnx->quic->F_log, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=1)\n", ret);
             }
         }
 

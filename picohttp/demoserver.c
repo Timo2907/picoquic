@@ -828,8 +828,16 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
     if (cnx->quic->F_log != NULL) {
         fprintf(cnx->quic->F_log, "%" PRIx64 ": ", picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
         picoquic_log_time(cnx->quic->F_log, cnx, picoquic_current_time(), "", " : ");
-        fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s)\n",
-            stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
+            if((fin_or_event == picoquic_callback_stream_data || picoquic_callback_stream_fin) && length > 3)
+            {
+                unsigned int msg_no = bytes[3] + (bytes[2] << 8) + (bytes[1] << 16) + (bytes[0] << 24);
+    
+                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s), msg= %u \n",
+                stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event), msg_no);
+            } else {
+                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s) \n",
+                        stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
+            }
     }
 
     //fprintf(cnx->quic->F_log, "DEBUG:DEMOSERVER::h09_server_callback (stream_id= %lu) fin_or_event=%d (%s)\n", stream_id, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));

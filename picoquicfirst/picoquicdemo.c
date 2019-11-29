@@ -599,6 +599,9 @@ int quic_client(const char* ip_address_text, int server_port,
     unsigned int light_ephemeral = 0;
     unsigned int tlp_used = 0;
 
+    //changed manually here, but can be done as flag:
+    no_disk=1;
+
     if (alpn == NULL) {
         //alpn = "h3-22"; //TK: Set default to other alpn -> h3 not used by our application
         alpn = "hq-22";
@@ -632,15 +635,20 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-    client_sc_nb = 600; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
-    time_between_msgs = 100000; //TK: time between two msgs in usec (100000us = 100ms, 200000=200ms, 500000=500ms)
+    client_sc_nb = 6000; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
+    time_between_msgs = 200000; //TK: time between two msgs in usec (100000us = 100ms, 200000=200ms, 500000=500ms)
     application_payload = 100; //TK: 100 bytes payload per msg
 
-    ephemeral = 1; //TK: Reset outdated streams when deadline is exceeded (new stream data + reset of old stream)
+    /* Description of different application versions: 
+        non-ephemeral:      ephemeral=0, light_ephemeral=0
+        light-ephemeral:    ephemeral=1, light_ephemeral=1
+        full-ephemeral:     ephemeral=1, light-ephemeral=0
+    */
+    ephemeral = 0; //TK: Reset outdated streams when deadline is exceeded (new stream data + reset of old stream)
     light_ephemeral = 0; //TK: DO NOT reset outdated streams, use the FIN-bit instead
     tlp_used = 0; //TK: Start redundant streams and trigger redundant packets
     set_tlp_threshold = 100000; //TK: parameter for tlp_threshold in usec?
-    
+
     start_time = picoquic_current_time();
 
     ret = picoquic_application_scenario_client_initialize_context(&callback_ctx, &client_sc, client_sc_nb, alpn, no_disk, application_payload);
@@ -813,8 +821,12 @@ int quic_client(const char* ip_address_text, int server_port,
     while (ret == 0 && picoquic_get_cnx_state(cnx_client) != picoquic_state_disconnected) {
 
         /* TK: Check if new msg should be sent - only when timer fires AND connection is established! */
-        if(established == 1 && (picoquic_current_time() - last_stream_timer) >= time_between_msgs)
+        uint64_t checkTime = picoquic_current_time() - last_stream_timer;
+        if(established == 1 && checkTime >= time_between_msgs)
         {
+            last_stream_timer = picoquic_current_time() - (checkTime-time_between_msgs); //reset the timer for a new period, substract the skew
+            fprintf(F_log, "DEBUG:Timer fired: checkTime=%lu time_between_msgs=%lu with substracted clock skew %lu", checkTime, time_between_msgs, checkTime-time_between_msgs);
+
             cnx_client->msg_number = client_sc_nb_counter+1; //set the msg_number in cnx to write it into the stream (client_sc_nb_counter starts at 0)
 
             /* TK: Run either the ephemeral or the non-ephemeral (all over one stream) application scenario! */
@@ -841,8 +853,8 @@ int quic_client(const char* ip_address_text, int server_port,
                         fprintf(F_log, "DEBUG:Stream %lu closed.\n", last_stream->stream_id);
                     }
 
-                    fprintf(F_log, "DEBUG:Timer fired: %lu (tlp_used=%u|tlp_activated=%u) msg_number= %d nb_open_streams= %d (should be 0)\n", 
-                                    picoquic_current_time() - last_stream_timer, tlp_used, cnx_client->tlp_activated, cnx_client->msg_number-1, callback_ctx.nb_open_streams);
+                    fprintf(F_log, "DEBUG:%sEPHEMERAL: tlp_used=%u tlp_activated=%u msg_number= %d nb_open_streams= %d (should be 0)\n", 
+                                                        light_ephemeral==0? "FULL-":"LIGHT-", tlp_used, cnx_client->tlp_activated, cnx_client->msg_number, callback_ctx.nb_open_streams);
 
                     picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
                     fprintf(F_log, "DEBUG:Stream %d opened.\n", (client_sc_nb_counter+1)*4);
@@ -850,8 +862,9 @@ int quic_client(const char* ip_address_text, int server_port,
                 } else {
                     /* TK: TLP is used AND activated in cnx */
 
-                    fprintf(F_log, "DEBUG:Timer fired: %lu tlp_activated= %u\n", picoquic_current_time() - last_stream_timer, cnx_client->tlp_activated);
-                    
+                    fprintf(F_log, "DEBUG:%sEPHEMERAL: tlp_used=%u tlp_activated=%u msg_number= %d nb_open_streams= %d (should be 0)\n", 
+                                                        light_ephemeral==0? "FULL-":"LIGHT-", tlp_used, cnx_client->tlp_activated, cnx_client->msg_number, callback_ctx.nb_open_streams);
+
                     /* 
                     picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
 
@@ -866,7 +879,7 @@ int quic_client(const char* ip_address_text, int server_port,
                                                     callback_ctx.demo_stream[0].is_binary,
                                                     (size_t)callback_ctx.demo_stream[0].post_size, 0);
 
-                    fprintf(F_log, "DEBUG:tlp_activated= %u msg_number= %d StreamID= %d redundant_stream_id= %d\n", 
+                    fprintf(F_log, "DEBUG:tlp_activated= %u msg_number= %u StreamID= %d redundant_stream_id= %d\n", 
                                                 cnx_client->tlp_activated, cnx_client->msg_number, client_sc_nb_counter*4+4, redundant_stream_id); */
                 }
             } else {
@@ -874,8 +887,8 @@ int quic_client(const char* ip_address_text, int server_port,
 
                 if(client_sc_nb_counter == client_sc_nb-1) { //the last msg is a normal one that should have a stream fin
                     cnx_client->fin_used = 1;
-                    fprintf(F_log, "DEBUG:Timer fired: %lu client_sc_nb_counter=msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
-                                    picoquic_current_time() - last_stream_timer,client_sc_nb_counter, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
+                    fprintf(F_log, "DEBUG:NON-EPHEMERAL: client_sc_nb_counter=%d msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
+                                                            client_sc_nb_counter, cnx_client->msg_number, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
 
                     picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
                                                 callback_ctx.demo_stream[0].doc_name,
@@ -887,8 +900,8 @@ int quic_client(const char* ip_address_text, int server_port,
                 } else {
                     if (client_sc_nb_counter < client_sc_nb-1) { //Set non-fin streams only when connection is established & not last msg
                         cnx_client->fin_used = 0;
-                        fprintf(F_log, "DEBUG:Timer fired: %lu client_sc_nb_counter=msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
-                                    picoquic_current_time() - last_stream_timer, client_sc_nb_counter, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
+                        fprintf(F_log, "DEBUG:NON-EPHEMERAL: client_sc_nb_counter=%d msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
+                                                                client_sc_nb_counter, cnx_client->msg_number, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
 
                         picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
                                                     callback_ctx.demo_stream[0].doc_name,
@@ -899,7 +912,6 @@ int quic_client(const char* ip_address_text, int server_port,
                 }
             }
             client_sc_nb_counter++; //msg counter up
-            last_stream_timer = picoquic_current_time(); //reset the timer for a new period
         }
         
 

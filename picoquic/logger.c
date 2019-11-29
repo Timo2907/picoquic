@@ -566,14 +566,22 @@ size_t picoquic_log_stream_frame(FILE* F, uint8_t* bytes, size_t bytes_max)
     if (ret != 0)
         return bytes_max;
 
-    fprintf(F, "    Stream %" PRIu64 ", offset %" PRIu64 ", length %d, fin = %d", stream_id,
+    fprintf(F, "    Stream %" PRIu64 " , offset %" PRIu64 " , length %d , fin = %d", stream_id,
         offset, (int)data_length, fin);
 
     fprintf(F, ": ");
+
     for (size_t i = 0; i < 8 && i < data_length; i++) {
         fprintf(F, "%02x", bytes[byte_index + i]);
     }
-    fprintf(F, "%s [log_frames:log_stream_frame]\n", (data_length > 8) ? "..." : "");
+
+    unsigned int msg_no = 0;
+    if(data_length > 3)
+    {
+        msg_no = bytes[byte_index + 3] + (bytes[byte_index + 2] << 8) + (bytes[byte_index + 1] << 16) + (bytes[byte_index + 0] << 24);
+    }
+    
+    fprintf(F, " %s msg_no= %u [log_frames:log_stream_frame]\n", (data_length > 8) ? "..." : "", msg_no);
 
     return byte_index + data_length;
 }
@@ -1226,6 +1234,7 @@ void picoquic_log_frames(picoquic_cnx_t * cnx, FILE* F, uint64_t cnx_id64, uint8
         picoquic_log_prefix_initial_cid64(F, cnx_id64);
 
         if (PICOQUIC_IN_RANGE(frame_id, picoquic_frame_type_stream_range_min, picoquic_frame_type_stream_range_max)) {
+            picoquic_log_time(F, cnx, picoquic_current_time(), " ", " : ");
             byte_index += picoquic_log_stream_frame(F, bytes + byte_index, length - byte_index);
             continue;
         }

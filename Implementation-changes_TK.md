@@ -45,8 +45,8 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 				double duration_usec = (double)(current_time - picoquic_get_cnx_start_time(cnx_client)); (divided by 1000000.0 for seconds)
 		3.3.2 timing_between_msgs as parameter
 				before sending the next msg in the Event Loop:
-				check if (last_sending_time + time_between_msgs) < picoquic_current_time()
-						+ update last_sending_time after "sendto()" was performed (= the msg went out through the socket)
+				check if (picoquic_current_time() - last_sending_time <= time_between_msgs)
+						+ update last_sending_time + counter the clock skew of picoquic() !! (drifts about 0-70 us per msg, under 0.1ms granularity before, now drifts 1ms for 1000 msgs)
 		3.3.3 TRY 1, 2
 		3.3.4 Callback function triggered every x ms (tryout 3)
 		3.3.5 PICOQUIC_DEMO_CLIENT_MAX_RECEIVE_BATCH value changed from 4 (= 5 packets in a row receiving) to 1 (= 2 packets in a row receiving)
@@ -92,6 +92,7 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 		streams are closed when the stream is finished in time, so there is the ACK from the server and the stream is already finished and can be closed before a new msg is generated
 		=> only RESET_STREAM when stream is cancelled, no STOP_SENDING since only a receiver can send that
 		=> only RESET_STREAM after deadline, not when its ACKed! This reduces the overhead, since the reset_stream frame is send together with the next data stream in one packet!!
+		=> STREAM is not fin'ed, since it is always closed with a reset and a reset does not work for a fin'ed stream
    
 9. Changed the flow control variables (blocked streams by client or max streams bidir from server) -> application can handle more, therefore the flow control is set higher
 
@@ -101,7 +102,18 @@ DONE: (11.2.3) H09: Use this simple POST to send data to the Server???
 	10.2 opem the same stream for pushing Data, without counting the stream number up + reset the post_sent parameter (since a new post is started)
 	10.3 set fin=0 and is_active for stream also as 0 (instead of naturally (!fin) for instant data sending)
 	
-11. inserted the msg number into the data stream frame (as a 2 bytes/0x00-0xff)
+11. inserted the msg number into the data stream frame (as a 2 bytes/0x00-0xff) -> switched from hex to decimal for better post-processing
+			if(available > 3) //we have to check if we have enough space in our payload for the msg number (=> max msg number currently is 4,294,967,295 = 32-bit unsigned int = 2^32-1)
+            {
+                buffer[0] = (msg >> 24);
+                buffer[1] = (msg >> 16);
+                buffer[2] = (msg >> 8);
+                buffer[3] = msg;
+                memset(buffer+sizeof(msg), 0x00, available-sizeof(msg));
+			} else {
+                memset(buffer, 0x00, available);
+            }
+			SERVER SIDE: unsigned int msg_no = bytes[3] + (bytes[2] << 8) + (bytes[1] << 16) + (bytes[0] << 24);
 
 
 
