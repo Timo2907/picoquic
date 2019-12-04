@@ -828,12 +828,16 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
     if (cnx->quic->F_log != NULL) {
         fprintf(cnx->quic->F_log, "%" PRIx64 ": ", picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
         picoquic_log_time(cnx->quic->F_log, cnx, picoquic_current_time(), "", " : ");
-            if((fin_or_event == picoquic_callback_stream_data || picoquic_callback_stream_fin) && length > 3)
+            if((fin_or_event == picoquic_callback_stream_data || picoquic_callback_stream_fin) && length > 11) //3 bytes for msg number + 8 bytes for send time
             {
                 unsigned int msg_no = bytes[3] + (bytes[2] << 8) + (bytes[1] << 16) + (bytes[0] << 24);
+
+                uint64_t clientSendTime = (uint64_t)bytes[11] + ((uint64_t)bytes[10] << 8) + ((uint64_t)bytes[9] << 16) + ((uint64_t)bytes[8] << 24) 
+                                        + ((uint64_t)(bytes[7]) << 32) + ((uint64_t)bytes[6] << 40) + ((uint64_t)bytes[5] << 48) + ((uint64_t)bytes[4] << 56);
+                int64_t oneWayDelay = picoquic_current_time() - clientSendTime;
     
-                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s), msg= %u \n",
-                stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event), msg_no);
+                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s), msg= %u application-level one-way delay= %ld clientSendTime= %lu currentTime= %lu\n",
+                stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event), msg_no, oneWayDelay, clientSendTime, picoquic_current_time());
             } else {
                 fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s) \n",
                         stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));

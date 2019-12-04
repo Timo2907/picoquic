@@ -571,7 +571,7 @@ size_t picoquic_log_stream_frame(FILE* F, uint8_t* bytes, size_t bytes_max)
 
     fprintf(F, ": ");
 
-    for (size_t i = 0; i < 8 && i < data_length; i++) {
+    for (size_t i = 0; i < 12 && i < data_length; i++) {
         fprintf(F, "%02x", bytes[byte_index + i]);
     }
 
@@ -580,8 +580,16 @@ size_t picoquic_log_stream_frame(FILE* F, uint8_t* bytes, size_t bytes_max)
     {
         msg_no = bytes[byte_index + 3] + (bytes[byte_index + 2] << 8) + (bytes[byte_index + 1] << 16) + (bytes[byte_index + 0] << 24);
     }
-    
-    fprintf(F, " %s msg_no= %u [log_frames:log_stream_frame]\n", (data_length > 8) ? "..." : "", msg_no);
+
+    if(data_length > 11)
+    {
+        uint64_t clientSendTime = (uint64_t)bytes[byte_index + 11] + ((uint64_t)bytes[byte_index + 10] << 8) + ((uint64_t)bytes[byte_index + 9] << 16) + ((uint64_t)bytes[byte_index + 8] << 24) 
+                                + ((uint64_t)(bytes[byte_index + 7]) << 32) + ((uint64_t)bytes[byte_index + 6] << 40) + ((uint64_t)bytes[byte_index + 5] << 48) + ((uint64_t)bytes[byte_index + 4] << 56);
+        int64_t oneWayDelay = picoquic_current_time() - clientSendTime;
+        fprintf(F, " %s msg_no= %u streaming-level one-way delay= %ld clientSendTime= %lu currentTime= %lu [log_frames:log_stream_frame]\n", (data_length > 12) ? "..." : "", msg_no, oneWayDelay, clientSendTime, picoquic_current_time());
+    } else {
+        fprintf(F, " %s msg_no= %u [log_frames:log_stream_frame]\n", (data_length > 12) ? "..." : "", msg_no);
+    }
 
     return byte_index + data_length;
 }
@@ -1620,7 +1628,8 @@ void picoquic_log_congestion_state(FILE* F, picoquic_cnx_t* cnx, uint64_t curren
     fprintf(F, "rtt_min= %d ", (int)path_x->rtt_min);
     fprintf(F, "current_rtt= %lu ", path_x->current_rtt);
     fprintf(F, "current_send_time= %lu ", path_x->current_send_time);
-    fprintf(F, "current_reception_time_withoutAckDelay= %lu ", path_x->current_reception_time);
+    //fprintf(F, "current_reception_time_withoutAckDelay= %lu ", path_x->current_reception_time);
+    fprintf(F, "msg_nb= %u ", cnx->msg_number);
     fprintf(F, "current_ack_delay= %lu ", path_x->current_ack_delay);
     fprintf(F, "srtt= %d ", (int)path_x->smoothed_rtt);
     fprintf(F, "rtt_var= %d ", (int)path_x->rtt_variant);
@@ -1939,8 +1948,8 @@ void picoquic_set_retransmission_values(FILE* F, picoquic_cnx_t* cnx, uint64_t l
 void picoquic_log_retransmission(FILE* F, picoquic_cnx_t* cnx, uint64_t log_cnxid)
 {
     picoquic_log_prefix_initial_cid64(F, log_cnxid);
-    fprintf(F, "Retransmit Seq#%d, delta_seq=%ld, timer-based(RTO)=%d, current_time(ct)=%lu, diff:ct-sent= %ld, diff:ct-ack_time= %ld, s_rtt: %lu, diff:ct-retrans_time: %ld\n", 
-                    cnx->last_seq_nb, cnx->last_delta_seq, cnx->last_timer_based, cnx->last_current_time, 
+    fprintf(F, "Retransmit Seq# %d delta_seq=%ld msg_nb= %u timer-based(RTO)= %d current_time(ct)=%lu diff:ct-sent= %ld diff:ct-ack_time= %ld s_rtt: %lu diff:ct-retrans_time: %ld\n", 
+                    cnx->last_seq_nb, cnx->last_delta_seq, cnx->msg_number, cnx->last_timer_based, cnx->last_current_time, 
                     cnx->last_send_diff, cnx->last_ack_diff, cnx->last_smoothed_rtt, cnx->last_retrans_diff);
 }
 

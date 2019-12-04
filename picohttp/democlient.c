@@ -70,13 +70,12 @@ int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t spac
             unsigned int msg = cnx->msg_number;
 
             fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::buffer=%"PRIu8" msg=%d available=%zu sizeof(msg)=%lu \n", *buffer, msg, available, sizeof(msg));
-            
             // Simple memset:
             //memset(buffer, msg, available);
             // Dummy memset:
             //memset(buffer, 0x5A, available);
 
-            //memset by hand:
+            /*TK: Message Number in Stream Data */
             if(available > 3)
             {
                 buffer[0] = (msg >> 24);
@@ -84,12 +83,32 @@ int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t spac
                 buffer[2] = (msg >> 8);
                 buffer[3] = msg;
                 memset(buffer+sizeof(msg), 0x00, available-sizeof(msg));
+
+                /* TK: Sending time for One-Way Delay in Stream Data */
+                if(available > 11)
+                {
+                    uint64_t sendTime = cnx->msg_send_time;
+
+                    buffer[4] = (sendTime >> 56);
+                    buffer[5] = (sendTime >> 48);
+                    buffer[6] = (sendTime >> 40);
+                    buffer[7] = (sendTime >> 32);
+                    buffer[8] = (sendTime >> 24);
+                    buffer[9] = (sendTime >> 16);
+                    buffer[10] = (sendTime >> 8);
+                    buffer[11] = sendTime;
+
+                    memset(buffer+sizeof(msg)+sizeof(sendTime), 0x00, available-sizeof(msg)-sizeof(sendTime));
+                }
+
             } else {
                 memset(buffer, 0x00, available);
             }
-            
-            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::buffer[0]=%"PRIu8" buffer[1]=%"PRIu8" buffer[2]=%"PRIu8" buffer[3]=%"PRIu8" buffer[4]=%"PRIu8"\n", 
-                                        buffer[0], buffer[1], buffer[2], buffer[3], buffer[4]);
+            picoquic_log_time(cnx->quic->F_log, cnx, picoquic_current_time(), " ", " : ");
+            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::b[0]=%"PRIu8" b[1]=%"PRIu8" b[2]=%"PRIu8" b[3]=%"PRIu8"\n", 
+                                        buffer[0], buffer[1], buffer[2], buffer[3]);
+            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::b[4]=%"PRIu8" b[5]=%"PRIu8" b[6]=%"PRIu8" b[7]=%"PRIu8"b[8]=%"PRIu8" b[9]=%"PRIu8" b[10]=%"PRIu8" b[11]=%"PRIu8"\n", 
+                                        buffer[4], buffer[5], buffer[6], buffer[7], buffer[8], buffer[9], buffer[10], buffer[11]);
 
 
             while (r < (int)available) {
@@ -298,15 +317,6 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
         } else {
             stream_ctx = old_stream_context;
             stream_ctx->post_sent = 0; //reset the post_sent param
-        }
-
-        fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->stream_id= %lu nb_open_streams=%d\n", stream_ctx->stream_id, ctx->nb_open_streams);
-        if(stream_ctx->next_stream != NULL)
-        {
-            fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream->stream_id= %lu\n", stream_ctx->next_stream->stream_id);
-        } else
-        {
-            fprintf(stdout, "DEBUG:DEMOCLIENT::stream_ctx->next_stream= %s\n", (stream_ctx->next_stream == NULL) ? "NULL" : "NOT NULL");
         }
 
 

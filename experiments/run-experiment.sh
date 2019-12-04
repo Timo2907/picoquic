@@ -19,5 +19,5 @@ runtime=$((end-start))
 printf 'Execution time: %dh:%dm:%ds\n' $(($runtime/3600)) $(($runtime%3600/60)) $(($runtime%60))
 pkill python
 mn --clean 
-./process_results.sh
+./process_results.sh $experiment
 echo "##### PROCESSED RESULTS - EXECUTION DONE #####"

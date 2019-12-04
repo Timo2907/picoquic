@@ -52,7 +52,7 @@ extern "C" {
 #define PICOQUIC_INITIAL_RTT 250000ull /* 250 ms */
 #define PICOQUIC_TARGET_RENO_RTT 100000ull /* 100 ms */
 #define PICOQUIC_INITIAL_RETRANSMIT_TIMER 0 /* TK: changed from one second (1000000ull) to zero */
-#define PICOQUIC_MIN_RETRANSMIT_TIMER 50000ull /* TK: changed from 50 ms (50000ull) to zero */
+#define PICOQUIC_MIN_RETRANSMIT_TIMER 20000ull //50000ull /* TK: changed from 50 ms (50000ull) to zero */
 #define PICOQUIC_ACK_DELAY_MAX 10000ull /* 10 ms */
 #define PICOQUIC_ACK_DELAY_MAX_DEFAULT 25000ull /* 25 ms, per protocol spec */
 #define PICOQUIC_ACK_DELAY_MIN 1000ull /* 10 ms */
@@ -776,8 +776,9 @@ typedef struct st_picoquic_cnx_t {
     uint64_t last_smoothed_rtt;
     int64_t last_retrans_diff;
 
-    /* TK: Message number for writing it as stream data */
+    /* TK: Message number and send time for writing it as stream data */
     unsigned int msg_number;
+    uint64_t msg_send_time;
     /* TK: Flag to set fin-bit at the end of a msg */
     unsigned int fin_used : 1;
     /* TK: TLP with Redundancy Extension */
@@ -1059,8 +1060,8 @@ int picoquic_record_pn_received(picoquic_cnx_t* cnx,
 int picoquic_update_sack_list(picoquic_sack_item_t* sack,
     uint64_t pn64_min, uint64_t pn64_max);
 /*
-        * Check whether the data fills a hole. returns 0 if it does, -1 otherwise.
-        */
+ * Check whether the data fills a hole. returns 0 if it does, -1 otherwise.
+ */
 int picoquic_check_sack_list(picoquic_sack_item_t* sack,
     uint64_t pn64_min, uint64_t pn64_max);
 

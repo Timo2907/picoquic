@@ -549,7 +549,11 @@ int quic_client(const char* ip_address_text, int server_port,
     uint32_t proposed_version, int force_zero_share, int force_migration,
     int nb_packets_before_key_update, int mtu_max, FILE* F_log,
     int client_cnx_id_length, char const * client_scenario_text, char const * cc_log_dir,
-    int no_disk, int use_long_log)
+    int no_disk, int use_long_log, 
+                int set_number_of_msgs,
+                int set_msg_payload,
+                int set_time_between_msgs,
+                char set_ephemeral_version)
 {
     if(F_log != NULL) {
         fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-CLIENT_STARTED\n");
@@ -599,9 +603,6 @@ int quic_client(const char* ip_address_text, int server_port,
     unsigned int light_ephemeral = 0;
     unsigned int tlp_used = 0;
 
-    //changed manually here, but can be done as flag:
-    no_disk=1;
-
     if (alpn == NULL) {
         //alpn = "h3-22"; //TK: Set default to other alpn -> h3 not used by our application
         alpn = "hq-22";
@@ -635,19 +636,52 @@ int quic_client(const char* ip_address_text, int server_port,
 */
 
     //TK: Set the application's context parameters
-    client_sc_nb = 6000; //TK: number of streams = number of msgs = experiment duration -> 150 msgs à 100ms per msg = 15 sec (36000 = 1hr, 864000 = 24hr)
-    time_between_msgs = 200000; //TK: time between two msgs in usec (100000us = 100ms, 200000=200ms, 500000=500ms)
-    application_payload = 100; //TK: 100 bytes payload per msg
+    //client_sc_nb = 6000; 
+    client_sc_nb = (size_t)set_number_of_msgs; //TK: number of msgs = experiment duration
+    application_payload = (uint64_t)set_msg_payload; //TK: payload per msg in bytes
+    time_between_msgs = (uint64_t)set_time_between_msgs*1000; //TK: time between two msgs in usec -> input is in ms
 
     /* Description of different application versions: 
         non-ephemeral:      ephemeral=0, light_ephemeral=0
         light-ephemeral:    ephemeral=1, light_ephemeral=1
         full-ephemeral:     ephemeral=1, light-ephemeral=0
     */
-    ephemeral = 0; //TK: Reset outdated streams when deadline is exceeded (new stream data + reset of old stream)
-    light_ephemeral = 0; //TK: DO NOT reset outdated streams, use the FIN-bit instead
-    tlp_used = 0; //TK: Start redundant streams and trigger redundant packets
-    set_tlp_threshold = 100000; //TK: parameter for tlp_threshold in usec?
+   set_tlp_threshold = 100000; //TK: parameter for tlp_threshold in usec?
+
+   switch (set_ephemeral_version) {
+   case 'N':
+       ephemeral = 0;
+       light_ephemeral = 0;
+       tlp_used = 0;
+       break;
+    case 'L':
+       ephemeral = 1;
+       light_ephemeral = 1;
+       tlp_used = 0;
+       client_sc_nb++;
+       break;
+    case 'F':
+       ephemeral = 1;
+       light_ephemeral = 0;
+       tlp_used = 0;
+       client_sc_nb++;
+       break;
+    case 'T':
+       ephemeral = 1;
+       light_ephemeral = 0;
+       tlp_used = 1;
+       client_sc_nb++;
+       break;
+   
+   default:
+        ephemeral = 0; //TK: Reset outdated streams when deadline is exceeded (new stream data + reset of old stream)
+        light_ephemeral = 0; //TK: DO NOT reset outdated streams, use the FIN-bit instead
+        tlp_used = 0; //TK: Start redundant streams and trigger redundant packets
+       break;
+   }
+
+    fprintf(F_log, "APPLICATION SETTTINGS:\n\tNumber of Messages=%zu \n\tapplication_payload=%lu bytes \n\tTime between Messages=%lu ms \n\t%c-VERSION: ephemeral=%u light_ephemeral=%u tlp_used=%u (threshold=%ld)\n\n", 
+                    client_sc_nb, application_payload, time_between_msgs/1000, set_ephemeral_version, ephemeral, light_ephemeral, tlp_used, set_tlp_threshold);
 
     start_time = picoquic_current_time();
 
@@ -825,10 +859,10 @@ int quic_client(const char* ip_address_text, int server_port,
         if(established == 1 && checkTime >= time_between_msgs)
         {
             last_stream_timer = picoquic_current_time() - (checkTime-time_between_msgs); //reset the timer for a new period, substract the skew
-            fprintf(F_log, "DEBUG:Timer fired: checkTime=%lu time_between_msgs=%lu with substracted clock skew %lu", checkTime, time_between_msgs, checkTime-time_between_msgs);
+            fprintf(F_log, "DEBUG:Timer fired: checkTime=%lu time_between_msgs=%lu with substracted clock skew %lu\n", checkTime, time_between_msgs, checkTime-time_between_msgs);
 
             cnx_client->msg_number = client_sc_nb_counter+1; //set the msg_number in cnx to write it into the stream (client_sc_nb_counter starts at 0)
-
+            cnx_client->msg_send_time = picoquic_current_time(); //set the send time for one-way delay
             /* TK: Run either the ephemeral or the non-ephemeral (all over one stream) application scenario! */
             if(ephemeral == 1)
             {
@@ -873,6 +907,7 @@ int quic_client(const char* ip_address_text, int server_port,
                     //TODO TK: Redundant Stream should get into another packet
                     
                     int redundant_stream_id = (client_sc_nb_counter*4) + 4 + (client_sc_nb*4);
+                    // OTHER DESIGN? >>> ULONG_MAX - (client_sc_nb_counter*4)
                     picoquic_demo_client_open_stream(cnx_client, &callback_ctx, redundant_stream_id,
                                                     callback_ctx.demo_stream[0].doc_name,
                                                     callback_ctx.demo_stream[0].f_name,
@@ -1299,6 +1334,8 @@ void usage()
     fprintf(stderr, "  For the client mode, specify server_name and port.\n");
     fprintf(stderr, "  For the server mode, use -p to specify the port.\n");
     fprintf(stderr, "Options:\n");
+    /* TK: add flag for the application settings */
+        fprintf(stderr,"  -X number_of_msgs msg_payload (in bytes) time_between_msgs (in ms) ephemeral-version [N|L|F|T] (default: 600 100 100 ne) ONLY USED AS CLIENT! \n");
     fprintf(stderr, "  -c file               cert file (default: %s)\n", SERVER_CERT_FILE);
     fprintf(stderr, "  -e if                 Send on interface (default: -1)\n");
     fprintf(stderr, "                           -1: receiving interface\n");
@@ -1388,6 +1425,12 @@ int main(int argc, char** argv)
     char * client_scenario = NULL;
     FILE* F_log = NULL;
 
+    /* TK: Ephemeral QUIC */
+    int set_number_of_msgs = 600;
+    int set_msg_payload = 100; // in bytes
+    int set_time_between_msgs = 100; // in ms
+    char set_ephemeral_version = 'N';
+
 #ifdef _WINDOWS
     WSADATA wsaData;
 #endif
@@ -1397,8 +1440,23 @@ int main(int argc, char** argv)
 
     /* Get the parameters */
     int opt;
-    while ((opt = getopt(argc, argv, "c:k:K:p:u:v:f:i:s:e:E:l:m:n:a:t:S:I:g:1rhzDL")) != -1) {
+    while ((opt = getopt(argc, argv, "X:c:k:K:p:u:v:f:i:s:e:E:l:m:n:a:t:S:I:g:1rhzDL")) != -1) {
         switch (opt) {
+        /* TK: Ephemeral QUIC flag */
+        case 'X':
+            if (optind + 3 > argc) {
+                fprintf(stderr, "option requires more arguments -- X\n");
+                usage();
+            } else {
+                set_number_of_msgs = atoi(optarg);
+                set_msg_payload = atoi(argv[optind]);
+                set_time_between_msgs = atoi(argv[optind + 1]);
+                set_ephemeral_version = *argv[optind + 2];
+            }
+            fprintf(stdout, "\tFlag -X with \n\t%s msgs \n\t%s bytes payload per msg \n\t%s ms interval \n\t%s-Ephemeral Version\n", optarg, argv[optind], argv[optind + 1], argv[optind + 2]);
+            optind += 3;
+            break;
+
         case 'c':
             server_cert_file = optarg;
             break;
@@ -1590,7 +1648,11 @@ int main(int argc, char** argv)
         /* Run as client */
         printf("Starting PicoQUIC connection to server IP = %s, port = %d\n", server_name, server_port);
         ret = quic_client(server_name, server_port, sni, esni_rr_file, alpn, root_trust_file, proposed_version, force_zero_share, 
-            force_migration, nb_packets_before_update, mtu_max, F_log, client_cnx_id_length, client_scenario, cc_log_dir, no_disk, use_long_log);
+            force_migration, nb_packets_before_update, mtu_max, F_log, client_cnx_id_length, client_scenario, cc_log_dir, no_disk, use_long_log, 
+                set_number_of_msgs,
+                set_msg_payload,
+                set_time_between_msgs,
+                set_ephemeral_version);
 
         printf("Client exit with code = %d\n", ret);
     }
