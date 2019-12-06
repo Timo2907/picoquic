@@ -6,6 +6,7 @@ fi
 mkdir $dirname
 mv client.pcap $dirname
 mv server.pcap $dirname
+mv *.log $dirname
 mv nohup.out $dirname
 mv stdoutput_client.txt $dirname
 mv stdoutput_server.txt $dirname
