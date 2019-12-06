@@ -14,7 +14,7 @@ def createNetwork():
 	bwg = 1 #in Mbps
 	bwbn = 1 #in Mbps
 	loss = 0 #in %
-	mqs = 100 #max queue size of interfaces
+	mqs = 6 #max queue size of interfaces
 	dly = '2.5ms'
 
 	#create empty network
@@ -120,9 +120,9 @@ def start_nodes(delay_router, loss_router, server, client, mqs, trafficserver, t
  info( '\n*** Set up of in-network routers completed.\n' )
 
  info( '\n*** Start TRAFFIC Server...\n' )
- trafficserver.cmd('iperf3 -s -p 6666 > trafficserver.log &')
+ trafficserver.cmd('sudo iperf -s -p 6666 -u > trafficserver.log &')
  info( '\n*** Start TRAFFIC Client...\n' )
- trafficclient.cmd('iperf3 -c 10.20.0.1 -p 6666 -t 25 -u -b 25MB >> trafficclient.log&')
+ trafficclient.cmd('sudo iperf -c 10.20.0.1 -p 6666 -t 310 -u -b 1MB >> trafficclient.log&')
  #trafficclient.cmd('for run in {1..10}; do iperf3 -c 10.20.0.1 -p 6666 -t 25 -u -b 25MB >> trafficclient.log; sleep 5; done &')
 
  info( '\n*** Started the background traffic.\n' )
