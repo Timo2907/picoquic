@@ -1,8 +1,8 @@
 #!/bin/bash
 ########################### GE Loss Experiments ################################
-for i in {1..2}
+for i in {1..5}
 do
-    echo "Welcome $i out of 2 times"
+    echo "Welcome $i out of 5 times"
 
     experiment='ge-loss2--non-ephemeral'
     mn --clean

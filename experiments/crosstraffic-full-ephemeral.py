@@ -14,7 +14,7 @@ def createNetwork():
 	bwg = 1 #in Mbps
 	bwbn = 1 #in Mbps
 	loss = 0 #in %
-	mqs = 6 #max queue size of interfaces
+	mqs = 8 #max queue size of interfaces
 	dly = '2.5ms'
 
 	#create empty network

@@ -1,8 +1,8 @@
 #!/bin/bash
 ########################### Crosstraffic Experiments ################################
-for i in {1..$1}
+for i in {1..25}
 do
-    echo "Welcome $i out of $1 times"
+    echo "Welcome $i out of 25 times"
 
     experiment='crosstraffic-non-ephemeral'
     mn --clean
