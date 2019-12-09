@@ -1,8 +1,8 @@
 #!/bin/bash
 ########################### GE Loss Experiments ################################
-for i in {1..5}
+for i in {1..7}
 do
-    echo "Welcome $i out of 5 times"
+    echo "Welcome $i out of 7 times"
 
     experiment='ge-loss2--non-ephemeral'
     mn --clean
@@ -27,6 +27,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss2--light-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -50,6 +51,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss2--full-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -74,6 +76,7 @@ do
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
     ########################### GE Loss 4 Experiments ################################
+    sleep 5
     experiment='ge-loss4--non-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -97,6 +100,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss4--light-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -120,6 +124,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss4--full-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -144,6 +149,7 @@ do
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
     ########################### GE Loss 8 Experiments ################################
+    sleep 5
     experiment='ge-loss8--non-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -167,6 +173,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss8--light-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -190,6 +197,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss8--full-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -214,6 +222,7 @@ do
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
     ########################### GE Loss 16 Experiments ################################
+    sleep 5
     experiment='ge-loss16--non-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -237,6 +246,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss16--light-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -260,6 +270,7 @@ do
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
 
+    sleep 5
     experiment='ge-loss16--full-ephemeral'
     mn --clean
     echo "##### CLEANED UP MININET #####"
@@ -282,6 +293,7 @@ do
     mn --clean
     ./process_results.sh $experiment
     echo "##### PROCESSED RESULTS - EXECUTION DONE #####"
+    sleep 5
 done
 
 echo "##### COMPLETED EXPERIMENT $i TIMES #####"

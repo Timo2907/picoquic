@@ -1,10 +1,8 @@
 #!/bin/bash
 ########################### All Random Loss Experiments ################################
-for i in {1..2}
+for i in {1..7}
 do
-    echo "Welcome $i out of 2 times"
-    echo "##### STARTED LOSS 1 EXPERIMENTS #####"
-    ./run-loss1-random-experiment.sh
+    echo "Welcome $i out of 7 times"
     echo "##### STARTED LOSS 2 EXPERIMENTS #####"
     ./run-loss2-random-experiment.sh
     echo "##### STARTED LOSS 4 EXPERIMENTS #####"
