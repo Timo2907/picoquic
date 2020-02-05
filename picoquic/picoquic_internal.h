@@ -52,7 +52,7 @@ extern "C" {
 #define PICOQUIC_INITIAL_RTT 250000ull /* 250 ms */
 #define PICOQUIC_TARGET_RENO_RTT 100000ull /* 100 ms */
 #define PICOQUIC_INITIAL_RETRANSMIT_TIMER 0 /* TK: changed from one second (1000000ull) to zero */
-#define PICOQUIC_MIN_RETRANSMIT_TIMER 20000ull //50000ull /* TK: changed from 50 ms (50000ull) to zero */
+#define PICOQUIC_MIN_RETRANSMIT_TIMER 20000ull //50000ull /* TK: changed from 50 ms (50000ull) to 20ms */
 #define PICOQUIC_ACK_DELAY_MAX 10000ull /* 10 ms */
 #define PICOQUIC_ACK_DELAY_MAX_DEFAULT 25000ull /* 25 ms, per protocol spec */
 #define PICOQUIC_ACK_DELAY_MIN 1000ull /* 10 ms */
@@ -61,7 +61,7 @@ extern "C" {
 #define PICOQUIC_TOKEN_DELAY_LONG (24*60*60*1000000ull) /* 24 hours */
 #define PICOQUIC_TOKEN_DELAY_SHORT (2*60*1000000ull) /* 2 minutes */
 
-#define PICOQUIC_MAX_RETRANSMISSIONS 100 //TK: used in Sender for knowing after how many retransmits the packet is given up
+#define PICOQUIC_MAX_RETRANSMISSIONS 1000 //TK: used in Sender for knowing after how many retransmits the packet is given up
 
 #define PICOQUIC_SPURIOUS_RETRANSMIT_DELAY_MAX 1000000ull /* one second */
 
@@ -77,8 +77,8 @@ extern "C" {
 #define PICOQUIC_CHALLENGE_REPEAT_MAX 3
 
 /*
-    * Types of frames
-    */
+ * Types of frames
+ */
 typedef enum {
     picoquic_frame_type_padding = 0,
     picoquic_frame_type_ping = 1,
