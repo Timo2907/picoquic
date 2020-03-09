@@ -863,6 +863,7 @@ int quic_client(const char* ip_address_text, int server_port,
 
             cnx_client->msg_number = client_sc_nb_counter+1; //set the msg_number in cnx to write it into the stream (client_sc_nb_counter starts at 0)
             cnx_client->msg_send_time = picoquic_current_time(); //set the send time for one-way delay
+
             /* TK: Run either the ephemeral or the non-ephemeral (all over one stream) application scenario! */
             if(ephemeral == 1)
             {
@@ -1209,6 +1210,10 @@ int quic_client(const char* ip_address_text, int server_port,
                         if(F_log != NULL) {
                             fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-TIMING: %lu ms after application start (at msg no. %d @ ~ %lu ms)\n", 
                                         (current_time - start_time_app)/1000, client_sc_nb_counter, client_sc_nb_counter*time_between_msgs/1000);
+                            
+                            uint64_t seq_nb = (cnx_client->quic->p_first_packet == NULL)? 0 : cnx_client->quic->p_first_packet->sequence_number;
+                            fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-PACKET_PREPARED: Number of packets in pool= %zu with next sequence number= %lu\n", 
+                                        cnx_client->quic->nb_packets_in_pool, seq_nb);
                         }
 
                         bytes_sent = sendto(fd, send_buffer, (int)send_length, 0,

@@ -400,6 +400,8 @@ uint8_t* picoquic_decode_stream_reset_frame(picoquic_cnx_t* cnx, uint8_t* bytes,
         bytes = NULL;  // error already signaled
 
     } else if ((stream->fin_received || stream->reset_received) && final_offset != stream->fin_offset) {
+        fprintf(cnx->quic->F_log, "DEBUG:FRAMES::decode_stream_reset_fame(): (stream:fin_received %u || stream:reset_received %u) && final_offset %lu != stream:fin_offset %lu (streamid %lu) \n", 
+                                    stream->fin_received, stream->reset_received, final_offset, stream->fin_offset, stream->stream_id);
         picoquic_connection_error(cnx, PICOQUIC_TRANSPORT_FINAL_OFFSET_ERROR,
             picoquic_frame_type_reset_stream);
         bytes = NULL;

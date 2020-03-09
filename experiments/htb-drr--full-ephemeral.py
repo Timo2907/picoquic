@@ -16,7 +16,11 @@ def createNetwork():
 	bwbn = 1 #in Mbps
 	mqs = 100 #max queue size of interfaces
 	dly = '2.5ms'
-	apps = 4 #number of other UDP applications = number of DRR classes - 1
+	apps = 4 #number of other UDP applications = number of DRR classes - 1  [MAXIMUM = 9(!)]
+	qlim = int(mqs/(apps+1)) #limit of queue in DRR is mqs divided by the number of apps + 1
+	qlim = 5 #TODO delete (just a tryout)
+	appquantum = 1500 #quantum for UDP traffic
+	quicquantum = 150 # quantum for QUIC traffic
 
 	#create empty network
 	net = Mininet(intf=TCIntf)
@@ -102,58 +106,66 @@ def createNetwork():
         rh.cmd('tc qdisc del dev rh-eth1 root')
 
 
-	start_nodes(rh, ri, iu, hu, mqs, it, ht, apps) #experiment actions
+	start_nodes(rh, ri, iu, hu, mqs, it, ht, apps, appquantum, quicquantum, qlim) #experiment actions
 
 	it.cmd('ethtool -K it-eth0 tx off sg off tso off') #disable TSO on TCP on defaul TCP sender need to be done on other host if sending large TCP file from other nodes
 
-	time.sleep(1)
+	time.sleep(5)
+
+	hu.cmd('sudo tc -s -g qdisc show dev hu-eth0 >> tc.log')
+	hu.cmd('sudo tc -s -g class show dev hu-eth0 >> tc.log')
+	hu.cmd('echo "class show done (running).\n" >> tc.log')
 
 	# Enable the mininet> prompt if uncommented
  	info('\n*** Running CLI\n')
 	CLI(net)
 
+	hu.cmd('sudo tc -s -g class show dev hu-eth0 >> tc.log')
+	hu.cmd('echo "class show done (end).\n" >> tc.log')
 	# stops the simulation
 	net.stop()
 
-def start_nodes(delay_router, loss_router, quicserver, quicclient, mqs, trafficserver, trafficclient, apps):
+def start_nodes(delay_router, loss_router, quicserver, quicclient, mqs, trafficserver, trafficclient, apps, appquantum, quicquantum, qlim):
  
  #set HTB on interface
  quicclient.cmd('tc qdisc del dev hu-eth0 root')
-#  quicclient.cmd('tc qdisc add dev hu-eth0 root handle 1: htb')
-#  quicclient.cmd('tc class add dev hu-eth0 parent 1: classid 1:1 htb rate 1Mbit')
+ quicclient.cmd('tc qdisc add dev hu-eth0 root handle 1: htb')
+ quicclient.cmd('tc class add dev hu-eth0 parent 1: classid 1:1 htb rate 1mbit ceil 1mbit')
  quicclient.cmd('echo "HTB done.\n" > tc.log')
 
  #set DRR on interface
- #quicclient.cmd('tc qdisc add dev hu-eth0 parent 1:1 handle 2: drr')
- quicclient.cmd('tc qdisc add dev hu-eth0 root handle 1: drr')
+ quicclient.cmd('tc qdisc add dev hu-eth0 parent 1:1 handle 2: drr')
  # CLASS for QUIC traffic (class 2:1)
- quicclient.cmd('tc class add dev hu-eth0 parent 1: classid 1:1 drr quantum 55') # quic quantum
- # quic filter with destination port 6121, class 2:1
+ quicclient.cmd('tc class add dev hu-eth0 parent 2: classid 2:1 drr quantum ' + str(quicquantum)) # quic quantum
+ quicclient.cmd('tc qdisc add dev hu-eth0 parent 2:1 handle 11: pfifo limit ' + str(qlim)) # quic queue for dropping packets
 
 # CLASSES for UDP traffic (class 2:2 to 2:apps+1)
  for i in range(apps):
- 	 quicclient.cmd('tc class add dev hu-eth0 parent 1: classid 1:' + str(i+2) + ' drr quantum 500') #TODO: quantum for crosstraffic?
+ 	 quicclient.cmd('tc class add dev hu-eth0 parent 2: classid 2:' + str(i+2) + ' drr quantum ' + str(appquantum))
+	 quicclient.cmd('tc qdisc add dev hu-eth0 parent 2:' + str(i+2) + ' handle '+ str(i+12) +': pfifo limit ' + str(qlim)) #udp queues for dropping packets
  
+# FILTER to bring all traffic from htb to drr
+ quicclient.cmd('tc filter add dev hu-eth0 parent 1: prio 1 u32 match u32 0 0 classid 1:1')
 # FILTERS for QUIC + UDP traffic
- quicclient.cmd('tc filter add dev hu-eth0 parent 1: prio 1 u32 match ip dport 6121 0xffff classid 1:1') 
- # quic filter with destination port 6121, class 2:1
+ quicclient.cmd('tc filter add dev hu-eth0 parent 2: prio 1 u32 match ip dport 6121 0xffff classid 2:1') # quic filter with destination port 6121, class 2:1
+
  for j in range(apps):
-	 quicclient.cmd('tc filter add dev hu-eth0 parent 1: prio 1 u32 match ip dport 600'+ str(j+1) +' 0xffff classid 1:' + str(j+2))
+	 quicclient.cmd('tc filter add dev hu-eth0 parent 2: prio 1 u32 match ip dport 600'+ str(j+1) +' 0xffff classid 2:' + str(j+2)) 
 	 # udp filter with destination port 6001..6004, class 2:2 .. 2:5
 
 # default filter
- quicclient.cmd('tc class add dev hu-eth0 parent 1: classid 1:10 drr quantum 9999')
- quicclient.cmd('tc filter add dev hu-eth0 parent 1: prio 2 u32 match u32 0 0 classid 1:10')
+ quicclient.cmd('tc class add dev hu-eth0 parent 2: classid 2:10 drr quantum 9999')
+ quicclient.cmd('tc filter add dev hu-eth0 parent 2: prio 2 u32 match u32 0 0 classid 2:10')
 
  quicclient.cmd('echo "DRR done.\n" >> tc.log')
- quicclient.cmd('tc qdisc show dev hu-eth0 >> tc.log')
+ quicclient.cmd('sudo tc -s -g qdisc show dev hu-eth0 >> tc.log')
  quicclient.cmd('echo "qdisc show done.\n" >> tc.log')
  quicclient.cmd('sudo tc -s -g class show dev hu-eth0 >> tc.log')
  quicclient.cmd('echo "class show done.\n" >> tc.log')
- quicclient.cmd('tc filter show dev hu-eth0 parent 1: >> tc.log')
+ quicclient.cmd('sudo tc -s -g filter show dev hu-eth0 >> tc.log')
  quicclient.cmd('echo "filter show done.\n" >> tc.log')
 
- info( '\n*** Set up of HTB-DRR interface completed.\n' )
+ info( '\n*** Set up of DRR interface completed.\n' )
 
  delay_router.cmd('sudo python ./monitor_queue.py &')
  loss_router.cmd('python ./monitor_qlen_ri.py &')
@@ -172,14 +184,14 @@ def start_nodes(delay_router, loss_router, quicserver, quicclient, mqs, traffics
  # UDP crosstraffic: "apps" number of UDP applications
  for i in range(apps): #starttimes: 30, 60, 90, 120 | runtime = 150 sec | endtimes: 180, 210, 240, 270
 	time.sleep(30)
+	quicclient.cmd('sudo tc -s -g qdisc show dev hu-eth0 >> tc.log')
 	quicclient.cmd('sudo tc -s -g class show dev hu-eth0 >> tc.log')
-	quicclient.cmd('echo "class show done (udp#'+ str(i+1) +').\n" >> tc.log')
+	quicclient.cmd('echo "qdisc/class show done (udp#'+ str(i+1) +').\n" >> tc.log')
 
 	info( '\n*** Start UDP Server', i+1,' on port 600'+ str(i+1) +' ...\n' )
  	trafficserver.cmd('sudo iperf -s -p 600'+ str(i+1) +' -u > trafficserver'+ str(i+1) +'.log &')
  	info( '\n*** Start UDP App', i+1,' on QUIC Client for Server on port 600'+ str(i+1) +' ...\n')
  	quicclient.cmd('sudo iperf -c 10.20.0.1 -p 600'+ str(i+1) +' -t 150 -u -b 250k > trafficclient'+ str(i+1) +'.log&')
-
 
 if __name__ == '__main__':
 	setLogLevel( 'info' )

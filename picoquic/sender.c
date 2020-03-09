@@ -2732,8 +2732,6 @@ int picoquic_prepare_packet_ready(picoquic_cnx_t* cnx, picoquic_path_t * path_x,
                             }
                         }
 
-                        //TODO TK: Why blocked frame?
-
                         if (length <= header_length) {
                             //fprintf(cnx->quic->F_log, "DEBUG:SENDER::picoquic_prepare_blocked_frames()::length=%zu header_length=%zu\n", length, header_length);
                             ret = picoquic_prepare_blocked_frames(cnx, &bytes[length],
