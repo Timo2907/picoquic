@@ -42,9 +42,13 @@ picoquic_demo_client_stream_ctx_t* picoquic_demo_client_find_stream(picoquic_dem
 }
 
 
-int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t space, size_t echo_length, size_t * echo_sent)
+int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t space, size_t echo_length, size_t * echo_sent) 
+                            //TK: cnx_client, bytes/stream_data_context, length, stream_ctx->post_size, &stream_ctx->post_sent => POST data generated here
 {
     int ret = 0;
+    
+            
+    fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::[before]space=%zu echo_length=%zu echo_sent=%zu\n", space, echo_length, *echo_sent);
 
     if (*echo_sent < echo_length) {
         uint8_t * buffer;
@@ -56,8 +60,12 @@ int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t spac
             is_fin = 0;
         }
 
+        fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::[inside]space=%zu echo_length=%zu echo_sent=%zu, available=%zu\n", 
+                                                                                                space, echo_length, *echo_sent, available);
+
         //TK: When non-ephemeral application, stream is not finished when no data is polled BUT the stream is also NOT active anymore -> waiting for new generated data
         //      OR in full-ephemeral application, where not FIN-bit but the "reset stream"-frame is used.
+        
         if(cnx->fin_used == 0) {
             buffer = picoquic_provide_stream_data_buffer(context, available, 0, 0);
         } else {
@@ -67,49 +75,7 @@ int demo_client_prepare_to_send(picoquic_cnx_t* cnx, void * context, size_t spac
         if (buffer != NULL) {
             int r = (74 - (*echo_sent % 74)) - 2;
 
-            unsigned int msg = cnx->msg_number;
-
-            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::buffer=%"PRIu8" msg=%d available=%zu sizeof(msg)=%lu \n", *buffer, msg, available, sizeof(msg));
-            // Simple memset:
-            //memset(buffer, msg, available);
-            // Dummy memset:
-            //memset(buffer, 0x5A, available);
-
-            /*TK: Message Number in Stream Data */
-            if(available > 3)
-            {
-                buffer[0] = (msg >> 24);
-                buffer[1] = (msg >> 16);
-                buffer[2] = (msg >> 8);
-                buffer[3] = msg;
-                memset(buffer+sizeof(msg), 0x00, available-sizeof(msg));
-
-                /* TK: Sending time for One-Way Delay in Stream Data */
-                if(available > 11)
-                {
-                    uint64_t sendTime = cnx->msg_send_time;
-
-                    buffer[4] = (sendTime >> 56);
-                    buffer[5] = (sendTime >> 48);
-                    buffer[6] = (sendTime >> 40);
-                    buffer[7] = (sendTime >> 32);
-                    buffer[8] = (sendTime >> 24);
-                    buffer[9] = (sendTime >> 16);
-                    buffer[10] = (sendTime >> 8);
-                    buffer[11] = sendTime;
-
-                    memset(buffer+sizeof(msg)+sizeof(sendTime), 0x00, available-sizeof(msg)-sizeof(sendTime));
-                }
-
-            } else {
-                memset(buffer, 0x00, available);
-            }
-            picoquic_log_time(cnx->quic->F_log, cnx, picoquic_current_time(), " ", " : ");
-            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::b[0]=%"PRIu8" b[1]=%"PRIu8" b[2]=%"PRIu8" b[3]=%"PRIu8"\n", 
-                                        buffer[0], buffer[1], buffer[2], buffer[3]);
-            fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::demo_client_prepare_to_send()::b[4]=%"PRIu8" b[5]=%"PRIu8" b[6]=%"PRIu8" b[7]=%"PRIu8"b[8]=%"PRIu8" b[9]=%"PRIu8" b[10]=%"PRIu8" b[11]=%"PRIu8"\n", 
-                                        buffer[4], buffer[5], buffer[6], buffer[7], buffer[8], buffer[9], buffer[10], buffer[11]);
-
+            memset(buffer, 0x5A, available);
 
             while (r < (int)available) {
                 if (r >= 0) {
@@ -297,6 +263,10 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
     uint8_t buffer[1024];
     picoquic_demo_client_stream_ctx_t* stream_ctx = (picoquic_demo_client_stream_ctx_t*)
         malloc(sizeof(picoquic_demo_client_stream_ctx_t));
+    
+    //TK:
+    size_t original_post_size = post_size;
+    post_size = 1;
 
     if (stream_ctx == NULL) {
 		fprintf(stdout, "Memory Error, cannot create stream context %d\n", (int)stream_id);
@@ -314,6 +284,7 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
             ctx->first_stream = stream_ctx;
             stream_ctx->stream_id = stream_id + nb_repeat*4u;
             stream_ctx->post_size = post_size;
+            stream_ctx->reset_requested_ctx = 0;
         } else {
             stream_ctx = old_stream_context;
             stream_ctx->post_sent = 0; //reset the post_sent param
@@ -378,17 +349,70 @@ int picoquic_demo_client_open_stream(picoquic_cnx_t* cnx,
                 buffer, sizeof(buffer), path, path_len, post_size, cnx->sni, &request_length);
             break;
         }
+        
+        /* TK: adding additional bytes for specific message size 
+         * (size = request_length + dummy bytes + msg_number & generation time)
+         * fill_size = post_size - request_length - 12
+         * ! use post_size as size and set post_size to 1
+         */
+        unsigned int msg = cnx->msg_number;
+        uint64_t gen_time = cnx->msg_generation_time;
+        size_t fill_size = original_post_size - request_length - sizeof(msg) - sizeof(gen_time);
+
+        if(fill_size < 0)
+        {
+            ret = -1;
+        } else {
+            memset(&buffer[request_length], 0x00, fill_size);
+            request_length = request_length + fill_size;
+        }
+
+        /* TK: Adding msg_number + generating_time here
+         * buffer = data of request
+         * request_length = length (of data/request) -> buffer offset
+         * buffer[request_length] = buffer[0] (startpoint to write msg_number + msg_generation_time) 
+         */
+        buffer[request_length] = (msg >> 24);
+        buffer[request_length+1] = (msg >> 16);
+        buffer[request_length+2] = (msg >> 8);
+        buffer[request_length+3] = msg;
+        
+        buffer[request_length+4] = (gen_time >> 56);
+        buffer[request_length+5] = (gen_time >> 48);
+        buffer[request_length+6] = (gen_time >> 40);
+        buffer[request_length+7] = (gen_time >> 32);
+        buffer[request_length+8] = (gen_time >> 24);
+        buffer[request_length+9] = (gen_time >> 16);
+        buffer[request_length+10] = (gen_time >> 8);
+        buffer[request_length+11] = gen_time;
+
+        fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::picoquic_demo_client_open_stream()::buffer=%"PRIu8", sizeof(buffer)=%lu msg=%d post_size=%zu sizeof(msg)=%lu generation_time= %lu sizeof(time)= %lu, fill_size=%zu\n", 
+                                    *buffer, sizeof(buffer), msg, post_size, sizeof(msg), gen_time, sizeof(gen_time), fill_size);
+        
+        //picoquic_log_time(cnx->quic->F_log, cnx, picoquic_current_time(), " ", " : ");
+        fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::picoquic_demo_client_open_stream()::address: b[%zu]=%p b[%zu]=%p b[%zu]=%p b[%zu]=%p\n", 
+                                        request_length, &buffer[request_length], request_length+1, &buffer[request_length+1], request_length+2, &buffer[request_length+2], request_length+3, &buffer[request_length+3]);
+        fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::picoquic_demo_client_open_stream()::b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8"\n", 
+                                        request_length, buffer[request_length], request_length+1, buffer[request_length+1], request_length+2, buffer[request_length+2], request_length+3, buffer[request_length+3]);
+        fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::picoquic_demo_client_open_stream()::b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8" b[%zu]=%"PRIu8"\n", 
+                                         request_length+4, buffer[request_length+4], request_length+5, buffer[request_length+5], request_length+6, buffer[request_length+6],  request_length+7, buffer[request_length+7], 
+                                         request_length+8, buffer[request_length+8], request_length+9, buffer[request_length+9], request_length+10, buffer[request_length+10], request_length+11, buffer[request_length+11]);
+
+        request_length = request_length + sizeof(msg) + sizeof(gen_time); //request length is now higher due to more data passed to stream
+
+        fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::picoquic_demo_client_open_stream()::request_length(after)=%zu \n", request_length);
+
 
 		/* Send the request */
         if (ret == 0) {
             //TK: When ephemeral application is running, streams are finished after one message
-            ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length,
-                    (post_size > 0)?0:1, stream_ctx);
-            fprintf(cnx->quic->F_log, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d (eph=1) \n", ret);
+            ret = picoquic_add_to_stream_with_ctx(cnx, stream_ctx->stream_id, buffer, request_length, (post_size > 0)?0:1, stream_ctx); 
+                                    // (picoquic_cnx_t* cnx, uint64_t stream_id, const uint8_t* data, size_t length, int set_fin, void * app_stream_ctx)
+            fprintf(cnx->quic->F_log, "DEBUG::picoquic_add_to_stream_with_ctx() with ret=%d\n", ret);
 
             if (post_size > 0) {
                 ret = picoquic_mark_active_stream(cnx, stream_id, 1, stream_ctx);
-                fprintf(cnx->quic->F_log, "DEBUG::picoquic_mark_active_stream() with ret=%d (eph=1)\n", ret);
+                fprintf(cnx->quic->F_log, "DEBUG::picoquic_mark_active_stream() with ret=%d\n", ret);
             }
         }
 
@@ -586,8 +610,12 @@ int picoquic_demo_client_callback(picoquic_cnx_t* cnx,
             return 0;
         }
         else {
-            //fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
-            return demo_client_prepare_to_send(cnx, (void*)bytes, length, stream_ctx->post_size, &stream_ctx->post_sent);
+            if(stream_ctx->reset_requested_ctx) {
+                fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::[NOT]demo_client_prepare_to_send (stream_id= %lu) - RESET REQUESTED ALREADY!\n", stream_id);
+            } else {
+                //fprintf(cnx->quic->F_log, "DEBUG:DEMOCLIENT::before:client_prepare_to_send (stream_id= %lu)\n", stream_id);
+                return demo_client_prepare_to_send(cnx, (void*)bytes, length, stream_ctx->post_size, &stream_ctx->post_sent);
+            }
         }
     case picoquic_callback_almost_ready:
     case picoquic_callback_ready:

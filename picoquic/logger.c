@@ -576,19 +576,24 @@ size_t picoquic_log_stream_frame(FILE* F, uint8_t* bytes, size_t bytes_max)
     }
 
     unsigned int msg_no = 0;
-    if(data_length > 3)
-    {
-        msg_no = bytes[byte_index + 3] + (bytes[byte_index + 2] << 8) + (bytes[byte_index + 1] << 16) + (bytes[byte_index + 0] << 24);
-    }
 
     if(data_length > 11)
-    {
-        uint64_t clientSendTime = (uint64_t)bytes[byte_index + 11] + ((uint64_t)bytes[byte_index + 10] << 8) + ((uint64_t)bytes[byte_index + 9] << 16) + ((uint64_t)bytes[byte_index + 8] << 24) 
-                                + ((uint64_t)(bytes[byte_index + 7]) << 32) + ((uint64_t)bytes[byte_index + 6] << 40) + ((uint64_t)bytes[byte_index + 5] << 48) + ((uint64_t)bytes[byte_index + 4] << 56);
-        int64_t oneWayDelay = picoquic_current_time() - clientSendTime;
-        fprintf(F, " %s msg_no= %u streaming-level one-way delay= %ld clientSendTime= %lu currentTime= %lu [log_frames:log_stream_frame]\n", (data_length > 12) ? "..." : "", msg_no, oneWayDelay, clientSendTime, picoquic_current_time());
+    {                
+        // Extracting the message number and generation time at client (last 12 bytes from request frame)
+        //EXTRACT MSG NUMBER (offset-12 to offset-9) + GENERATION TIME (from "offset-7" to "offset-1")
+
+            msg_no = bytes[byte_index+data_length-9] + (bytes[byte_index+data_length-10] << 8) + (bytes[byte_index+data_length-11] << 16) + (bytes[byte_index+data_length-12] << 24);
+
+            uint64_t generation_time = (uint64_t)bytes[byte_index+data_length-1] + ((uint64_t)bytes[byte_index+data_length-2] << 8) + ((uint64_t)bytes[byte_index+data_length-3] << 16) + ((uint64_t)bytes[byte_index+data_length-4] << 24) 
+                                     + ((uint64_t)(bytes[byte_index+data_length-5]) << 32) + ((uint64_t)bytes[byte_index+data_length-6] << 40) + ((uint64_t)bytes[byte_index+data_length-7] << 48) + ((uint64_t)bytes[byte_index+data_length-8] << 56);
+                    
+            int64_t data_age = picoquic_current_time() - generation_time;
+
+            fprintf(F, " %s msg_no= %u streaming-level age= %ld generationTime= %lu currentTime= %lu [log_frames:log_stream_frame]\n", 
+                                (data_length > 12) ? "..." : "", msg_no, data_age, generation_time, picoquic_current_time());
+
     } else {
-        fprintf(F, " %s msg_no= %u [log_frames:log_stream_frame]\n", (data_length > 12) ? "..." : "", msg_no);
+        fprintf(F, " %s msg_no= %u (dummy frame) [log_frames:log_stream_frame]\n", (data_length > 12) ? "..." : "", msg_no);
     }
 
     return byte_index + data_length;
@@ -757,7 +762,7 @@ size_t picoquic_log_reset_stream_frame(picoquic_cnx_t * cnx, FILE* F, uint8_t* b
             (int)bytes_max);
         byte_index = bytes_max;
     } else {
-        fprintf(F, "    RESET STREAM %llu, Error 0x%08x (= msg_number), Offset 0x%llx. [log_frames:log_stream_frame]\n",
+        fprintf(F, "    RESET STREAM %llu, Error 0x%08x (= msg_no), Offset 0x%llx. [log_frames:log_stream_frame]\n",
             (unsigned long long)stream_id, (uint32_t)error_code, (unsigned long long)offset);
     }
 
@@ -1948,7 +1953,7 @@ void picoquic_set_retransmission_values(FILE* F, picoquic_cnx_t* cnx, uint64_t l
 void picoquic_log_retransmission(FILE* F, picoquic_cnx_t* cnx, uint64_t log_cnxid)
 {
     picoquic_log_prefix_initial_cid64(F, log_cnxid);
-    fprintf(F, "Retransmit Seq# %d delta_seq=%ld msg_nb= %u timer-based(RTO)= %d current_time(ct)=%lu diff:ct-sent= %ld diff:ct-ack_time= %ld s_rtt: %lu diff:ct-retrans_time: %ld\n", 
+    fprintf(F, "\nRETRANSMIT Seq# %d delta_seq=%ld msg_nb= %u timer-based(RTO)= %d current_time(ct)=%lu diff:ct-sent= %ld diff:ct-ack_time= %ld s_rtt: %lu diff:ct-retrans_time: %ld\n", 
                     cnx->last_seq_nb, cnx->last_delta_seq, cnx->msg_number, cnx->last_timer_based, cnx->last_current_time, 
                     cnx->last_send_diff, cnx->last_ack_diff, cnx->last_smoothed_rtt, cnx->last_retrans_diff);
 }

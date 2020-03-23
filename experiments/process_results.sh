@@ -16,11 +16,11 @@ mv log_client.txt $dirname
 mv log_server.txt $dirname
 # Client: Time t, cwin, bytes-in-flight , nb_ret, rtt_min, current_rtt, send_time, latest msg number, current_ackdelay, srtt, rtt_var, max_ackdelay, state
 grep bytes-in-flight $dirname/log_client.txt | awk '{print $3, $5, $7, $9, $11, $13, $15, $17, $19, $21, $23, $25, $27}' > $dirname/firstKPIs
-# Reception time in sec, stream ID, message number
-grep -E "(Stream.*length 100)" $dirname/log_client.txt | awk '{print $2, $5, $19}' > $dirname/clientStreamOutput
+# Time in sec, stream ID, message number, age when sent, generation time, sending time 
+grep -E "(Stream.*length 100)" $dirname/log_client.txt | awk '{print $2, $5, $19, $22, $24, $26}' > $dirname/clientStreamOutput
 # Server: 
 grep -E "(Stream.*length 100|Server CB.*100 bytes)" $dirname/log_server.txt > $dirname/serverCallbackInfo
-# Reception Time in sec, Stream ID, offset, payload in bytes, msg number
-grep -E "(Stream.*length 100)" $dirname/log_server.txt | awk '{print $2, $5, $8, $11, $19, $23}' > $dirname/serverStreamOutput
-# Reception Time in sec, Stream ID, payload in bytes, msg number
-grep -E "(Server CB.*100 bytes)" $dirname/log_server.txt | awk '{print $2, $7, $9, $15, $19}' > $dirname/serverAppOutput
+# Reception Time in sec, Stream ID, offset, payload in bytes, msg number, age when received, generation time, reception time
+grep -E "(Stream.*length 100)" $dirname/log_server.txt | awk '{print $2, $5, $8, $11, $19, $22, $24, $26}' > $dirname/serverStreamOutput
+# Reception Time in sec, Stream ID, payload in bytes, msg number, age when consumed, generation time, consumption time
+grep -E "(Server CB.*100 bytes)" $dirname/log_server.txt | awk '{print $2, $7, $9, $15, $18, $20, $22}' > $dirname/serverAppOutput

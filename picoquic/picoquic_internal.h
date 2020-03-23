@@ -778,7 +778,7 @@ typedef struct st_picoquic_cnx_t {
 
     /* TK: Message number and send time for writing it as stream data */
     unsigned int msg_number;
-    uint64_t msg_send_time;
+    uint64_t msg_generation_time;
     /* TK: Flag to set fin-bit at the end of a msg */
     unsigned int fin_used : 1;
     /* TK: TLP with Redundancy Extension */

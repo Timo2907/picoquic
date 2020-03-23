@@ -828,18 +828,22 @@ int picoquic_h09_server_callback(picoquic_cnx_t* cnx,
     if (cnx->quic->F_log != NULL) {
         fprintf(cnx->quic->F_log, "%" PRIx64 ": ", picoquic_val64_connection_id(picoquic_get_logging_cnxid(cnx)));
         picoquic_log_time(cnx->quic->F_log, cnx, picoquic_current_time(), "", " : ");
-            if((fin_or_event == picoquic_callback_stream_data || picoquic_callback_stream_fin) && length > 11) //3 bytes for msg number + 8 bytes for send time
+            if((fin_or_event == picoquic_callback_stream_data || picoquic_callback_stream_fin) && length > 11) //4 bytes for msg number + 8 bytes for send time
             {
-                unsigned int msg_no = bytes[3] + (bytes[2] << 8) + (bytes[1] << 16) + (bytes[0] << 24);
+                // Extracting the message number and generation time at client (last 12 bytes from request frame)
+                //EXTRACT MSG NUMBER (offset-12 to offset-9) + GENERATION TIME (from "offset-7" to "offset-1")
 
-                uint64_t clientSendTime = (uint64_t)bytes[11] + ((uint64_t)bytes[10] << 8) + ((uint64_t)bytes[9] << 16) + ((uint64_t)bytes[8] << 24) 
-                                        + ((uint64_t)(bytes[7]) << 32) + ((uint64_t)bytes[6] << 40) + ((uint64_t)bytes[5] << 48) + ((uint64_t)bytes[4] << 56);
-                int64_t oneWayDelay = picoquic_current_time() - clientSendTime;
-    
-                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s), msg= %u application-level one-way delay= %ld clientSendTime= %lu currentTime= %lu\n",
-                stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event), msg_no, oneWayDelay, clientSendTime, picoquic_current_time());
+                unsigned int msg_no = bytes[length-9] + (bytes[length-10] << 8) + (bytes[length-11] << 16) + (bytes[length-12] << 24);
+
+                uint64_t generation_time = (uint64_t)bytes[length-1] + ((uint64_t)bytes[length-2] << 8) + ((uint64_t)bytes[length-3] << 16) + ((uint64_t)bytes[length-4] << 24) 
+                                    + ((uint64_t)(bytes[length-5]) << 32) + ((uint64_t)bytes[length-6] << 40) + ((uint64_t)bytes[length-7] << 48) + ((uint64_t)bytes[length-8] << 56);
+                    
+                int64_t data_age = picoquic_current_time() - generation_time;
+
+                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s), msg= %u application-level age= %ld generationTime= %lu currentTime= %lu\n",
+                                            stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event), msg_no, data_age, generation_time, picoquic_current_time());
             } else {
-                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s) \n",
+                fprintf(cnx->quic->F_log, "Server CB, Stream: %" PRIu64 " , %" PRIst " bytes, fin=%d (%s) (dummy frame) \n",
                         stream_id, length, fin_or_event, picoquic_log_fin_or_event_name(fin_or_event));
             }
     }
