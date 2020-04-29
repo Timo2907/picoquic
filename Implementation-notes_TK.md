@@ -378,7 +378,3 @@ ACK received = update RTT with "current_time" as a parameter
             client_sc_nb_counter++;
         }*/
 
-
-
-
-

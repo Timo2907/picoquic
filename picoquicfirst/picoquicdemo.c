@@ -873,6 +873,18 @@ int quic_client(const char* ip_address_text, int server_port,
             picoquic_log_time(F_log, cnx_client, picoquic_current_time(), "", " : ");
             fprintf(F_log, "%u ####################################################################################################################################### \nDEBUG:Timer fired: checkTime=%lu time_between_msgs=%lu with substracted clock skew %lu\n", cnx_client->msg_number, checkTime, time_between_msgs, checkTime-time_between_msgs);
 
+            /* TODO TK: Skip every k'th msgs () */
+            // only for ephemeral versions
+            // cnx->path[0]->bytes_in_transit > 5*payload (without cwin?)
+            // skip this, use new cwin minimum
+            int k = 3;
+            uint64_t factor = 0.7; //0.8 //0.9? //bytes_in_transit > factor*cwin
+            if(0 && ephemeral == 1 && cnx_client->path[0]->bytes_in_transit > factor * cnx_client->path[0]->cwin && cnx_client->msg_number % k == 0)
+            {
+                fprintf(F_log, "\n SKIP message %u with k=%d due to %lu > %lu \n\n", cnx_client->msg_number, k, cnx_client->path[0]->bytes_in_transit, 5 * application_payload);
+            } else
+            {
+            
             /* TK: Run either the ephemeral or the non-ephemeral application scenario! */
             if(ephemeral == 1)
             {
@@ -964,6 +976,7 @@ int quic_client(const char* ip_address_text, int server_port,
                     }
                 }
             }
+            } //TODO TK: DELETE THIS (only for skipping msgs)
             client_sc_nb_counter++; //msg counter up
         }
         
@@ -1030,7 +1043,7 @@ int quic_client(const char* ip_address_text, int server_port,
                 client_receive_loop++;
 
                 if (F_log != NULL) {
-                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= %d\t", client_receive_loop);
+                    fprintf(F_log, "----------------:PICOQUICDEMO::quic_client()-RECEPTION_IN_LOOP= %d with ECN= %u\t", client_receive_loop, received_ecn);
                     picoquic_log_processing(F_log, cnx_client, bytes_recv, ret);
                 }
 

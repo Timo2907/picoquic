@@ -20,7 +20,7 @@ def createNetwork():
 	qlim = int(mqs/(apps+1)) #limit of queue in DRR is mqs divided by the number of apps + 1
 	qlim = 5 #TODO delete (just a tryout)
 	appquantum = 1500 #quantum for UDP traffic
-	quicquantum = 150 # quantum for QUIC traffic
+	quicquantum = 55 # quantum for QUIC traffic
 
 	#create empty network
 	net = Mininet(intf=TCIntf)
