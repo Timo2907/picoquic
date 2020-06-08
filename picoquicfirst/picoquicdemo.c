@@ -873,113 +873,114 @@ int quic_client(const char* ip_address_text, int server_port,
             picoquic_log_time(F_log, cnx_client, picoquic_current_time(), "", " : ");
             fprintf(F_log, "%u ####################################################################################################################################### \nDEBUG:Timer fired: checkTime=%lu time_between_msgs=%lu with substracted clock skew %lu\n", cnx_client->msg_number, checkTime, time_between_msgs, checkTime-time_between_msgs);
 
-            /* TODO TK: Skip every k'th msgs () */
-            // only for ephemeral versions
-            // cnx->path[0]->bytes_in_transit > 5*payload (without cwin?)
-            // skip this, use new cwin minimum
-            int k = 3;
-            uint64_t factor = 0.7; //0.8 //0.9? //bytes_in_transit > factor*cwin
-            if(0 && ephemeral == 1 && cnx_client->path[0]->bytes_in_transit > factor * cnx_client->path[0]->cwin && cnx_client->msg_number % k == 0)
+            
+            /* TK: Skip msg when bytes-in-flight > factor * payload BUT ONLY when cwin < factor*payload */
+            // only for ephemeral versions !
+            // TODO: -> implement not skipped but delayed
+            uint64_t factor = 4;
+            if(ephemeral == 1 && factor * application_payload < cnx_client->path[0]->cwin && cnx_client->path[0]->bytes_in_transit > factor * application_payload)
             {
-                fprintf(F_log, "\n SKIP message %u with k=%d due to %lu > %lu \n\n", cnx_client->msg_number, k, cnx_client->path[0]->bytes_in_transit, 5 * application_payload);
+                fprintf(F_log, "\n SKIP message %u due to %lu > %lu (=%lu*%lu) \n\n", cnx_client->msg_number, cnx_client->path[0]->bytes_in_transit, factor * application_payload, factor, application_payload);
             } else
             {
-            
-            /* TK: Run either the ephemeral or the non-ephemeral application scenario! */
-            if(ephemeral == 1)
-            {
-
-                /* TK: Check if TLP should be used and if it is activated right know in the cnx */
-                if(tlp_used == 0 || cnx_client->tlp_activated == 0)
+                /* TK: Run either the ephemeral or the non-ephemeral application scenario! */
+                if(ephemeral == 1)
                 {
-                    // Check if the last stream (client_sc_nb_counter*4) is still open: If yes, close!
-                    picoquic_demo_client_stream_ctx_t* last_stream = picoquic_demo_client_find_stream(&callback_ctx, client_sc_nb_counter*4);
-                    if(last_stream != NULL && last_stream->is_open == 1)
+
+                    /* TK: Check if TLP should be used and if it is activated right know in the cnx */
+                    if(tlp_used == 0 || cnx_client->tlp_activated == 0)
                     {
-                        if(light_ephemeral==0) {
+                        // Check if the last stream (client_sc_nb_counter*4) is still open: If yes, close!
+                        picoquic_demo_client_stream_ctx_t* last_stream = picoquic_demo_client_find_stream(&callback_ctx, client_sc_nb_counter*4);
+                        if(last_stream != NULL && last_stream->is_open == 1)
+                        {
+                            if(light_ephemeral==0) {
                             /* TK: Reset the stream for FULL-Ephemeral QUIC
                              * If the stream has to be reset here, the data was not ack'ed in time!
                              * NO FIN-bit set in stream to enable the reset of a stream!
                              */
-                            int rst = picoquic_reset_stream(cnx_client, last_stream->stream_id, (uint64_t)cnx_client->msg_number); //rst stream together with local closing @ client
-                            if(rst==0)
-                                last_stream->reset_requested_ctx = 1;
-                            fprintf(F_log, "DEBUG:Stream %lu closed after timeout with reset = %s\n", last_stream->stream_id, rst == 1039 ? "Fin already sent!" : "Reset sent!");
-                        } else {
+                                int rst = picoquic_reset_stream(cnx_client, last_stream->stream_id, (uint64_t)cnx_client->msg_number); //rst stream together with local closing @ client
+                                if(rst==0)
+                                    last_stream->reset_requested_ctx = 1;
+                                fprintf(F_log, "DEBUG:Stream %lu closed after timeout with reset = %s\n", last_stream->stream_id, rst == 1039 ? "Fin already sent!" : "Reset sent!");
+                            } else {
                             /* TK: Send the fin-bit for the LIGHT-Ephemeral QUIC
                              * New message generated which goes into a new stream
                              * => previous stream is finished
                              */
-                            cnx_client->fin_used=1; //used to set the fin-bit
-                        }
+                                cnx_client->fin_used=1; //used to set the fin-bit
+                            }
                         picoquic_demo_client_close_stream(&callback_ctx, last_stream);
 
                         fprintf(F_log, "DEBUG:Stream %lu closed.\n", last_stream->stream_id);
-                    }
+                        }
 
-                    fprintf(F_log, "DEBUG:%sEPHEMERAL: tlp_used=%u tlp_activated=%u msg_number= %d nb_open_streams= %d (should be 0)\n", 
+                        fprintf(F_log, "DEBUG:%sEPHEMERAL: tlp_used=%u tlp_activated=%u msg_number= %d nb_open_streams= %d (should be 0)\n", 
                                                         light_ephemeral==0? "FULL-":"LIGHT-", tlp_used, cnx_client->tlp_activated, cnx_client->msg_number, callback_ctx.nb_open_streams);
 
-                    picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
-                    fprintf(F_log, "DEBUG:Stream %d opened.\n", (client_sc_nb_counter+1)*4);
+                        picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
+                        fprintf(F_log, "DEBUG:Stream %d opened.\n", (client_sc_nb_counter+1)*4);
 
-                } else {
+                    } else {
                     /* TK: TLP is used AND activated in cnx */
+                    /* THIS IS IMPLEMENTATION IS NOT FINISHED - TLP DOES NOT WORK */
 
-                    fprintf(F_log, "DEBUG:%sEPHEMERAL: tlp_used=%u tlp_activated=%u msg_number= %d nb_open_streams= %d (should be 0)\n", 
+                        fprintf(F_log, "DEBUG:%sEPHEMERAL: tlp_used=%u tlp_activated=%u msg_number= %d nb_open_streams= %d (should be 0)\n", 
                                                         light_ephemeral==0? "FULL-":"LIGHT-", tlp_used, cnx_client->tlp_activated, cnx_client->msg_number, callback_ctx.nb_open_streams);
 
-                    /* 
-                    picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
+                        /* 
+                        picoquic_demo_client_start_streams(cnx_client, &callback_ctx, client_sc_nb_counter*4); //Opening stream (client_sc_nb_counter+1)*4 !
 
-                    //TK: Open the redundant stream
-                    //TODO TK: Is client_sc_nb_counter*4+4 the right demo_stream? -> set to 0 for now, SEGFAULT in strlen() when counter*4+4 is used
-                    //TODO TK: Redundant Stream should get into another packet
+                        //TK: Open the redundant stream
+                        //TODO TK: Is client_sc_nb_counter*4+4 the right demo_stream? -> set to 0 for now, SEGFAULT in strlen() when counter*4+4 is used
+                        //TODO TK: Redundant Stream should get into another packet
                     
-                    int redundant_stream_id = (client_sc_nb_counter*4) + 4 + (client_sc_nb*4);
-                    // OTHER DESIGN? >>> ULONG_MAX - (client_sc_nb_counter*4)
-                    picoquic_demo_client_open_stream(cnx_client, &callback_ctx, redundant_stream_id,
+                        int redundant_stream_id = (client_sc_nb_counter*4) + 4 + (client_sc_nb*4);
+                        // OTHER DESIGN? >>> ULONG_MAX - (client_sc_nb_counter*4)
+                        picoquic_demo_client_open_stream(cnx_client, &callback_ctx, redundant_stream_id,
                                                     callback_ctx.demo_stream[0].doc_name,
                                                     callback_ctx.demo_stream[0].f_name,
                                                     callback_ctx.demo_stream[0].is_binary,
                                                     (size_t)callback_ctx.demo_stream[0].post_size, 0);
 
-                    fprintf(F_log, "DEBUG:tlp_activated= %u msg_number= %u StreamID= %d redundant_stream_id= %d\n", 
+                        fprintf(F_log, "DEBUG:tlp_activated= %u msg_number= %u StreamID= %d redundant_stream_id= %d\n", 
                                                 cnx_client->tlp_activated, cnx_client->msg_number, client_sc_nb_counter*4+4, redundant_stream_id); */
-                }
-            } else {
-                /* TK: Non-ephemeral application (all msgs over one stream => stream 4) */
+                        }
 
-                if(client_sc_nb_counter == client_sc_nb-1) { //the last msg is a normal one that should have a stream fin
-                    cnx_client->fin_used = 1;
-                    fprintf(F_log, "DEBUG:NON-EPHEMERAL: client_sc_nb_counter=%d msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
+                    } else {
+                    /* TK: Non-ephemeral application (all msgs over one stream => stream 4) */
+
+                    if(client_sc_nb_counter == client_sc_nb-1) { //the last msg is a normal one that should have a stream fin
+                        cnx_client->fin_used = 1;
+                        fprintf(F_log, "DEBUG:NON-EPHEMERAL: client_sc_nb_counter=%d msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
                                                             client_sc_nb_counter, cnx_client->msg_number, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
 
-                    picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
+                        picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
                                                 callback_ctx.demo_stream[0].doc_name,
                                                 callback_ctx.demo_stream[0].f_name,
                                                 callback_ctx.demo_stream[0].is_binary,
                                                 (size_t)callback_ctx.demo_stream[0].post_size, 0);
 
-                    picoquic_demo_client_close_stream(&callback_ctx, picoquic_demo_client_find_stream(&callback_ctx, 4));
-                } else {
-                    if (client_sc_nb_counter < client_sc_nb-1) { //Set non-fin streams only when connection is established & not last msg
-                        cnx_client->fin_used = 0;
-                        fprintf(F_log, "DEBUG:NON-EPHEMERAL: client_sc_nb_counter=%d msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
+                        picoquic_demo_client_close_stream(&callback_ctx, picoquic_demo_client_find_stream(&callback_ctx, 4));
+                    } else {
+                        if (client_sc_nb_counter < client_sc_nb-1) { //Set non-fin streams only when connection is established & not last msg
+                            cnx_client->fin_used = 0;
+                            fprintf(F_log, "DEBUG:NON-EPHEMERAL: client_sc_nb_counter=%d msg_number= %d nb_open_streams=%d (ephemeral=%u|cnx->fin_used=%d)\n", 
                                                                 client_sc_nb_counter, cnx_client->msg_number, callback_ctx.nb_open_streams, ephemeral, cnx_client->fin_used);
 
-                        picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
+                            picoquic_demo_client_open_stream(cnx_client, &callback_ctx, 4, 
                                                     callback_ctx.demo_stream[0].doc_name,
                                                     callback_ctx.demo_stream[0].f_name,
                                                     callback_ctx.demo_stream[0].is_binary,
                                                     (size_t)callback_ctx.demo_stream[0].post_size, 0);
+                        }
                     }
                 }
             }
-            } //TODO TK: DELETE THIS (only for skipping msgs)
             client_sc_nb_counter++; //msg counter up
         }
         
+
 
         unsigned char received_ecn;
 

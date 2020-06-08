@@ -178,7 +178,7 @@ def start_nodes(delay_router, loss_router, quicserver, quicclient, mqs, traffics
 
  info( '\n*** Start QUIC Client...\n' )
  quicclient.cmd('sudo tcpdump -w client.pcap &')
- quicclient.cmd('sleep 5; sudo ./start_client_mininet.sh 6000 100 100 L > stdoutput_client.txt &')
+ quicclient.cmd('sleep 5; sudo ./start_client_mininet.sh 6000 2000 100 L > stdoutput_client.txt &')
  info( '\n*** QUIC Client started.\n' )
 
  # UDP crosstraffic: "apps" number of UDP applications
